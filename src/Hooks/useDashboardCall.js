@@ -5,7 +5,7 @@ const useDashboardAccountCall = (companyName, token) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     dashboardService
-      .getAccountDetails(companyName, token)
+      .getAccountDetailsNew(companyName, token)
       .then((res) => {
         // console.log(res);
         setData(res.data);
