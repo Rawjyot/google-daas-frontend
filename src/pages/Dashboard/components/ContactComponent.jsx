@@ -3,6 +3,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
 import dashboardService from "../../../Services/dashBoardService";
 
+const userData = JSON.parse(useGetLocalStorage("userData"));
+// console.log(userData.jwtToken);
+
 const ContactComponent = ({
   val,
   handleOpen,
@@ -10,7 +13,14 @@ const ContactComponent = ({
   setAccountId,
   setStatus,
   status,
+  contactId
 }) => {
+  const userInfo = {
+    "userId": userData?.userId,
+    "userToken": "9d3507edcf83d1dd1",
+    "responseToken": userData?.responseToken,
+    "accountId": accountId
+  }
   const [hide, setHide] = useState(false);
   // const [reload, setReload] = useState(false);
   const handleDropdown = (e, val) => {
@@ -21,6 +31,7 @@ const ContactComponent = ({
 
   const submit = (e) => {
     e.preventDefault();
+    if (!status) return false;
     const data = {
       status: status,
       remark: ""
@@ -94,11 +105,12 @@ const ContactComponent = ({
                 <option value="Viewed">Viewed</option>
                 <option value="Untouched">Untouched</option>
               </select>
+
               <button
                 type="submit"
                 className="ml-3 text-white w-auto px-2 rounded font-bold bg-sky-500"
               >
-                submit
+                Submit
               </button>
             </span>{" "}
           </form>
@@ -108,7 +120,7 @@ const ContactComponent = ({
         ) : (
           <h1>
             <span className="font-bold">Department : </span>
-            {val.contactdepartment}
+            {val.department}
           </h1>
         )}
         <div className="flex justify-center ">

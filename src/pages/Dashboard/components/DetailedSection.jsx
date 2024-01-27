@@ -119,7 +119,7 @@ const DetailedSection = () => {
                   </p>
                   <div className="flex gap-2">
                     <LanguageIcon className="text-black" />
-                    <p className="ml-2">{accountDetails?.accountData?.website || "website Link"}</p>
+                    <p className="ml-2">{accountDetails?.accountData?.website || ""}</p>
                   </div>
                   <div className="flex gap-2">
                     <TempleHinduIcon className="text-black" />
@@ -127,7 +127,7 @@ const DetailedSection = () => {
                   </div>
                   <div className="flex gap-2">
                     <BlurCircularIcon className="text-black" />
-                    <p className="ml-2">{accountDetails?.accountData?.industry}</p>
+                    <p className="ml-2">{accountDetails?.accountData?.vertical}</p>
                   </div>
                   <div className="flex gap-2">
                     <FmdGoodIcon className="text-black" />
@@ -137,15 +137,28 @@ const DetailedSection = () => {
                   </div>
                   <div className="flex gap-2">
                     <LocalPhoneIcon className="text-black" />
-                    <p className="ml-2">{accountDetails?.accountData?.mobile || "phone Number"}</p>
+                    <p className="ml-2">{accountDetails?.accountData?.boardlineNumber1 || accountDetails?.accountData?.boardlineNumber2}</p>
                   </div>
                   <div className="flex gap-2">
                     <AttachMoneyIcon className="text-black" />
                     <p className="ml-2">{accountDetails?.accountData?.revenue}</p>
                   </div>
+
                 </div>
               </div>
               <div className="bg-white px-2 py-1 rounded h-auto text-md flex flex-col gap-3 mt-1">
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-2">
+                    <b>Technographics</b>
+                    <p className="ml-2">{accountDetails?.accountData?.technographics}</p>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <b>{accountDetails?.accountData?.accountStatus}</b>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="bg-white px-2 py-1 rounded h-auto text-md flex flex-col gap-3 mt-1">
                 <div className="flex flex-col gap-2">
                   {marketData.map((item) => (
                     <div key={item.title}>
@@ -159,7 +172,8 @@ const DetailedSection = () => {
                     Opportunity
                   </button>
                 </div>
-              </div>{" "}
+              </div> */}
+              {" "}
             </div>
 
           </div>
@@ -178,6 +192,7 @@ const DetailedSection = () => {
                 setStatus={setStatus}
                 status={status}
                 accountId={accountId}
+                contactId={item?.contactId}
               />
 
             )}
