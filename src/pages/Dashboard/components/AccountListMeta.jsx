@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
+import { useSelector } from "react-redux";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
 
-import { getListTable } from "../../../Services/dashBoardService";
+import { Typography } from "@mui/material";
 
-//account label,
-
-const AccountTable = () => {
+const AccountListMeta = () => {
+  const { accountListData } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
-  const [tableData, setTableData] = useState([]);
-  // console.log(userData.role);
-  // console.log(data);
   let header;
   if (userData.role === "user") {
     header = [
@@ -175,41 +172,37 @@ const AccountTable = () => {
     },
   ];
 
-  const getAccountTable = async () => {
-    try {
-      const getTableRes = await getListTable({
-        userId: "arpan@denave.com",
-        userToken: "9d3507edcf83d1dd1",
-        responseToken: "4252989547",
-        roleId: "1",
-      });
-      setTableData(getTableRes?.accountGridData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getAccountTable();
-  }, []);
-
   return (
-    <>
-      <div className="flex justify-between w-[800px] text-xl text-slate-500 font-medium">
-        <p>
-          Total Accounts :<span className="text-sky-500"> 10 </span>
-        </p>
-        <p>
-          Total Contacts :<span className="text-sky-500"> 11 </span>
-        </p>
-        <p>
-          New Accounts :<span className="text-sky-500"> 0 </span>
-        </p>
-        <p>
-          New Contacts :<span className="text-sky-500"> 0 </span>
-        </p>
-      </div>
-    </>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        m: 1,
+        pr: 10,
+      }}
+    >
+      <Typography sx={{ fontSize: "20px" }}>
+        Total Accounts :
+        <span className="text-sky-500">
+          {" "}
+          {accountListData && accountListData.totalAccounts}{" "}
+        </span>
+      </Typography>
+      <Typography sx={{ fontSize: "20px" }}>
+        Total Contacts :
+        <span className="text-sky-500">
+          {" "}
+          {accountListData && accountListData.totalContacts}{" "}
+        </span>
+      </Typography>
+      <Typography sx={{ fontSize: "20px" }}>
+        New Contacts :
+        <span className="text-sky-500">
+          {" "}
+          {accountListData && accountListData.totalNewContacts}{" "}
+        </span>
+      </Typography>
+    </Box>
   );
 };
-export default AccountTable;
+export default AccountListMeta;
