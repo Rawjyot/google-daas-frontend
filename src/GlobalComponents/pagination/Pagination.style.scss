@@ -1,0 +1,56 @@
+@use '../../../styles/abstracts/variables' as v;
+@use '../../../styles/abstracts/colors' as c;
+@use '../../../styles/abstracts/mixins' as m;
+
+.au-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .pages {
+    .page {
+      color: var(--neutrals-800);
+      border-radius: unset;
+      border: 1px solid var(--neutrals-300);
+      padding: 0.563rem 0.969rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .page:hover {
+      background-color: var(--neutrals-50);
+    }
+    .page-selected {
+      background-color: var(--neutrals-50);
+    }
+    .next-btn {
+      background: c.$white;
+      /* Gray/300 */
+
+      border: 1px solid var(--neutrals-300);
+      border-radius: 0px 0.5rem 0.5rem 0px;
+      padding: 0.625rem;
+      cursor: pointer;
+      &:disabled {
+        cursor: not-allowed;
+        &:hover svg {
+          background-color: transparent !important;
+        }
+      }
+    }
+    .prev-btn {
+      background: c.$white;
+      /* Gray/300 */
+
+      border: 1px solid var(--neutrals-300);
+      border-radius: 0.5rem 0px 0px 0.5rem;
+      padding: 0.625rem;
+      cursor: pointer;
+      &:disabled {
+        cursor: not-allowed;
+        &:hover svg {
+          background-color: transparent !important;
+        }
+      }
+    }
+  }
+}

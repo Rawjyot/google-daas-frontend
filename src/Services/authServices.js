@@ -6,9 +6,14 @@ class AuthService {
     return await axios.post(url, data);
   }
 
-  async login({ username, password, captchaToken }) {
+  async login({ userId, userPassword, userToken }) {
     try {
-      const data = { username, password, captchaToken };
+      const data = {
+        userId,
+        userPassword:
+          "23C5667F5E0B028051582D37E03C4EA5CE74043CFDAB3D664770C6CE7FE706BA",
+        userToken,
+      };
       const url = `${config.baseUrl}/api/loginGoogle`;
       const res = await this.apiPostCall(url, data);
       return res;

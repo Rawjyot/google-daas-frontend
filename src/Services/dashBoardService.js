@@ -124,3 +124,82 @@ class DashBoardService {
 }
 const dashboardService = new DashBoardService();
 export default dashboardService;
+
+export const getListTable = async (data) => {
+  const reqObj = {
+    baseurl: `${config.baseUrl}/api/accountGridData`,
+    method: "POST",
+    url: "",
+    obj: data,
+  };
+  const response = await send(reqObj);
+
+  return response.data;
+};
+
+// export async function send(
+//   params: {
+//     baseurl: string;
+//     method: string;
+//     url: string;
+//     obj?: FormData | object | string;
+//     reqToken?: CancelTokenSource;
+//   },
+//   headers?: object,
+//   config?: object
+// ): Promise<any> {
+//   let Url;
+//   let Params;
+
+//   if (!params || typeof params !== 'object') {
+//     throw new Error('params is undefined or not an object');
+//   }
+//   try {
+//     const cancelToken = params.reqToken ?? axios.CancelToken.source();
+//     const encryptedList = JSON.parse(
+//       SessionStorage.getItem('encryptedUrl') ?? '[]'
+//     );
+//     const randomValue = randomGenerateNumber();
+//     if (params.method === 'POST') {
+//       Url = params.baseurl + params.url;
+//       const isMultipart: boolean =
+//         headers?.['Content-Type'] === 'multipart/form-data';
+//       const isEncryption =
+//         (encryptedList?.length > 0 &&
+//           checkAvailUrl(encryptedList, Url) &&
+//           !isMultipart) ||
+//         checkAvailUrl(staticEncryptedUrl, Url);
+//       headers = { ...headers, auth: encryptRSAWithPublicKey(randomValue) };
+
+//       Params =
+//         isEncryption && params.obj
+//           ? {
+//               data: encryptWithIvSalt(
+//                 randomValue,
+//                 REACT_APP_IV,
+//                 JSON.stringify(params.obj)
+//               ),
+//             }
+//           : params.obj;
+
+//       return await post(Url, Params, cancelToken, headers, config, randomValue);
+//     } else {
+//       Url = params.baseurl + params.url;
+//       return await get(Url, cancelToken);
+//     }
+//   } catch (err: any) {
+//     let errData;
+//     if (err.code === 'ERR_CANCELED' || err.code === 'ERR_NETWORK') {
+//       errData = {
+//         error: {
+//           errorCode: err.code,
+//         },
+//       };
+//     } else {
+//       errData = err?.response.data;
+//     }
+//     const error = handleError(errData);
+
+//     throw new ServerError(error);
+//   }
+// }

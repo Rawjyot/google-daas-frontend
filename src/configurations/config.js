@@ -1,5 +1,5 @@
 const config = {
-  baseUrl: String(import.meta.env.VITE_BASE_URL),
+  baseUrl: 'https://staging.denave.com:8448/GoogleDaas',
   siteKey: String(import.meta.env.VITE_REACAPTCHA_PUBLIC_KEY),
 };
 

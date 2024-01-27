@@ -1,8 +1,11 @@
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import React, { useCallback, useState } from "react";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
@@ -13,8 +16,9 @@ import { login } from "../../store/Features/authSlice";
 import "./login.css";
 const Login = () => {
   const [loginData, setLoginData] = useState({
-    username: "",
-    password: "",
+    userId: "",
+    userPassword: "",
+    userToken: "9d3507edcf83d1dd1",
   });
   const [visibility, setVisibility] = useState(false);
 
@@ -26,10 +30,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const recaptchaValue = (e) => {
-    setLoginData({ ...loginData, captchaToken: e });
-  };
-
   const onChangeData = useCallback((e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   });
@@ -39,14 +39,14 @@ const Login = () => {
     // console.log({ ...loginData });
     const passwordRegex =
       /^(?=.*\d)(?=.*[A-Z])(?!.*[^a-zA-Z0-9@#$^+=])(.{8,15})$/;
-    if (!loginData.password.match(passwordRegex)) {
+    if (!loginData.userPassword.match(passwordRegex)) {
       toast.error(
         "password must be of 8 length with 1 special character,Capital letter,Small letter and 1 digit"
       );
       return;
     }
     // setLoading(true)
-    if (!loginData.username || !loginData.password) {
+    if (!loginData.userId || !loginData.userPassword) {
       // || !loginData.captchaToken
       toast.error("all details required");
     } else {
@@ -89,40 +89,40 @@ const Login = () => {
               <form className="space-y-6 text-gray-500" onSubmit={submit}>
                 <div>
                   <label
-                    htmlFor="username"
+                    htmlFor="userId"
                     className="block mb-1 text-xl  font-normal leading-6 "
                   >
                     Username
                   </label>
                   <div className="mt-4 rounded-md shadow-md shadow-sky-500/100">
                     <input
-                      id="username"
-                      name="username"
+                      id="userId"
+                      name="userId"
                       type="text"
                       required={true}
                       className="h-12 block w-full  border-0 p-2 font-normal text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 outline-none"
                       onChange={(e) => onChangeData(e)}
-                      value={loginData.username}
+                      value={loginData.userId}
                     />
                   </div>
                 </div>
 
                 <div>
                   <label
-                    htmlFor="password"
+                    htmlFor="userPassword"
                     className="block mb-1 text-lg font-normal leading-6 "
                   >
                     Password
                   </label>
                   <div className="mt-4 shadow-md flex justify-center items-center shadow-sky-500/100">
                     <input
-                      id="password"
-                      name="password"
+                      id="userPassword"
+                      name="userPassword"
                       type={visibility ? "text" : "password"}
                       required
                       className="h-12 block w-full   p-2 font-normal shadow-sm  ring-inset ring-gray-300 placeholder:text-gray-400 outline-none"
                       onChange={(e) => onChangeData(e)}
-                      value={loginData.password}
+                      value={loginData.userPassword}
                     />
                     <div className="mr-2 cursor-pointer">
                       {visibility ? (
@@ -133,7 +133,7 @@ const Login = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-end">
+                {/*<div className="flex items-center justify-end">
                   <div className="text-sm font-normal">
                     <Link
                       to={"/forgetPassword"}
@@ -142,7 +142,7 @@ const Login = () => {
                       Forgot password?
                     </Link>
                   </div>
-                </div>
+                      </div>  */}
                 {/* <div className="recaptcha flex justify-start">
                   <ReCAPTCHA
                     sitekey={config.siteKey}
@@ -151,14 +151,15 @@ const Login = () => {
                   />
                 </div> */}
 
-                <div>
-                  <button
+                <Stack direction="row" spacing={1} sx={{ pt: 2 }}>
+                  <Button
                     type="submit"
-                    className="flex w-44 justify-center rounded-full bg-[#1A74EAE5] px-3 py-1.5 text-xl font-semibold uppercase leading-6 text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    variant="contained"
+                    sx={{ width: "120px" }}
                   >
                     Sign in
-                  </button>
-                </div>
+                  </Button>
+                </Stack>
               </form>
             </div>
           </div>
