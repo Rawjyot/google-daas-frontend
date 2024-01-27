@@ -1,0 +1,60 @@
+table {
+  text-align: left;
+  border-collapse: collapse;
+  border-color: transparent;
+}
+
+th,
+td {
+  padding: 10px 5px;
+  width: 220px;
+}
+
+thead tr:nth-child(1) {
+  /* color: #000;
+  text-align: center; */
+  /* visibility: hidden; */
+  display: none;
+
+}
+
+thead tr:nth-child(2) {
+  background-color: rgba(36, 196, 255, 1);
+  color: white;
+}
+
+thead {
+  border: none;
+}
+
+thead tr,
+thead td {
+  border: none;
+}
+
+.depth-0 {
+  background-color: rgba(36, 196, 255, 0.2);
+
+}
+
+.depth-1 {
+  background-color: rgba(36, 197, 255, 0.3);
+
+}
+
+.depth-2 {
+  background-color: rgba(36, 197, 255, 0.4)
+}
+
+.depth-3 {
+  background-color: rgba(3, 184, 250, 0.4)
+}
+
+button {
+  background-color: transparent;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  font-size: 130%;
+}

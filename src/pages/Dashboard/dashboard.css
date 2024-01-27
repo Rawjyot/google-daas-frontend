@@ -1,0 +1,19 @@
+.home {
+  display: flex;
+}
+
+.listContainer {
+  /* -webkit-box-shadow: 2px 2px 15px 6px #dadada;
+  box-shadow: 2px 2px 15px 6px #dadada; */
+  padding: 10px;
+  margin: 20px;
+}
+
+.homeContainer {
+  flex: 6;
+}
+
+.linkShadow {
+  box-shadow: 0px 3px 3px 0px rgba(130, 130, 130, 0.50), -1px -2px 4px 0px rgba(130, 130, 130, 0.50) !important;
+
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "badData": 0,
+    "contacts": 19,
+    "disqualified": 0,
+    "followups": 0,
+    "id": 1,
+    "nominatedAccount": 5,
+    "opportunities": 2,
+    "profileAccount": 2,
+    "region": "All",
+    "subRows": [
+      {
+        "badData": 0,
+        "contacts": 4,
+        "disqualified": 0,
+        "followups": 0,
+        "id": 1,
+        "nominatedAccount": 2,
+        "opportunities": 2,
+        "region": "India",
+        "profileAccount": 2,
+        "subRows": [
+          {
+            "badData": 0,
+            "contacts": 2,
+            "disqualified": 0,
+            "followups": 0,
+            "nominatedAccount": 1,
+            "opportunities": 1,
+            "profileAccount": 1,
+            "region": "Partner 1",
+            "subRows": [
+              {
+                "badData": 0,
+                "contacts": 2,
+                "disqualified": 0,
+                "followups": 0,
+                "nominatedAccount": 1,
+                "opportunities": 1,
+                "profileAccount": 1,
+                "region": "User 1"
+              },
+              {
+                "badData": 0,
+                "contacts": 2,
+                "disqualified": 0,
+                "followups": 0,
+                "nominatedAccount": 1,
+                "opportunities": 1,
+                "profileAccount": 1,
+                "region": "User 1"
+              }
+            ]
+          },
+          {
+            "badData": 0,
+            "contacts": 2,
+            "disqualified": 0,
+            "followups": 0,
+            "nominatedAccount": 1,
+            "opportunities": 1,
+            "profileAccount": 1,
+            "region": "Partner 2",
+            "subRows": [
+              {
+                "badData": 0,
+                "contacts": 2,
+                "disqualified": 0,
+                "followups": 0,
+                "nominatedAccount": 1,
+                "opportunities": 1,
+                "profileAccount": 1,
+                "region": "User 2"
+              },
+              {
+                "badData": 0,
+                "contacts": 2,
+                "disqualified": 0,
+                "followups": 0,
+                "nominatedAccount": 1,
+                "opportunities": 1,
+                "profileAccount": 1,
+                "region": "User 2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

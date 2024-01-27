@@ -1,0 +1,63 @@
+[
+  {
+    "title": "General",
+    "icon": "bi-gear-fill",
+    "path": "/dashboard",
+    "childrens": [
+      {
+        "title": "Regions",
+        "icon": "bi-house-fill"
+      },
+      {
+        "title": "Parteners",
+        "icon": "bi-info-circle-fill"
+      }
+    ]
+  },
+  {
+    "title": "Account List",
+    "icon": "bi-info-circle-fill",
+     "path": "/account-List",
+    "childrens": [
+      {
+        "title": "Partener Search",
+        "childrens": [
+          {
+            "title": "Partener Name"
+          },
+          {
+            "title": "Agent Name"
+          }
+        ]
+      },
+      {
+        "title": "Account Search",
+        "childrens": [
+          {
+            "title": "status"
+          },
+          {
+            "title": "Location"
+          },
+          {
+            "title": "Industries"
+          },
+          {
+            "title": "Size"
+          }
+        ]
+      },
+      {
+        "title": "Advanch Search",
+        "childrens": [
+          {
+            "title": "Revenue"
+          },
+          {
+            "title": "Technographics"
+          }
+        ]
+      }
+    ]
+  }
+]

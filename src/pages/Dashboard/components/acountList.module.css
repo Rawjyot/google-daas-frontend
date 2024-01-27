@@ -1,0 +1,15 @@
+.accountList tr:nth-child(even) {
+  background-color: rgba(57, 137, 194, 0.19) !important;
+}
+
+.accountList tr:nth-child(odd) {
+  background-color: rgba(220, 245, 255, 0.1) !important;
+}
+
+.table {
+  width: 1200px;
+  /* Set your desired width */
+  height: 600px;
+  /* Set your desired height */
+  overflow: auto;
+}

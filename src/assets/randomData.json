@@ -1,0 +1,104 @@
+[
+  {
+    "badData": 0,
+    "contacts": 19,
+    "disqualified": 0,
+    "followups": 0,
+    "id": 1,
+    "nominatedAccount": 5,
+    "opportunities": 2,
+    "profileAccount": 2,
+    "region": "All",
+    "subRows": [
+      {
+        "badData": 0,
+        "contacts": 4,
+        "disqualified": 0,
+        "followups": 0,
+        "id": 1,
+        "nominatedAccount": 2,
+        "opportunities": 2,
+        "region": "India",
+        "profileAccount": 2,
+        "subRows": [
+          {
+            "badData": 0,
+            "contacts": 2,
+            "disqualified": 0,
+            "followups": 0,
+            "nominatedAccount": 1,
+            "opportunities": 1,
+            "profileAccount": 1,
+            "region": "Sumit"
+          },
+          {
+            "badData": 0,
+            "contacts": 2,
+            "disqualified": 0,
+            "followups": 0,
+            "nominatedAccount": 1,
+            "opportunities": 1,
+            "profileAccount": 1,
+            "region": "Sumit2"
+          }
+        ]
+      },
+      {
+        "badData": 0,
+        "contacts": 6,
+        "disqualified": 0,
+        "followups": 0,
+        "id": 1,
+        "nominatedAccount": 1,
+        "opportunities": 0,
+        "region": "China",
+        "profileAccount": 0,
+        "subRows": [
+          {
+            "badData": 0,
+            "contacts": 6,
+            "disqualified": 0,
+            "followups": 0,
+            "nominatedAccount": 1,
+            "opportunities": 0,
+            "profileAccount": 0,
+            "region": "sumit3"
+          }
+        ]
+      },
+      {
+        "badData": 0,
+        "contacts": 9,
+        "disqualified": 0,
+        "followups": 0,
+        "id": 1,
+        "nominatedAccount": 2,
+        "opportunities": 0,
+        "region": "AUNZ",
+        "profileAccount": 0,
+        "subRows": [
+          {
+            "badData": 0,
+            "contacts": 2,
+            "disqualified": 0,
+            "followups": 0,
+            "nominatedAccount": 1,
+            "opportunities": 0,
+            "profileAccount": 0,
+            "region": "ajay"
+          },
+          {
+            "badData": 0,
+            "contacts": 7,
+            "disqualified": 0,
+            "followups": 0,
+            "nominatedAccount": 1,
+            "opportunities": 0,
+            "profileAccount": 0,
+            "region": "prakhar"
+          }
+        ]
+      }
+    ]
+  }
+]
