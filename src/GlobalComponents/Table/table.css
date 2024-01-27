@@ -58,3 +58,13 @@ button {
   border: none;
   font-size: 130%;
 }
+
+.ag-theme-quartz .ag-header-cell {
+  font-size: 14px;
+  background-color: #00AFF0 !important;
+  color: #fff;
+}
+
+.ag-theme-quartz .ag-row-odd {
+  background-color: #d4eff9;
+}

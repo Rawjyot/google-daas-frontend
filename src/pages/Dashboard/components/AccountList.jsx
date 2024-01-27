@@ -1,29 +1,43 @@
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { AgGridActivity } from "../../../GlobalComponents/Table/AgGridActivity";
+import { AccountListGrid } from "../../../GlobalComponents/Table/AccountListGrid";
 import AccountListNavbar from "../../../GlobalComponents/navbar/AccountListNavbar";
 import Sidebar from "../../../GlobalComponents/sideBar/Sidebar";
-import { useTotalAccountNumberCall } from "../../../Hooks/useDashboardCall";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
-import dashboardService from "../../../Services/dashBoardService";
-import AccountTable from "./AccountTable";
+import { accountList } from "../../../store/Features/accountSlice";
+
+import { getAccountListDetails } from "../../../Services/dashBoardService";
+import AccountListMeta from "./AccountListMeta";
+
 const AccountList = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
+
   const { role, id, jwtToken } = JSON.parse(useGetLocalStorage("userData"));
-  // console.log(role, id, jwtToken);
-  const totalAccount = useTotalAccountNumberCall(role, id, jwtToken);
-  console.log(totalAccount);
+
+  const fetchAccountListDetails = async () => {
+    try {
+      const response = await getAccountListDetails({
+        userId: "rohit@denave.com",
+        userToken: "9d3507ed43dw3423d",
+        responseToken: "5962925585",
+        roleId: 3,
+      });
+      dispatch(accountList(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    dashboardService
-      .AccountList(role, id, jwtToken)
-      .then((res) => {
-        //  console.log(res.data);
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
+    fetchAccountListDetails();
   }, []);
+
   return (
     <Box sx={{ display: "flex" }}>
       <Sidebar />
@@ -41,18 +55,24 @@ const AccountList = () => {
               }}
             >
               <Typography variant="h4">Account List</Typography>
-              <Link
-                to="/dashboard"
-                className="text-lg  text-center font-bold shadow-lg shadow-[1px_2px_3px_0px_rgba(0, 0, 0, 0.30)] text-white rounded-lg p-2 bg-sky-400 linkShadow"
-              >
-                Back to Dashboard
+              <Link to="/dashboard">
+                <Button
+                  variant="contained"
+                  sx={{
+                    alignItems: "center",
+                    textAlign: "center",
+                    width: "220px",
+                  }}
+                  startIcon={<ArrowBackIcon />}
+                >
+                  Back to Dashboard
+                </Button>
               </Link>
             </Box>
-            {/* <AccountTable data={data} filterStatus={filterStatus} totalAccount={totalAccount}/> */}
-            <AccountTable data={data} totalAccount={totalAccount} />
+            <AccountListMeta />
           </Box>
         </Box>
-        <AgGridActivity />
+        <AccountListGrid />
       </Box>
     </Box>
   );

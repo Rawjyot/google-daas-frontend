@@ -17,9 +17,17 @@ class DashBoardService {
     };
     return await axios.put(url, data, { headers: header });
   }
+
   async postApiCall(url, data, token) {
     const header = {
-      // "Accept": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    return await axios.post(url, data, { headers: header });
+  }
+
+  async postCall(url, data, token) {
+    const header = {
       // Authorization: `Bearer ${token}`,
     };
     return await axios.post(url, data, { headers: header });
@@ -128,19 +136,14 @@ class DashBoardService {
     return this.getApiCall(url, token);
   }
 }
+
 const dashboardService = new DashBoardService();
+
 export default dashboardService;
 
-export const getListTable = async (data) => {
-  const reqObj = {
-    baseurl: `${config.baseUrl}/api/accountGridData`,
-    method: "POST",
-    url: "",
-    obj: data,
-  };
-  const response = await send(reqObj);
-
-  return response.data;
+export const getAccountListDetails = async (data) => {
+  let url = `${config.baseUrl}/api/accountGridData`;
+  return await axios.post(url, data);
 };
 
 // export async function send(
