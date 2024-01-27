@@ -20,7 +20,7 @@ class DashBoardService {
   async postApiCall(url, data, token) {
     const header = {
       // "Accept": "application/json",
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`,
     };
     return await axios.post(url, data, { headers: header });
   }
@@ -60,6 +60,12 @@ class DashBoardService {
     let url = `${config.baseUrl}/api/account/accountdetailbyName?accountName=${companyName}`;
     // console.log(url);
     return this.getApiCall(url, token);
+  }
+
+  async getAccountDetailsNew(data, token) {
+    let url = `${config.baseUrl}/api/accountDetails`;
+    // console.log(url);
+    return this.postApiCall(url, data, token);
   }
 
   async getTotalAccountNumber(role, ID, token) {
