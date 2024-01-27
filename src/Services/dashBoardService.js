@@ -20,7 +20,7 @@ class DashBoardService {
 
   async postApiCall(url, data, token) {
     const header = {
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`,
     };
 
     return await axios.post(url, data, { headers: header });
