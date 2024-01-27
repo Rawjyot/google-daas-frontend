@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ActivityGrid from "../../GlobalComponents/Table/ActivityGrid";
+import BasicTable from "../../GlobalComponents/Table/Table";
 import DashBoardNavbar from "../../GlobalComponents/navbar/DashboardNavbar";
 import Sidebar from "../../GlobalComponents/sideBar/Sidebar";
 import "./dashboard.css";
@@ -28,7 +28,7 @@ const AccountActivity = () => {
                 </Link>
               </div>
             </div>
-            <ActivityGrid />
+            <BasicTable />
           </div>
         </div>
       </div>
