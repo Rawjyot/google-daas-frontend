@@ -5,6 +5,7 @@ import { LogoutIcon } from "../../assets/icons";
 import Logout from "../navbar/Logout";
 import "./navbar.css";
 import { useState } from "react";
+import { toggleBodyClass } from '../../utils/utils';
 
 import Button from '@mui/material/Button';
 const DashBoardNavbar = () => {
