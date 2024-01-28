@@ -1,10 +1,10 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import CardActions from "@mui/material/CardActions";
 import { AccountListGrid } from "../../../GlobalComponents/Table/AccountListGrid";
 import AccountListNavbar from "../../../GlobalComponents/navbar/AccountListNavbar";
 import Sidebar from "../../../GlobalComponents/sideBar/Sidebar";
@@ -56,7 +56,9 @@ const AccountList = () => {
         <div className="main-content">
           <div className="page-header">
             <div className="row align-items-center">
-              <div className="col-md-6"><Typography className="page-title">Account List</Typography></div>
+              <div className="col-md-6">
+                <Typography className="page-title">Account List</Typography>
+              </div>
               <div className="col-md-6 text-right">
                 <Link to="/dashboard">
                   <Button
@@ -81,11 +83,8 @@ const AccountList = () => {
                 <AccountListMeta />
                 <AccountListGrid />
               </div>
-
             </div>
           </div>
-
-
         </div>
       </div>
     </>

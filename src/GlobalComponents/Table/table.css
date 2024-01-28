@@ -4,11 +4,11 @@ table {
   border-color: transparent;
 }
 
-th,
+/* th,
 td {
   padding: 10px 5px;
   width: 220px;
-}
+} */
 
 thead tr:nth-child(1) {
   /* color: #000;

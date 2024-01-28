@@ -16,34 +16,34 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { activityList as activityListAction } from "../../store/Features/accountSlice";
+import { partnerActivityList as partnerActivityListAction } from "../../store/Features/accountSlice";
 
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
-import { accountActivity } from "../../Services/dashBoardService";
+import { partnerActivity } from "../../Services/dashBoardService";
 
-export const AccountActivityGrid = () => {
+export const PartnerActivityGrid = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [partnerOpen, setPartnerOpen] = React.useState(false);
-  const { activityList } = useSelector((state) => state.account);
+  const { partnerActivityList } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
 
-  const fetchActivityListDetails = async () => {
+  const fetchPartnerActivityListDetails = async () => {
     try {
-      const response = await accountActivity({
+      const response = await partnerActivity({
         userId: userData?.userId,
         userToken: userData?.userToken,
         responseToken: userData?.responseToken,
         roleId: userData?.roleId,
       });
-      dispatch(activityListAction(response.data));
+      dispatch(partnerActivityListAction(response.data));
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchActivityListDetails();
+    fetchPartnerActivityListDetails();
   }, []);
 
   // const expandAll = () => {
@@ -75,13 +75,12 @@ export const AccountActivityGrid = () => {
           <TableCell component="th" width="300px" scope="row">
             {row.region}
           </TableCell>
-          <TableCell width="300px">{row.nominatedAccount}</TableCell>
-          <TableCell width="300px">{row.profiledAccount}</TableCell>
-          <TableCell width="300px">{row.contacts}</TableCell>
-          <TableCell width="300px">{row.badData}</TableCell>
-          <TableCell width="300px">{row.opportunities}</TableCell>
-          <TableCell width="300px">{row.followUp}</TableCell>
-          <TableCell width="300px">{row.disqualified}</TableCell>
+          <TableCell width="300px">{row.assignedAccounts}</TableCell>
+          <TableCell width="300px">{row.assignedContacts}</TableCell>
+          <TableCell width="300px">{row.accountsViewed}</TableCell>
+          <TableCell width="300px">{row.accountsTouched}</TableCell>
+          <TableCell width="300px">{row.contactsTouched}</TableCell>
+          <TableCell width="300px">{row.loginsPerMonth}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell
@@ -121,19 +120,22 @@ export const AccountActivityGrid = () => {
                       </TableCell>
                       <TableCell width="300px">{partner.region}</TableCell>
                       <TableCell width="300px">
-                        {partner.nominatedAccount}
+                        {partner.assignedAccounts}
                       </TableCell>
                       <TableCell width="300px">
-                        {partner.profiledAccount}
+                        {partner.assignedContacts}
                       </TableCell>
-                      <TableCell width="300px">{partner.contacts}</TableCell>
-                      <TableCell width="300px">{partner.badData}</TableCell>
                       <TableCell width="300px">
-                        {partner.opportunities}
+                        {partner.accountsViewed}
                       </TableCell>
-                      <TableCell width="300px">{partner.followUp}</TableCell>
                       <TableCell width="300px">
-                        {partner.disqualified}
+                        {partner.accountsTouched}
+                      </TableCell>
+                      <TableCell width="300px">
+                        {partner.contactsTouched}
+                      </TableCell>
+                      <TableCell width="300px">
+                        {partner.loginsPerMonth}
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -175,25 +177,22 @@ export const AccountActivityGrid = () => {
                                     {userList.region}
                                   </TableCell>
                                   <TableCell width="300px">
-                                    {userList.nominatedAccount}
+                                    {userList.assignedAccounts}
                                   </TableCell>
                                   <TableCell width="300px">
-                                    {userList.profiledAccount}
+                                    {userList.assignedContacts}
                                   </TableCell>
                                   <TableCell width="300px">
-                                    {userList.contacts}
+                                    {userList.accountsViewed}
                                   </TableCell>
                                   <TableCell width="300px">
-                                    {userList.badData}
+                                    {userList.accountsTouched}
                                   </TableCell>
                                   <TableCell width="300px">
-                                    {userList.opportunities}
+                                    {userList.contactsTouched}
                                   </TableCell>
                                   <TableCell width="300px">
-                                    {userList.followUp}
-                                  </TableCell>
-                                  <TableCell width="300px">
-                                    {userList.disqualified}
+                                    {userList.contactsTouched}
                                   </TableCell>
                                 </TableRow>
                               </>
@@ -214,7 +213,7 @@ export const AccountActivityGrid = () => {
     <>
       <Box>
         <Box sx={{ pt: 2, pb: 2 }}>
-          <Typography className="page-title">Account Activity</Typography>
+          <Typography className="page-title">Patner Activity</Typography>
         </Box>
         <Box sx={{ display: "flex", pb: 2, justifyContent: "space-between" }}>
           <Box>
@@ -277,7 +276,7 @@ export const AccountActivityGrid = () => {
                   fontSize: "16px",
                 }}
               >
-                Nominated Accounts
+                Assigned Accounts
               </TableCell>
               <TableCell
                 sx={{
@@ -286,7 +285,7 @@ export const AccountActivityGrid = () => {
                   fontSize: "16px",
                 }}
               >
-                Profiled Accounts
+                Assigned Contacts
               </TableCell>
               <TableCell
                 sx={{
@@ -295,7 +294,7 @@ export const AccountActivityGrid = () => {
                   fontSize: "16px",
                 }}
               >
-                Contacts
+                Account Viewed
               </TableCell>
               <TableCell
                 sx={{
@@ -304,7 +303,17 @@ export const AccountActivityGrid = () => {
                   fontSize: "16px",
                 }}
               >
-                Bad Data (Contacts)
+                Account Touched
+              </TableCell>
+              <TableCell
+                sx={{
+                  alignItems: "center",
+                  color: "#fff",
+
+                  fontSize: "16px",
+                }}
+              >
+                Contacts Touched
               </TableCell>
               <TableCell
                 sx={{
@@ -313,31 +322,15 @@ export const AccountActivityGrid = () => {
                   fontSize: "16px",
                 }}
               >
-                Opportunities
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Follow Up
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Disqualified
+                Login Per Month
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {activityList &&
-              activityList.map((row) => <Row key={row.name} row={row} />)}
+            {partnerActivityList &&
+              partnerActivityList.map((row) => (
+                <Row key={row.name} row={row} />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
