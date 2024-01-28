@@ -2,18 +2,19 @@ import { Avatar } from "@mui/material";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import { LogoutIcon } from "../../assets/icons";
-import "./navbar.css"; 
+import Logout from "../navbar/Logout";
+import "./navbar.css";
 import Button from '@mui/material/Button';
 import { toggleBodyClass } from '../../utils/utils';
 const AccountListNavbar = ({ list, details, activity, partener }) => {
   const userData = JSON.parse(useGetLocalStorage("userData"));
   const { accountName } = useParams();
   // console.log(accountName);
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/");
-  };
+  // const navigate = useNavigate();
+  // const handleLogout = () => {
+  //   localStorage.clear();
+  //   navigate("/");
+  // };
   const handleButtonClick = () => {
     // Toggle the 'togglesidebar' on the body element
     toggleBodyClass('sidebar-open');
@@ -70,11 +71,12 @@ const AccountListNavbar = ({ list, details, activity, partener }) => {
               <Avatar src="https://www.w3schools.com/howto/img_avatar.png" />
             </div>
           </li>
-          <li class="nav-item">
+          {/* <li class="nav-item">
             <p class="nav-link log-out-btn" onClick={handleLogout}>
               <LogoutIcon /> Log Out
             </p>
-          </li>
+          </li> */}
+          <Logout />
         </ul>
       </nav>
 
