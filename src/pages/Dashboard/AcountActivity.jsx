@@ -2,7 +2,8 @@ import { AccountActivityGrid } from "../../GlobalComponents/Table/AccountActivit
 import DashBoardNavbar from "../../GlobalComponents/navbar/DashboardNavbar";
 import Sidebar from "../../GlobalComponents/sideBar/Sidebar";
 import "./dashboard.css";
-
+import Button from '@mui/material/Button';
+import Typography from "@mui/material/Typography";
 const AccountActivity = () => {
   return (
     <>
