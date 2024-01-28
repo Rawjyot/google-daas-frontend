@@ -22,6 +22,7 @@ import {
 import ContactComponent from "./ContactComponent";
 import RemarkComponent from "./RemarkComponent";
 
+
 const marketData = [
   { title: "Company Type", content: "Public" },
   { title: "Stock Exchange", content: "NSE" },
@@ -55,9 +56,12 @@ const DetailedSection = () => {
   // const handleReload = () => setReload(true);
 
   const handleReload = () => {
-    console.log("Hello testing");
+    console.log("Hello testing")
     setReloadData(true);
-    useGetTrailRemarkCall(userInfo, userData?.jwtToken);
+    useGetTrailRemarkCall(
+      userInfo,
+      userData?.jwtToken
+    )
     // After data is refetched, reset the reload state
     setReloadData(false);
   };
@@ -80,13 +84,19 @@ const DetailedSection = () => {
   const userData = JSON.parse(useGetLocalStorage("userData"));
   // console.log(userData.jwtToken);
   const userInfo = {
-    userId: userData?.userId,
-    userToken: "9d3507edcf83d1dd1",
-    responseToken: userData?.responseToken,
-    accountId: accountID,
-  };
-  const accountDetails = useDashboardAccountCall(userInfo, userData.jwtToken);
-  const remarkTrail = useGetTrailRemarkCall(userInfo, userData?.jwtToken);
+    "userId": userData?.userId,
+    "userToken": userData?.userToken,
+    "responseToken": userData?.responseToken,
+    "accountId": accountID
+  }
+  const accountDetails = useDashboardAccountCall(
+    userInfo,
+    userData.jwtToken
+  );
+  const remarkTrail = useGetTrailRemarkCall(
+    userInfo,
+    userData?.jwtToken
+  );
   console.log(accountDetails, "Account Detail###########");
 
   const contactCount = useDashboardContactCountCall(
@@ -98,7 +108,7 @@ const DetailedSection = () => {
   // console.log(contacts);
   // console.log(accountDetails);
   const statusUpdate = () => {
-    console.log("Test Test");
+    console.log("Test Test")
     if ((status === "BadData" || status === "Disqualified") && remark === "") {
       toast.error("remark must be added");
       return;
@@ -124,7 +134,7 @@ const DetailedSection = () => {
           <h1 className="text-lg">Account Details</h1>
           <div>
             {/* {accountDetails?.accountData?.map((item, index) => ( */}
-            <div>
+            <div >
               <div className="bg-white px-2 py-1 rounded text-md flex flex-col  mt-3">
                 <div className="flex flex-col gap-2 ">
                   <p className="font-semibold">
@@ -135,50 +145,38 @@ const DetailedSection = () => {
                   </p>
                   <div className="flex gap-2">
                     <LanguageIcon className="text-black" />
-                    <p className="ml-2">
-                      {accountDetails?.accountData?.website || "website Link"}
-                    </p>
+                    <p className="ml-2">{accountDetails?.accountData?.website || ""}</p>
                   </div>
                   <div className="flex gap-2">
                     <TempleHinduIcon className="text-black" />
-                    <p className="ml-2">
-                      {accountDetails?.accountData?.empSize}
-                    </p>
+                    <p className="ml-2">{accountDetails?.accountData?.empSize}</p>
                   </div>
                   <div className="flex gap-2">
                     <BlurCircularIcon className="text-black" />
-                    <p className="ml-2">
-                      {accountDetails?.accountData?.industry}
-                    </p>
+                    <p className="ml-2">{accountDetails?.accountData?.vertical}</p>
                   </div>
                   <div className="flex gap-2">
                     <FmdGoodIcon className="text-black" />
                     <p className="ml-2">
-                      {accountDetails?.accountData?.city}{" "}
-                      {accountDetails?.accountData?.state}{" "}
+                      {accountDetails?.accountData?.city} {accountDetails?.accountData?.state}{" "}
                     </p>
                   </div>
                   <div className="flex gap-2">
                     <LocalPhoneIcon className="text-black" />
-                    <p className="ml-2">
-                      {accountDetails?.accountData?.mobile || "phone Number"}
-                    </p>
+                    <p className="ml-2">{accountDetails?.accountData?.boardlineNumber1 || accountDetails?.accountData?.boardlineNumber2}</p>
                   </div>
                   <div className="flex gap-2">
                     <AttachMoneyIcon className="text-black" />
-                    <p className="ml-2">
-                      {accountDetails?.accountData?.revenue}
-                    </p>
+                    <p className="ml-2">{accountDetails?.accountData?.revenue}</p>
                   </div>
+
                 </div>
               </div>
               <div className="bg-white px-2 py-1 rounded h-auto text-md flex flex-col gap-3 mt-1">
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2">
                     <b>Technographics</b>
-                    <p className="ml-2">
-                      {accountDetails?.accountData?.technographics}
-                    </p>
+                    <p className="ml-2">{accountDetails?.accountData?.technographics}</p>
                   </div>
 
                   <div className="flex gap-2">
@@ -191,9 +189,7 @@ const DetailedSection = () => {
                   {marketData.map((item) => (
                     <div key={item.title}>
                       {item.title} :{" "}
-                      <span className="ml-1">
-                        {accountDetails?.accountData?.content}
-                      </span>
+                      <span className="ml-1">{accountDetails?.accountData?.content}</span>
                     </div>
                   ))}
                 </div>
@@ -202,8 +198,10 @@ const DetailedSection = () => {
                     Opportunity
                   </button>
                 </div>
-              </div> */}{" "}
+              </div> */}
+              {" "}
             </div>
+
           </div>
         </div>
         <div className="card p-3">
@@ -211,7 +209,8 @@ const DetailedSection = () => {
             Contacts: <span className="font-bold">{contactCount}</span>
           </h1>
           <div className="h-[500px] overflow-y-scroll ">
-            {accountDetails?.contactList?.map((item, index) => (
+            {accountDetails?.contactList?.map((item, index) =>
+
               <ContactComponent
                 val={item}
                 handleOpen={handleOpen}
@@ -222,7 +221,8 @@ const DetailedSection = () => {
                 contactId={item?.contactId}
                 key={index}
               />
-            ))}
+
+            )}
           </div>
         </div>
         <div className="card p-3">
@@ -231,17 +231,19 @@ const DetailedSection = () => {
             <div>
               {remarkTrail?.activityList?.length === 0
                 ? "No Status Updated"
-                : remarkTrail?.map((remark, index) => (
-                    <RemarkComponent
-                      index={index}
-                      remark={remark}
-                      userData={userData}
-                    />
-                  ))}
+                : remarkTrail?.activityList?.map((remark, index) => (
+                  <RemarkComponent
+                    index={index}
+                    remark={remark}
+                    userData={userData}
+                    key={index}
+                  />
+                ))}
             </div>
           </div>
         </div>
       </div>
+
     </>
   );
 };

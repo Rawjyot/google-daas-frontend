@@ -2,7 +2,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { AccountListGrid } from "../../../GlobalComponents/Table/AccountListGrid";
@@ -17,8 +17,18 @@ import "./acountList.css";
 
 const AccountList = () => {
   const dispatch = useDispatch();
-  const userData = JSON.parse(useGetLocalStorage("userData"));
+  const [data, setData] = useState([]);
 
+  const { role, id, jwtToken } = JSON.parse(useGetLocalStorage("userData"));
+
+  const userData = JSON.parse(useGetLocalStorage("userData"));
+  // console.log(userData.jwtToken);
+  // const userInfo = {
+  //   "userId": userData?.userId,
+  //   "userToken": "9d3507edcf83d1dd1",
+  //   "responseToken": userData?.responseToken,
+  //   "accountId": accountID
+  // }
   const fetchAccountListDetails = async () => {
     try {
       const response = await getAccountListDetails({
