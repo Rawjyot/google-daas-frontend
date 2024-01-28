@@ -14,11 +14,24 @@ import authService from "../../Services/authServices";
 import logo from "../../assets/images/logo.png";
 import { login } from "../../store/Features/authSlice";
 import "./login.css";
+
+const generateRandomString = (length) => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
+}
+const userToken = generateRandomString(16)
 const Login = () => {
   const [loginData, setLoginData] = useState({
     userId: "",
     userPassword: "",
-    userToken: "9d3507edcf83d1dd1",
+    userToken: userToken,
   });
   const [visibility, setVisibility] = useState(false);
 
@@ -33,6 +46,7 @@ const Login = () => {
   const onChangeData = useCallback((e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   });
+
 
   const submit = (e) => {
     e.preventDefault();
@@ -57,7 +71,7 @@ const Login = () => {
             // console.log(res);
             if (res.data === "Credentials Invalid !!") toast.error(res.data);
             else {
-              dispatch(login(res.data));
+              dispatch(login({ ...res.data, 'userToken': userToken }));
               if (!JSON.parse(useGetLocalStorage("userData")).policy_accepted) {
                 navigate("/account-activity");
                 useSetLocalStorage("login", true);

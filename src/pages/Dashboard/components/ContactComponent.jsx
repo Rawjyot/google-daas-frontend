@@ -3,6 +3,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
 import dashboardService from "../../../Services/dashBoardService";
 
+const userData = JSON.parse(useGetLocalStorage("userData"));
+// console.log(userData.jwtToken);
+
 const ContactComponent = ({
   val,
   handleOpen,
@@ -10,17 +13,31 @@ const ContactComponent = ({
   setAccountId,
   setStatus,
   status,
+  contactId
 }) => {
+  console.log(val)
+  const payloadInfo = {
+    "userId": userData?.userId,
+    "userToken": userData?.userToken,
+    "responseToken": userData?.responseToken,
+    "accountId": accountId,
+    "contactId": val?.contactId,
+    "contactStatsOld": val?.contactStatus,
+    "contactStatusNew": status,
+    "remarks": ""
+  }
   const [hide, setHide] = useState(false);
   // const [reload, setReload] = useState(false);
   const handleDropdown = (e, val) => {
     // console.log(e.target.value);
     setStatus(e.target.value);
-    setAccountId(val);
+    // setAccountId(val);
   };
 
   const submit = (e) => {
     e.preventDefault();
+    console.log(e)
+    if (status === val.contactstatus) return false;
     const data = {
       status: status,
       remark: ""
@@ -31,15 +48,15 @@ const ContactComponent = ({
     }
     // console.log(data)
     dashboardService
-      .statusUpdate(
+      .statusUpdateNew(
         accountId,
-        data,
-        JSON.parse(useGetLocalStorage("userData")).jwtToken
+        payloadInfo,
+        JSON.parse(useGetLocalStorage("userData"))?.jwtToken
       )
       .then((res) => {
-        // console.log(res);
+        console.log(res);
 
-        window.location.reload(false);
+        // window.location.reload(false);
       })
       .catch((err) => console.log(err));
     // console.log(data, accountId);
@@ -83,9 +100,11 @@ const ContactComponent = ({
                 id="status"
                 name="status"
                 onChange={(e) => handleDropdown(e, val.contactaccountID)}
+                value={val.contactStatus}
                 className={`outline mx-2 `}
               >
-                <option value={val.contactstatus}>{val.contactstatus}</option>
+                {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
+                <option value="" disabled>Select Status</option>
                 <option value="Opportunity">Opportunity</option>
                 <option value="Nurture">Nurture</option>
                 <option value="Followup">Followup</option>
@@ -94,11 +113,12 @@ const ContactComponent = ({
                 <option value="Viewed">Viewed</option>
                 <option value="Untouched">Untouched</option>
               </select>
+
               <button
                 type="submit"
                 className="ml-3 text-white w-auto px-2 rounded font-bold bg-sky-500"
               >
-                submit
+                Submit
               </button>
             </span>{" "}
           </form>
@@ -108,7 +128,7 @@ const ContactComponent = ({
         ) : (
           <h1>
             <span className="font-bold">Department : </span>
-            {val.contactdepartment}
+            {val.department}
           </h1>
         )}
         <div className="flex justify-center ">
