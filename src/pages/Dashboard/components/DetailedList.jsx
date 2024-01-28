@@ -10,21 +10,34 @@ const DetailedList = () => {
   return (
     <>
       <Sidebar />
-      <div className="homeContainer bg-gray-300">
+      <div className="mainContainer">
         <AccountListNavbar />
 
         <div className="listContainer">
-          <div className="flex flex-col gap-5 mb-2">
-            <div className="flex  justify-end">
-              <Link
-                to="/account-List"
-                className="text-lg font-bold text-sky-500 underline"
-              >
-                Back to reports
-              </Link>
+
+        <div className="page-header">
+            <div className="row align-items-center">
+              <div className="col-md-6"><Typography className="page-title">Account Details</Typography></div>
+              <div className="col-md-6 text-right">
+              <Link to="/account-List">
+                  <Button
+                    variant="contained"
+                    sx={{
+                      alignItems: "center",
+                      textAlign: "center",
+                      width: "220px",
+                    }}
+                    startIcon={<ArrowBackIcon />}
+                  >
+                    Back to reports
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
 
+
+         
           <DetailedSection />
         </div>
       </div>
