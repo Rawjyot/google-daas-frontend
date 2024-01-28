@@ -149,3 +149,9 @@ select.form-control {
   background: #f75959;
   color: #fff;
 }
+
+.green-chip {
+  background-color: rgb(36, 161, 36) !important;
+  color: white !important;
+  /* Optionally, set text color for better visibility */
+}

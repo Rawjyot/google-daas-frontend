@@ -23,6 +23,7 @@ const ContactComponent = ({
   val,
   accountId,
   setAccountId,
+  userRole,
   // setStatus,
   // status,
   contactId
@@ -133,7 +134,7 @@ const ContactComponent = ({
           {val.designation || 'NA'}
         </p>
         <label><strong>Status</strong> :{" "}</label>
-        <form
+        {userRole == 1 ? val?.contactStatus || ' NA' : (<form
           action=""
           className="flex items-center justify-center"
           onSubmit={submit}
@@ -161,7 +162,7 @@ const ContactComponent = ({
             </div>{" "}
 
           </div>
-        </form>
+        </form>)}
         {hide === false ? (
           ""
         ) : (

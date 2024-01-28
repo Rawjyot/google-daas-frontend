@@ -1,5 +1,7 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -82,6 +84,7 @@ const DetailedSection = () => {
 
   // console.log(accountName, accountID);
   const userData = JSON.parse(useGetLocalStorage("userData"));
+  const userRole = userData?.roleId
   // console.log(userData.jwtToken);
   const userInfo = {
     "userId": userData?.userId,
@@ -157,7 +160,21 @@ const DetailedSection = () => {
                   <b>Technographics</b>
                   <p className="ml-2">{accountDetails?.accountData?.technographics}</p>
                 </div>
-                <p className="mt-3"> <b>{accountDetails?.accountData?.accountStatus}</b></p>
+
+                <p className="mt-3">
+                  <Stack spacing={1} alignItems="center" >
+                    <Stack direction="row" spacing={1}>
+
+                      <Chip
+                        label={accountDetails?.accountData?.accountStatus}
+                        color={accountDetails?.accountData?.accountStatus === 'Nurture' ? 'default' : 'primary'}
+                        className={accountDetails?.accountData?.accountStatus === 'Nurture' ? 'green-chip' : ''}
+                      />
+
+
+                    </Stack>
+                  </Stack>
+                </p>
 
               </div>
             </div>
@@ -178,6 +195,7 @@ const DetailedSection = () => {
                     contactId={item?.contactId}
                     status={item?.contactStatus}
                     key={index}
+                    userRole={userRole}
                   />
                 )}
               </div>

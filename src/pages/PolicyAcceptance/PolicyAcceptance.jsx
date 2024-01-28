@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,26 +8,86 @@ import policyService from "../../Services/policyService";
 import logo from "../../assets/images/logo.png";
 const PolicyAcceptance = () => {
   const [checked, setChecked] = useState(false);
+
   const { id, jwtToken } = JSON.parse(useGetLocalStorage("userData"));
   const navigate = useNavigate();
+  const userData = JSON.parse(useGetLocalStorage("userData"));
+  const userRole = userData?.roleId
+  let policyDataContent = ""
+  // console.log(userData.jwtToken);
+  const userInfo = {
+    "userId": userData?.userId,
+    "userToken": userData?.userToken,
+    "responseToken": userData?.responseToken,
+    // "accountId": accountID
+  }
 
-  const fetchPolicy = () => {
-    if (checked === false) {
-      toast.error("can't proceed for further without accepting policy");
-      return;
-    } else {
-      policyService
-        .postCall(id, jwtToken)
-        .then((res) => {
-          // console.log(res);
-          useSetLocalStorage("login", true);
-          navigate("/account-activity");
-        })
-        .catch((err) => console.log(err));
+  const [policyContentHTML, setPolicyContent] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await policyService.policyContent(userInfo, userData.jwtToken);
+        setPolicyContent(res?.data);
+      } catch (err) {
+        console.error('Error fetching policy content:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Only fetch data if policyContentHTML is null (i.e., when the component mounts)
+    if (!policyContentHTML) {
+      fetchData();
     }
+  }, [userInfo, userData.jwtToken, policyContentHTML]);
 
-    // console.log(checked);
-  };
+  // const policyData = () => {
+  //   policyService.policyContent(
+  //     userInfo,
+  //     userData.jwtToken
+  //   ).then(res => {
+  //     // return res.data
+  //     policyDataContent = res?.data
+  //     // setPolicyContent(res.data)
+  //   }).catch(err => { })
+  // }
+  // policyData()
+  // const policyData = (companyName, token) => {
+  //   
+  //   useEffect(() => {
+  //     policyService
+  //       .policyContent(userInfo, userData.jwtToken)
+  //       .then((res) => {
+  //         // console.log(res);
+  //         setPolicyContent(res.data)
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }, []);
+  //   return data;
+  // };
+  // const accountDetails = policyData(
+  //   userInfo,
+  //   userData.jwtToken
+  // );
+  // const fetchPolicy = () => {
+  //   // if (checked === false) {
+  //   //   toast.error("can't proceed for further without accepting policy");
+  //   //   return;
+  //   // } else {
+  //   policyService
+  //     .policyContent(userInfo, jwtToken)
+  //     .then((res) => {
+  //       // console.log(res);
+  //       useSetLocalStorage("login", true);
+  //       navigate("/account-activity");
+  //     })
+  //     .catch((err) => console.log(err));
+  //   // }
+
+  //   // console.log(checked);
+  // };
 
   const sendPolicy = () => {
     if (checked === false) {
@@ -35,7 +95,7 @@ const PolicyAcceptance = () => {
       return;
     } else {
       policyService
-        .policyAcceptance(id, jwtToken)
+        .policyAcceptance(userInfo, jwtToken)
         .then((res) => {
           // console.log(res);
           useSetLocalStorage("login", true);
@@ -59,13 +119,8 @@ const PolicyAcceptance = () => {
                 Policy Acceptance
               </h2>
               <div className="h-60 w-100 outline outline-gray-400 my-8 overflow-scroll rounded p-2">
-                <span className="border-3 border-sky-500">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Repellat sunt voluptatem quo esse molestias repellendus nihil
-                  nam magni iusto veniam enim consequuntur qui facilis explicabo
-                  a itaque nobis, aut eaque quisquam labore natus laborum?
-                  Maxime itaque iste dolore nostrum mollitia facilis voluptatem?
-                  Assumenda culpa similique sunt beatae. Sint, iusto accusamus!{" "}
+                <span className="border-3 border-sky-500" dangerouslySetInnerHTML={{ __html: policyContentHTML?.policyDescription }}>
+                  {/* {policyContent?.policyDescription}{" "} */}
                 </span>
               </div>
               <div>

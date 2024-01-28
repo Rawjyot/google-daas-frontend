@@ -56,8 +56,14 @@ class AuthService {
     }
   }
 
-  async logout() {
-    //logic
+
+  async logout(payload) {
+    try {
+      const url = `${config.baseUrl}/api/logout`;
+      return await this.apiPostCall(url, payload);
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
