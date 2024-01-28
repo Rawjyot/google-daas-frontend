@@ -1,21 +1,38 @@
 import React, { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
 import dashboardService from "../../../Services/dashBoardService";
-
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal"
 const userData = JSON.parse(useGetLocalStorage("userData"));
 // console.log(userData.jwtToken);
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 const ContactComponent = ({
   val,
-  handleOpen,
   accountId,
   setAccountId,
-  setStatus,
-  status,
+  // setStatus,
+  // status,
   contactId
 }) => {
-  console.log(val)
+  const [open, setOpen] = useState(false);
+  const [remark, setRemark] = useState("");
+  const [status, setStatus] = useState("")
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  // console.log(status)
   const payloadInfo = {
     "userId": userData?.userId,
     "userToken": userData?.userToken,
@@ -29,19 +46,45 @@ const ContactComponent = ({
   const [hide, setHide] = useState(false);
   // const [reload, setReload] = useState(false);
   const handleDropdown = (e, val) => {
-    // console.log(e.target.value);
+    // console.log(e.target.value, "Target value...");
     setStatus(e.target.value);
+    // status = e.target.value;
     // setAccountId(val);
+  };
+
+  const statusUpdate = (e) => {
+
+    if ((status === "BadData" || status === "Disqualified") && remark === "") {
+      toast.error("remark must be added");
+      return;
+    }
+    payloadInfo['remarks'] = remark
+    dashboardService
+      .statusUpdateNew(
+        accountId,
+        payloadInfo,
+        JSON.parse(useGetLocalStorage("userData"))?.jwtToken
+      )
+      .then((res) => {
+        console.log(res);
+        window.location.reload(false);
+      })
+      .catch((err) => console.log(err));
+    handleClose();
   };
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(e)
-    if (status === val.contactstatus) return false;
-    const data = {
-      status: status,
-      remark: ""
-    };
+    // console.log(e)
+    if (!status) {
+      toast.error("Please select a status");
+      return
+    }
+    // if ((status === "BadData" || status === "Disqualified") && remark === "") {
+    //   toast.error("remark must be added");
+    //   return;
+    // }
+
     if (status === "BadData" || status === "Disqualified") {
       handleOpen();
       return;
@@ -56,9 +99,10 @@ const ContactComponent = ({
       .then((res) => {
         console.log(res);
 
-        // window.location.reload(false);
+        window.location.reload(false);
       })
       .catch((err) => console.log(err));
+    handleClose();
     // console.log(data, accountId);
   };
 
@@ -73,19 +117,19 @@ const ContactComponent = ({
         </h1>
         <h1>
           <span className="font-medium">Email : </span>
-          {val?.emailId}
+          {val?.emailId || 'NA'}
         </h1>
         <h1>
           <span className="font-medium">Ph : </span>
-          {val?.mobile1 || "phone number"}
+          {val?.mobile1 || 'NA'}
         </h1>
         <h1>
           <span className="font-medium">Job Level : </span>
-          {val.jobLevel}
+          {val.jobLevel || 'NA'}
         </h1>
         <h1>
           <span className="font-medium">Designation : </span>
-          {val.designation}
+          {val.designation || 'NA'}
         </h1>
 
         <h1 className="flex items-center">
@@ -100,7 +144,7 @@ const ContactComponent = ({
                 id="status"
                 name="status"
                 onChange={(e) => handleDropdown(e, val.contactaccountID)}
-                value={val.contactStatus}
+                defaultValue={val.contactStatus}
                 className={`outline mx-2 `}
               >
                 {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
@@ -140,6 +184,41 @@ const ContactComponent = ({
           </button>
         </div>
       </div>
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style} className="rounded-lg">
+            <div className="flex flex-col items-start">
+              <h1 className="text-2xl">Enter Your Remark :</h1>
+              <input
+                className="mt-2 outline-none border-2 rounded-md p-1"
+                type="text"
+                value={remark}
+                onChange={(e) => setRemark(e.target.value)}
+              />
+              <div className="mt-5 flex gap-3 ">
+                <button
+                  onClick={statusUpdate}
+                  className="bg-green-500 text-white font-medium p-0 rounded-md w-[100px]"
+                >
+                  Submit
+                </button>
+                <button
+                  onClick={handleClose}
+                  className="bg-red-500 text-white font-medium p-0 rounded-md w-[100px]"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </Box>
+        </Modal>
+      </div>
+      <ToastContainer />
     </>
   );
 };

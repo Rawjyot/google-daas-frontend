@@ -122,10 +122,10 @@ class DashBoardService {
   }
 
 
-  async getTrailRemark(accountID, token) {
-    let url = `${config.baseUrl}/api/getPreviousTwoUpdatedStatus/${accountID}`;
+  async getTrailRemark(data, token) {
+    let url = `${config.baseUrl}/api/getActivity`;
     console.log(url);
-    return this.getApiCall(url, token);
+    return this.postApiCall(url, data, token);
   }
   // async addMark(accountId, data, token) {
   //   let url = `${config.baseUrl}/api/add-remark?accountId=${accountId}`;

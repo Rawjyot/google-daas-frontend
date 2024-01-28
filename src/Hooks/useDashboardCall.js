@@ -53,11 +53,11 @@ export const useTotalAccountNumberCall = (role, partnerID, token) => {
   }, []);
   return data;
 };
-export const useGetTrailRemarkCall = (accountName, token) => {
+export const useGetTrailRemarkCall = (payload, token) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     dashboardService
-      .getTrailRemark(accountName, token)
+      .getTrailRemark(payload, token)
       .then((res) => {
         // console.log(res);
         setData(res.data);
