@@ -4,6 +4,7 @@ import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import { LogoutIcon } from "../../assets/icons";
 import "./navbar.css";
 import Button from '@mui/material/Button';
+import { toggleBodyClass } from '../../utils/utils';
 const AccountListNavbar = ({ list, details, activity, partener }) => {
   const userData = JSON.parse(useGetLocalStorage("userData"));
   const { accountName } = useParams();
@@ -12,6 +13,10 @@ const AccountListNavbar = ({ list, details, activity, partener }) => {
   const handleLogout = () => {
     localStorage.clear();
     navigate("/");
+  };
+  const handleButtonClick = () => {
+    // Toggle the 'togglesidebar' on the body element
+    toggleBodyClass('sidebar-open');
   };
   return (
 
@@ -22,6 +27,7 @@ const AccountListNavbar = ({ list, details, activity, partener }) => {
             <Button
               className="togglesidebar"
               id=""
+              onClick={handleButtonClick}
             >
               <i class="bi bi-list"></i>
             </Button>
@@ -58,7 +64,7 @@ const AccountListNavbar = ({ list, details, activity, partener }) => {
           </li>
           <li class="nav-item">
             <p class="nav-link log-out-btn" onClick={handleLogout}>
-              <LogoutIcon  /> Log Out
+              <LogoutIcon /> Log Out
             </p>
           </li>
         </ul>
