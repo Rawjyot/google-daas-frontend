@@ -8,25 +8,26 @@ const RemarkComponent = ({ remark, index, userData }) => {
     <>
       <div key={index}>
         <p className="text-gray-500 my-2">
-          {new Date(remark?.modifiedDate).toLocaleDateString()}
+          {remark?.createdDate}
         </p>
         <hr />
         <div className="flex gap-3 my-3">
           <p>
-            Contact status for{" "}
+            {/* Contact status for{" "}
             <span className="text-gray-500 font-semibold">{remark.name}</span>{" "}
             Updated from {remark?.updatedStatus} to{" "}
             <span className="font-bold text-green-500">
               {remark?.updatedStatus}
-            </span>
+            </span> */}
+            {remark?.activityContent}
           </p>
         </div>
-        <textarea
+        {remark.remarks ? (<textarea
           className="border p-2 rounded w-[20em]"
-          value={remark.remark}
+          value={remark.remarks}
           // onChange={(e) => setRemarkContent(e.target.value)}
-          readOnly
-        />
+          disabled
+        />) : ""}
 
       </div>
       <ToastContainer />
