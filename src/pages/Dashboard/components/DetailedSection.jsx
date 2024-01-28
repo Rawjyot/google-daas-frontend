@@ -99,12 +99,12 @@ const DetailedSection = () => {
   );
   console.log(accountDetails, "Account Detail###########");
 
-  const contactCount = useDashboardContactCountCall(
-    accountName,
-    userData.jwtToken
-  );
+  // const contactCount = useDashboardContactCountCall(
+  //   accountName,
+  //   userData.jwtToken
+  // );
   // console.log(contactCount);
-  const contacts = useDashboardContactCall(accountName, userData.jwtToken);
+  // const contacts = useDashboardContactCall(accountName, userData.jwtToken);
   // console.log(contacts);
   // console.log(accountDetails);
   const statusUpdate = () => {
@@ -176,6 +176,7 @@ const DetailedSection = () => {
                     handleOpen={handleOpen}
                     accountId={accountID}
                     contactId={item?.contactId}
+                    status={item?.contactStatus}
                     key={index}
                   />
                 )}
@@ -208,7 +209,7 @@ const DetailedSection = () => {
       </div>
 
 
- 
+
 
     </>
   );

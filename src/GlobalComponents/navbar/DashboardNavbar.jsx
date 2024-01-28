@@ -3,8 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import { LogoutIcon } from "../../assets/icons";
 import "./navbar.css";
-import { toggleBodyClass } from '../../utils/utils';
-import { useState } from "react";
+
 import Button from '@mui/material/Button';
 const DashBoardNavbar = () => {
   const userData = JSON.parse(useGetLocalStorage("userData"));
@@ -14,46 +13,26 @@ const DashBoardNavbar = () => {
     localStorage.clear();
     navigate("/");
   };
-  const handleButtonClick = () => {
-    // Toggle the 'togglesidebar' on the body element
-    toggleBodyClass('sidebar-open');
-  };
-
-
-  const [isActive, setActive] = useState("false");
-  const ToggleClass = () => {
-    setActive(!isActive);
-  };
-
-
   return (
     <>
       <nav className="main-header navbar navbar-expand">
-        <div className="small-action d-none">
-          <Button
+        <ul className="navbar-nav top-nav">
+          <li> 
+            <Button
             className="togglesidebar"
-            id=""
-            onClick={handleButtonClick}
+            id="" 
           >
             <i class="bi bi-list"></i>
           </Button>
-          {/* <Button
-          className="togglesidebar"
-          id=""
-          onClick={ToggleClass}
-        >
-          <i class="bi bi-three-dots-vertical"></i>
-        </Button> */}
-        </div>
-        <ul className={isActive ? "header-menu-open navbar-nav top-nav" : "navbar-nav top-nav"}>
+          </li>
           <li>
             <NavLink
               to="/account-activity"
               className={({ isActive }) =>
-                `${isActive
-                  ? "top-nav-active top-nav-link"
-                  : "top-nav-link"
-                }`
+                `  duration-200 ${isActive
+                  ? "bg-yellow-500 text-white "
+                  : "bg-[rgba(182,174,174,1)]"
+                } w-[298px] text-center rounded-lg text-white font-bold p-2 text-lg `
               }
             >
               Account Activity
@@ -63,10 +42,10 @@ const DashBoardNavbar = () => {
             <NavLink
               to="/partner-activity"
               className={({ isActive }) =>
-                `${isActive
-                  ? "top-nav-active top-nav-link"
-                  : "top-nav-link"
-                }`
+                `  duration-200 ${isActive
+                  ? "bg-yellow-500 text-white "
+                  : "bg-[rgba(182,174,174,1)]"
+                } w-[298px] text-center rounded-lg text-white font-bold p-2 text-lg `
               }
             >
               Partner Activity
@@ -83,7 +62,7 @@ const DashBoardNavbar = () => {
           </li>
           <li class="nav-item">
             <a class="nav-link log-out-btn" onClick={handleLogout}>
-              <LogoutIcon /> Log Out
+              <LogoutIcon/> Log Out
             </a>
           </li>
         </ul>
