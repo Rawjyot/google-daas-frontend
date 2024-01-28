@@ -29,7 +29,7 @@ const ContactComponent = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [remark, setRemark] = useState("");
-  const [status, setStatus] = useState("")
+  const [status, setStatus] = useState(val?.contactStatus)
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -55,7 +55,7 @@ const ContactComponent = ({
 
   const statusUpdate = (e) => {
 
-    if ((status === "BadData" || status === "Disqualified") && remark === "") {
+    if ((status === "Bad Data" || status === "Disqualified") && remark === "") {
       toast.error("remark must be added");
       return;
     }
@@ -77,33 +77,36 @@ const ContactComponent = ({
   const submit = (e) => {
     e.preventDefault();
     // console.log(e)
+
     if (!status) {
       toast.error("Please select a status");
       return
     }
+    handleOpen();
+    return;
     // if ((status === "BadData" || status === "Disqualified") && remark === "") {
     //   toast.error("remark must be added");
     //   return;
     // }
 
-    if (status === "BadData" || status === "Disqualified") {
-      handleOpen();
-      return;
-    }
-    // console.log(data)
-    dashboardService
-      .statusUpdateNew(
-        accountId,
-        payloadInfo,
-        JSON.parse(useGetLocalStorage("userData"))?.jwtToken
-      )
-      .then((res) => {
-        console.log(res);
+    // if (status === "BadData" || status === "Disqualified") {
+    //   handleOpen();
+    //   return;
+    // }
+    // // console.log(data)
+    // dashboardService
+    //   .statusUpdateNew(
+    //     accountId,
+    //     payloadInfo,
+    //     JSON.parse(useGetLocalStorage("userData"))?.jwtToken
+    //   )
+    //   .then((res) => {
+    //     console.log(res);
 
-        window.location.reload(false);
-      })
-      .catch((err) => console.log(err));
-    handleClose();
+    //     window.location.reload(false);
+    //   })
+    //   .catch((err) => console.log(err));
+    // handleClose();
     // console.log(data, accountId);
   };
 
@@ -144,12 +147,12 @@ const ContactComponent = ({
               className={`form-control `}
             >
               {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
-              <option value="" disabled>Select Status</option>
+              <option value="">Select Status</option>
               <option value="Opportunity">Opportunity</option>
               <option value="Nurture">Nurture</option>
               <option value="Followup">Followup</option>
               <option value="Disqualified">Disqualified</option>
-              <option value="BadData">Bad Data</option>
+              <option value="Bad Data">Bad Data</option>
               <option value="Viewed">Viewed</option>
               <option value="Untouched">Untouched</option>
             </select>
