@@ -47,14 +47,15 @@ const PartnerRow = (props) => {
             )}
           </IconButton>
         </TableCell>
-        <TableCell width="300px">{props.partner.region}</TableCell>
+        {/*Inner 1st Grid*/}
+        <TableCell width="110px">{props.partner.region}</TableCell>
         <TableCell width="300px">{props.partner.nominatedAccount}</TableCell>
-        <TableCell width="300px">{props.partner.profiledAccount}</TableCell>
-        <TableCell width="300px">{props.partner.contacts}</TableCell>
-        <TableCell width="300px">{props.partner.badData}</TableCell>
-        <TableCell width="300px">{props.partner.opportunities}</TableCell>
-        <TableCell width="300px">{props.partner.followUp}</TableCell>
-        <TableCell width="300px">{props.partner.disqualified}</TableCell>
+        <TableCell width="280px">{props.partner.profiledAccount}</TableCell>
+        <TableCell width="260px">{props.partner.contacts}</TableCell>
+        <TableCell width="310px">{props.partner.badData}</TableCell>
+        <TableCell width="350px">{props.partner.opportunities}</TableCell>
+        <TableCell width="250px">{props.partner.followUp}</TableCell>
+        <TableCell width="340px">{props.partner.disqualified}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -67,6 +68,7 @@ const PartnerRow = (props) => {
           colSpan={20}
         >
           <Collapse in={partnerOpen} timeout="auto" unmountOnExit>
+            {/*Third Row*/}
             {props.partner.userList &&
               props.partner.userList.map((userList) => (
                 <>
@@ -84,7 +86,7 @@ const PartnerRow = (props) => {
                         {open ? "" : ""}
                       </IconButton>
                     </TableCell>
-                    <TableCell component="th" scope="row" width="300px">
+                    <TableCell component="th" scope="row" width="265px">
                       {userList.region}
                     </TableCell>
                     <TableCell width="300px">
@@ -190,17 +192,6 @@ export const AccountActivityGrid = () => {
     fetchActivityListDetails();
   }, []);
 
-  const toggleOpenList = (region) => {
-    if (openList.includes(region)) {
-      openList.pop(openList.indexOf(region));
-    } else {
-      openList.push(region);
-    }
-
-    setOpenList(openList);
-    dispatch(activityListAction(activityList));
-  };
-
   return (
     <>
       <Box>
@@ -210,7 +201,6 @@ export const AccountActivityGrid = () => {
         <Box sx={{ display: "flex", pb: 2, justifyContent: "space-between" }}>
           <Box>
             <Button
-              // onClick={() => expandAll()}
               variant="contained"
               sx={{
                 alignItems: "center",
@@ -251,12 +241,14 @@ export const AccountActivityGrid = () => {
             }}
           >
             <TableRow>
+              {/*TOP Row*/}
               <TableCell />
               <TableCell
                 sx={{
                   alignItems: "center",
                   color: "#fff",
                   fontSize: "16px",
+                  minWidth: 100,
                 }}
               >
                 Regions
