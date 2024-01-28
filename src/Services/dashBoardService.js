@@ -153,6 +153,11 @@ export const accountActivity = async (data) => {
   return await axios.post(url, data);
 };
 
+export const partnerActivity = async (data) => {
+  let url = `${config.baseUrl}/api/dashboard/partnerActivity`;
+  return await axios.post(url, data);
+};
+
 export const getAccountListDetails = async (data) => {
   let url = `${config.baseUrl}/api/accountGridData`;
   return await axios.post(url, data);
