@@ -61,8 +61,8 @@ const DashBoardNavbar = () => {
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link log-out-btn">
-              <LogoutIcon onClick={handleLogout} /> Log Out
+            <a class="nav-link log-out-btn" onClick={handleLogout}>
+              <LogoutIcon/> Log Out
             </a>
           </li>
         </ul>

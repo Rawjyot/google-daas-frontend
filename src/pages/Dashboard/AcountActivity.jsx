@@ -4,7 +4,8 @@ import BasicTable from "../../GlobalComponents/Table/Table";
 import DashBoardNavbar from "../../GlobalComponents/navbar/DashboardNavbar";
 import Sidebar from "../../GlobalComponents/sideBar/Sidebar";
 import "./dashboard.css";
-
+import Button from '@mui/material/Button';
+import Typography from "@mui/material/Typography";
 const AccountActivity = () => {
 
   return (
@@ -14,11 +15,18 @@ const AccountActivity = () => {
         <div className="mainContainer">
           <DashBoardNavbar />
 
+
+          
+          
           <div className="main-content">
-            <div className="flex flex-col gap-5 mb-4">
-              <span className="text-[28px] font-medium  text-black">
-                Account Status
-              </span>
+          <div className="page-header">
+            <div className="row align-items-center">
+              <div className="col-md-6"><Typography className="page-title">Account Status</Typography></div>
+              <div className="col-md-6 text-right"> 
+              </div>
+            </div>
+          </div>
+            <div className="flex flex-col gap-5 mb-4"> 
               <div className="flex  justify-between">
                 <span className="text-lg flex items-center justify-center  bg-sky-400 font-medium text-white rounded-md capitalize w-[153px] linkShadow">
                   Expand All
