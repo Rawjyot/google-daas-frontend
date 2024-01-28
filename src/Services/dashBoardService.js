@@ -18,7 +18,7 @@ class DashBoardService {
     return await axios.put(url, data, { headers: header });
   }
 
-  async postApiCall(url, data, token) {
+  async postApiCall(url, data, token = null) {
     const header = {
       // Authorization: `Bearer ${token}`,
     };
@@ -112,6 +112,15 @@ class DashBoardService {
     console.log(url);
     return this.putApiCall(url, data, token);
   }
+
+
+  async statusUpdateNew(accountID, data, token) {
+    let url = `${config.baseUrl}/api/activitySubmit`;
+    // /
+    console.log(url);
+    return this.postApiCall(url, data, token);
+  }
+
 
   async getTrailRemark(accountID, token) {
     let url = `${config.baseUrl}/api/getPreviousTwoUpdatedStatus/${accountID}`;

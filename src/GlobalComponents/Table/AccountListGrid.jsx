@@ -7,6 +7,23 @@ import { useSelector } from "react-redux";
 
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 import { ModuleRegistry } from "@ag-grid-community/core";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
+
+// ...
+
+// Custom cell renderer function for the "Account Name" column
+const accountNameCellRenderer = (params) => {
+
+  const accountName = params.data.accountName;
+  const detailPageLink = `/account-details/${params.data.accountId}`; // Replace with your actual detail page link
+
+  return (
+    <Link to={detailPageLink} style={{ textDecoration: "none" }}>
+      {accountName}
+    </Link>
+  );
+};
+
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 // Create new GridExample component
@@ -30,6 +47,7 @@ export const AccountListGrid = (props) => {
       field: "accountName",
       headerName: "Account Name",
       minWidth: 300,
+      cellRenderer: accountNameCellRenderer,
     },
     {
       field: "createdDate",

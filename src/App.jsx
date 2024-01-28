@@ -46,7 +46,7 @@ function App() {
           element={ <AccountList/>}
         /> */}
         <Route
-          path="/detailed-account/:accountName/:accountID"
+          path="/account-details/:accountID"
           element={<ProtectedRoutes Component={DetailedList} />}
         />
         {/* <Route

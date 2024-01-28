@@ -20,13 +20,21 @@ const AccountList = () => {
 
   const { role, id, jwtToken } = JSON.parse(useGetLocalStorage("userData"));
 
+  const userData = JSON.parse(useGetLocalStorage("userData"));
+  // console.log(userData.jwtToken);
+  // const userInfo = {
+  //   "userId": userData?.userId,
+  //   "userToken": "9d3507edcf83d1dd1",
+  //   "responseToken": userData?.responseToken,
+  //   "accountId": accountID
+  // }
   const fetchAccountListDetails = async () => {
     try {
       const response = await getAccountListDetails({
-        userId: "rohit@denave.com",
-        userToken: "9d3507ed43dw3423d",
-        responseToken: "5962925585",
-        roleId: 3,
+        userId: userData?.userId,
+        userToken: userData?.userToken,
+        responseToken: userData?.responseToken,
+        roleId: userData?.roleId,
       });
       dispatch(accountList(response.data));
     } catch (error) {
