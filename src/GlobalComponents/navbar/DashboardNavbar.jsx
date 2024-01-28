@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import { LogoutIcon } from "../../assets/icons";
 import "./navbar.css";
+import { toggleBodyClass } from '../../utils/utils';
 
 import Button from '@mui/material/Button';
 const DashBoardNavbar = () => {
@@ -13,17 +14,22 @@ const DashBoardNavbar = () => {
     localStorage.clear();
     navigate("/");
   };
+  const handleButtonClick = () => {
+    // Toggle the 'togglesidebar' on the body element
+    toggleBodyClass('sidebar-open');
+  };
   return (
     <>
       <nav className="main-header navbar navbar-expand">
         <ul className="navbar-nav top-nav">
-          <li> 
+          <li>
             <Button
-            className="togglesidebar"
-            id="" 
-          >
-            <i class="bi bi-list"></i>
-          </Button>
+              className="togglesidebar"
+              id=""
+              onClick={handleButtonClick}
+            >
+              <i class="bi bi-list"></i>
+            </Button>
           </li>
           <li>
             <NavLink
@@ -62,7 +68,7 @@ const DashBoardNavbar = () => {
           </li>
           <li class="nav-item">
             <a class="nav-link log-out-btn" onClick={handleLogout}>
-              <LogoutIcon/> Log Out
+              <LogoutIcon /> Log Out
             </a>
           </li>
         </ul>

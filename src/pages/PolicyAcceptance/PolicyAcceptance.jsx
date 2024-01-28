@@ -10,6 +10,25 @@ const PolicyAcceptance = () => {
   const [checked, setChecked] = useState(false);
   const { id, jwtToken } = JSON.parse(useGetLocalStorage("userData"));
   const navigate = useNavigate();
+
+  const fetchPolicy = () => {
+    if (checked === false) {
+      toast.error("can't proceed for further without accepting policy");
+      return;
+    } else {
+      policyService
+        .postCall(id, jwtToken)
+        .then((res) => {
+          // console.log(res);
+          useSetLocalStorage("login", true);
+          navigate("/account-activity");
+        })
+        .catch((err) => console.log(err));
+    }
+
+    // console.log(checked);
+  };
+
   const sendPolicy = () => {
     if (checked === false) {
       toast.error("can't proceed for further without accepting policy");
