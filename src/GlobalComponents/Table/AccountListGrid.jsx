@@ -13,7 +13,6 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 // Custom cell renderer function for the "Account Name" column
 const accountNameCellRenderer = (params) => {
-
   const accountName = params.data.accountName;
   const detailPageLink = `/account-details/${params.data.accountId}`; // Replace with your actual detail page link
 
@@ -77,7 +76,7 @@ export const AccountListGrid = (props) => {
     {
       field: "city",
       headerName: "City (Country HQ)",
-      minWidth: 150,
+      minWidth: 160,
     },
     {
       field: "state",
@@ -97,7 +96,7 @@ export const AccountListGrid = (props) => {
     {
       field: "noOfNewContact",
       headerName: "New Contacts",
-      minWidth: 100,
+      minWidth: 130,
     },
     {
       field: "accountStatus",

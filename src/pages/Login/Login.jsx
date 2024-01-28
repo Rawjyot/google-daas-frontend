@@ -169,7 +169,7 @@ const Login = () => {
                   <Button
                     type="submit"
                     variant="contained"
-                    sx={{ width: "120px" }}
+                    sx={{ width: "120px", borderRadius: 5 }}
                   >
                     Sign in
                   </Button>
