@@ -130,7 +130,7 @@ const DetailedSection = () => {
   return (
     <>
       <div className="grid grid-cols-3 gap-10">
-        <div>
+        <div className="card p-3">
           <h1 className="text-lg">Account Details</h1>
           <div>
             {/* {accountDetails?.accountData?.map((item, index) => ( */}
@@ -204,7 +204,7 @@ const DetailedSection = () => {
 
           </div>
         </div>
-        <div>
+        <div className="card p-3">
           <h1 className="text-lg">
             Contacts: <span className="font-bold">{contactCount}</span>
           </h1>
@@ -225,7 +225,7 @@ const DetailedSection = () => {
             )}
           </div>
         </div>
-        <div>
+        <div className="card p-3">
           <h1>Activity & Remarks</h1>
           <div className="bg-white px-4 py-2 rounded h-[500px] overflow-y-scroll text-md flex flex-col gap-2 mt-3 ">
             <div>

@@ -13,6 +13,7 @@ import { accountList } from "../../../store/Features/accountSlice";
 
 import { getAccountListDetails } from "../../../Services/dashBoardService";
 import AccountListMeta from "./AccountListMeta";
+import "./acountList.css";
 
 const AccountList = () => {
   const dispatch = useDispatch();
@@ -47,42 +48,47 @@ const AccountList = () => {
   }, []);
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <>
       <Sidebar />
-      <Box sx={{ width: "100%" }}>
-        <Box>
-          <AccountListNavbar />
-          <Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                pt: 2,
-                pb: 2,
-                m: 1,
-              }}
-            >
-              <Typography variant="h4">Account List</Typography>
-              <Link to="/dashboard">
-                <Button
-                  variant="contained"
-                  sx={{
-                    alignItems: "center",
-                    textAlign: "center",
-                    width: "220px",
-                  }}
-                  startIcon={<ArrowBackIcon />}
-                >
-                  Back to Dashboard
-                </Button>
-              </Link>
-            </Box>
-            <AccountListMeta />
-          </Box>
-        </Box>
-        <AccountListGrid />
-      </Box>
-    </Box>
+      <div className="mainContainer">
+        <AccountListNavbar />
+
+        <div className="main-content">
+          <div className="page-header">
+            <div className="row align-items-center">
+              <div className="col-md-6"><Typography className="page-title">Account List</Typography></div>
+              <div className="col-md-6 text-right">
+                <Link to="/dashboard">
+                  <Button
+                    variant="contained"
+                    sx={{
+                      alignItems: "center",
+                      textAlign: "center",
+                      width: "220px",
+                    }}
+                    startIcon={<ArrowBackIcon />}
+                  >
+                    Back to Dashboard
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-12">
+              <div className="grid-data">
+                <AccountListMeta />
+                <AccountListGrid />
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </>
   );
 };
 export default AccountList;

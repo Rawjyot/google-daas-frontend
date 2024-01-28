@@ -1,0 +1,20 @@
+ 
+
+ 
+.grid-data .ag-root-wrapper-body.ag-layout-normal {
+  min-height: 65vh; 
+}
+
+.page-title {
+  font-size: 22px !important;
+  font-weight: 600 !important;
+}
+.page-header {
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+.grid-data .MuiBox-root {
+  margin: 0;
+  margin-bottom: 10px;
+}
