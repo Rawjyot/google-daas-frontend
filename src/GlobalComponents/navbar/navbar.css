@@ -1,50 +1,79 @@
- 
-.main-header {
-  border-bottom: 1px solid #dee2e6;
-  background: #4286f5;
-  align-items: center;
-  padding: 15px 25px;
-  height: 80px;
-}
-.togglesidebar {
-  color: #fff !important;
-  font-size: 25px !important;
-  border-radius: 100% !important;
-  width: 45px;
-  height: 45px;
-  display: inline-flex !important;
-  min-width: auto !important; 
-}
-.top-nav .text-center.rounded-lg.text-white.font-bold.p-2.text-lg {
-  position: relative;
-  top: 8px;
-}
-.top-user {
-  display: flex;
-  align-items: center;
-}
+ .main-header {
+   border-bottom: 1px solid #dee2e6;
+   background: #4286f5;
+   align-items: center;
+   padding: 15px 25px;
+   height: 80px;
+ }
 
-.top-user p {
-  color: #fff;
-  font-size: 18px;
-  font-weight: 700;
-  margin-right: 15px;
-}
+ .togglesidebar {
+   color: #fff !important;
+   font-size: 25px !important;
+   border-radius: 100% !important;
+   width: 45px;
+   height: 45px;
+   display: inline-flex !important;
+   min-width: auto !important;
+ }
 
-.top-user img {
-  width: 35px;
-  height: 35px;
-  border: 2px solid #fff;
-  border-radius: 100%;
-}
+ .top-user {
+   display: flex;
+   align-items: center;
+ }
 
-.log-out-btn {
-  color: #fff !important;
-  margin-left: 30px;
-  font-weight: 600;
-  cursor: pointer;
-}
-.top-nav li {
-  margin-right: 10px;
-}
+ .top-user p {
+   color: #fff;
+   font-size: 18px;
+   font-weight: 700;
+   margin-right: 15px;
+ }
 
+ .top-user img {
+   width: 35px;
+   height: 35px;
+   border: 2px solid #fff;
+   border-radius: 100%;
+ }
+
+ .log-out-btn {
+   color: #fff !important;
+   margin-left: 30px;
+   font-weight: 600;
+   cursor: pointer;
+ }
+
+ .top-nav li {
+   margin-right: 10px;
+ }
+
+
+ @media (max-width:991px) {
+
+   /* for top menu bar */
+   .main-header {
+     margin-bottom: 45px;
+     padding: 15px 5px;
+   }
+
+   .navbar-nav.top-nav {
+     position: absolute;
+     bottom: -44px;
+     width: 100%;
+     left: 0;
+     right: 0;
+   }
+
+   .top-nav li {
+     width: 100%;
+     margin: 0;
+   }
+
+   .top-nav li a {
+     width: 100% !important;
+     display: block;
+     border-radius: 0 !important;
+     text-align: center;
+   }
+
+   /* for top menu bar */
+ }

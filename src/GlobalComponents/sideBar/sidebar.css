@@ -7,6 +7,7 @@
   border-right: 1px solid #eee;
   box-shadow: 0 0 10px rgb(0 0 0 / 13%);
   z-index: 9;
+  transition: .5s ease all;
 }
 .brand-link {
   display: flex;
@@ -48,10 +49,4 @@
 .submenu li a {
   margin-bottom: 0px;
   font-size: 16px;  color: #fff;
-}
-@media (max-width:767px) {
-  
-  .main-sidebar{
-    display: none;
-  }
-}
+} 
