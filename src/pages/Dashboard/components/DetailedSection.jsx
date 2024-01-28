@@ -21,7 +21,7 @@ import {
 } from "../../../assets/icons";
 import ContactComponent from "./ContactComponent";
 import RemarkComponent from "./RemarkComponent";
-
+import "./DetailedSection.css";
 
 const marketData = [
   { title: "Company Type", content: "Public" },
@@ -129,120 +129,86 @@ const DetailedSection = () => {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-10">
-        <div className="card p-3">
-          <h1 className="text-lg">Account Details</h1>
-          <div>
-            {/* {accountDetails?.accountData?.map((item, index) => ( */}
-            <div >
-              <div className="bg-white px-2 py-1 rounded text-md flex flex-col  mt-3">
-                <div className="flex flex-col gap-2 ">
-                  <p className="font-semibold">
-                    {accountDetails?.accountData?.accountName}{" "}
-                    <span>
-                      <FlagIcon />
-                    </span>
-                  </p>
-                  <div className="flex gap-2">
-                    <LanguageIcon className="text-black" />
-                    <p className="ml-2">{accountDetails?.accountData?.website || ""}</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <TempleHinduIcon className="text-black" />
-                    <p className="ml-2">{accountDetails?.accountData?.empSize}</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <BlurCircularIcon className="text-black" />
-                    <p className="ml-2">{accountDetails?.accountData?.vertical}</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <FmdGoodIcon className="text-black" />
-                    <p className="ml-2">
-                      {accountDetails?.accountData?.city} {accountDetails?.accountData?.state}{" "}
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <LocalPhoneIcon className="text-black" />
-                    <p className="ml-2">{accountDetails?.accountData?.boardlineNumber1 || accountDetails?.accountData?.boardlineNumber2}</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <AttachMoneyIcon className="text-black" />
-                    <p className="ml-2">{accountDetails?.accountData?.revenue}</p>
-                  </div>
 
-                </div>
-              </div>
-              <div className="bg-white px-2 py-1 rounded h-auto text-md flex flex-col gap-3 mt-1">
-                <div className="flex flex-col gap-2">
-                  <div className="flex gap-2">
-                    <b>Technographics</b>
-                    <p className="ml-2">{accountDetails?.accountData?.technographics}</p>
-                  </div>
 
-                  <div className="flex gap-2">
-                    <b>{accountDetails?.accountData?.accountStatus}</b>
-                  </div>
-                </div>
-              </div>
-              {/* <div className="bg-white px-2 py-1 rounded h-auto text-md flex flex-col gap-3 mt-1">
-                <div className="flex flex-col gap-2">
-                  {marketData.map((item) => (
-                    <div key={item.title}>
-                      {item.title} :{" "}
-                      <span className="ml-1">{accountDetails?.accountData?.content}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mx-auto">
-                  <button className="p-2 text-md font-semibold text-white bg-green-400 w-auto">
-                    Opportunity
-                  </button>
-                </div>
-              </div> */}
-              {" "}
+      <div className="row">
+        <div className="col-lg-4">
+          <div className="card custom-card">
+            <div className="card-header">
+              <h6>Account Details</h6>
             </div>
+            <div className="card-body">
+              <div className="card-inner">
+                <h3 className="comp-name">
+                  {accountDetails?.accountData?.accountName}{" "}
+                  <span>
+                    <FlagIcon />
+                  </span>
+                </h3>
+                <ul className="comp-lsit">
+                  <li><span><LanguageIcon /></span> {accountDetails?.accountData?.website || ""}</li>
+                  <li><span><TempleHinduIcon /></span> {accountDetails?.accountData?.empSize}</li>
+                  <li><span><BlurCircularIcon /></span> {accountDetails?.accountData?.vertical}</li>
+                  <li><span><FmdGoodIcon /></span> {accountDetails?.accountData?.city} {accountDetails?.accountData?.state}{" "}</li>
+                  <li><span><LocalPhoneIcon /></span> {accountDetails?.accountData?.boardlineNumber1 || accountDetails?.accountData?.boardlineNumber2}</li>
+                  <li><span><AttachMoneyIcon /></span> {accountDetails?.accountData?.revenue}</li>
+                </ul>
+                <div className="flex gap-2">
+                  <b>Technographics</b>
+                  <p className="ml-2">{accountDetails?.accountData?.technographics}</p>
+                </div>
+                <p className="mt-3"> <b>{accountDetails?.accountData?.accountStatus}</b></p>
 
+              </div>
+            </div>
           </div>
         </div>
-        <div className="card p-3">
-          <h1 className="text-lg">
-            Contacts: <span className="font-bold">{contactCount}</span>
-          </h1>
-          <div className="h-[500px] overflow-y-scroll ">
-            {accountDetails?.contactList?.map((item, index) =>
-
-              <ContactComponent
-                val={item}
-                handleOpen={handleOpen}
-                // setAccountId={setAccountId}
-                // setStatus={setStatus}
-                // status={item?.contactStatus}
-                accountId={accountID}
-                contactId={item?.contactId}
-                key={index}
-              />
-
-            )}
-          </div>
-        </div>
-        <div className="card p-3">
-          <h1>Activity & Remarks</h1>
-          <div className="bg-white px-4 py-2 rounded h-[500px] overflow-y-scroll text-md flex flex-col gap-2 mt-3 ">
-            <div>
-              {remarkTrail?.activityList?.length === 0
-                ? "No Status Updated"
-                : remarkTrail?.activityList?.map((remark, index) => (
-                  <RemarkComponent
-                    index={index}
-                    remark={remark}
-                    userData={userData}
+        <div className="col-lg-4">
+          <div className="card custom-card">
+            <div className="card-header">
+              <h6>Contact Details</h6>
+            </div>
+            <div className="card-body">
+              <div className="card-inner">
+                {accountDetails?.contactList?.map((item, index) =>
+                  <ContactComponent
+                    val={item}
+                    handleOpen={handleOpen}
+                    accountId={accountID}
+                    contactId={item?.contactId}
                     key={index}
                   />
-                ))}
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-lg-4">
+          <div className="card custom-card">
+            <div className="card-header">
+              <h6>Activity & Remarks</h6>
+            </div>
+            <div className="card-body">
+              <div className="card-inner">
+                {remarkTrail?.activityList?.length === 0
+                  ? "No Status Updated"
+                  : remarkTrail?.activityList?.map((remark, index) => (
+                    <RemarkComponent
+                      index={index}
+                      remark={remark}
+                      userData={userData}
+                      key={index}
+                    />
+                  ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+
+ 
 
     </>
   );
