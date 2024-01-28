@@ -14,7 +14,7 @@ const AccountActivity = () => {
         <div className="homeContainer">
           <DashBoardNavbar />
 
-          <div className="listContainer">
+          <div className="main-content">
             <div className="flex flex-col gap-5 mb-4">
               <span className="text-[28px] font-medium  text-black">
                 Account Status
