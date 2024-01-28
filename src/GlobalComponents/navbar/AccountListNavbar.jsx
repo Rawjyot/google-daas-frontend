@@ -2,7 +2,7 @@ import { Avatar } from "@mui/material";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import { LogoutIcon } from "../../assets/icons";
-import "./navbar.css";
+import "./navbar.css"; 
 import Button from '@mui/material/Button';
 import { toggleBodyClass } from '../../utils/utils';
 const AccountListNavbar = ({ list, details, activity, partener }) => {
@@ -22,24 +22,32 @@ const AccountListNavbar = ({ list, details, activity, partener }) => {
 
     <>
       <nav className="main-header navbar navbar-expand">
+        <div className="small-action d-none">
+          <Button
+            className="togglesidebar"
+            id=""
+            onClick={handleButtonClick}
+          >
+            <i class="bi bi-list"></i>
+          </Button>
+          {/* <Button
+          className="togglesidebar"
+          id=""
+          onClick={ToggleClass}
+        >
+          <i class="bi bi-three-dots-vertical"></i>
+        </Button> */}
+        </div>
         <ul className="navbar-nav top-nav">
-          <li>
-            <Button
-              className="togglesidebar"
-              id=""
-              onClick={handleButtonClick}
-            >
-              <i class="bi bi-list"></i>
-            </Button>
-          </li>
+
           <li>
             <NavLink
               to="/account-list"
               className={({ isActive }) =>
-                `  duration-200 ${isActive
-                  ? "bg-yellow-500 text-white "
-                  : "bg-[rgba(182,174,174,1)]"
-                } w-[298px] text-center rounded-lg text-white font-bold p-2 text-lg `
+                `${isActive
+                  ? "top-nav-active top-nav-link"
+                  : "top-nav-link"
+                }`
               }
             >
               Account List
@@ -47,8 +55,8 @@ const AccountListNavbar = ({ list, details, activity, partener }) => {
           </li>
           <li>
             <NavLink
-              className={`${accountName ? "bg-yellow-500" : "bg-[rgba(182,174,174,1)]"}
-               w-[298px] text-center rounded-lg text-white font-bold p-2 text-lg `}
+              className={`${accountName ? "top-nav-active top-nav-link" : "top-nav-link"}
+               `}
             >
               Account Details
             </NavLink>
