@@ -10,7 +10,7 @@ const PartnerActivity = () => {
     <>
       <div className="home">
         <Sidebar />
-        <div className="homeContainer">
+        <div className="mainContainer">
           <DashBoardNavbar />
 
           <div className="listContainer">

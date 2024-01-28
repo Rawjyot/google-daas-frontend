@@ -11,7 +11,7 @@ const AccountActivity = () => {
     <>
       <div className="home">
         <Sidebar />
-        <div className="homeContainer">
+        <div className="mainContainer">
           <DashBoardNavbar />
 
           <div className="main-content">

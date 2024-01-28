@@ -39,10 +39,12 @@
 }
 
 .log-out-btn {
-  color: #fff;
+  color: #fff !important;
   margin-left: 30px;
   font-weight: 600;
+  cursor: pointer;
 }
 .top-nav li {
   margin-right: 10px;
 }
+
