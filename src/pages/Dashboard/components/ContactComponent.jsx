@@ -15,23 +15,29 @@ const ContactComponent = ({
   status,
   contactId
 }) => {
-  const userInfo = {
+  console.log(val)
+  const payloadInfo = {
     "userId": userData?.userId,
-    "userToken": "9d3507edcf83d1dd1",
+    "userToken": userData?.userToken,
     "responseToken": userData?.responseToken,
-    "accountId": accountId
+    "accountId": accountId,
+    "contactId": val?.contactId,
+    "contactStatsOld": val?.contactStatus,
+    "contactStatusNew": status,
+    "remarks": ""
   }
   const [hide, setHide] = useState(false);
   // const [reload, setReload] = useState(false);
   const handleDropdown = (e, val) => {
     // console.log(e.target.value);
     setStatus(e.target.value);
-    setAccountId(val);
+    // setAccountId(val);
   };
 
   const submit = (e) => {
     e.preventDefault();
-    if (!status) return false;
+    console.log(e)
+    if (status === val.contactstatus) return false;
     const data = {
       status: status,
       remark: ""
@@ -42,15 +48,15 @@ const ContactComponent = ({
     }
     // console.log(data)
     dashboardService
-      .statusUpdate(
+      .statusUpdateNew(
         accountId,
-        data,
-        JSON.parse(useGetLocalStorage("userData")).jwtToken
+        payloadInfo,
+        JSON.parse(useGetLocalStorage("userData"))?.jwtToken
       )
       .then((res) => {
-        // console.log(res);
+        console.log(res);
 
-        window.location.reload(false);
+        // window.location.reload(false);
       })
       .catch((err) => console.log(err));
     // console.log(data, accountId);
@@ -94,9 +100,11 @@ const ContactComponent = ({
                 id="status"
                 name="status"
                 onChange={(e) => handleDropdown(e, val.contactaccountID)}
+                value={val.contactStatus}
                 className={`outline mx-2 `}
               >
-                <option value={val.contactstatus}>{val.contactstatus}</option>
+                {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
+                <option value="" disabled>Select Status</option>
                 <option value="Opportunity">Opportunity</option>
                 <option value="Nurture">Nurture</option>
                 <option value="Followup">Followup</option>

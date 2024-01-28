@@ -59,7 +59,7 @@ const DetailedSection = () => {
   // console.log(userData.jwtToken);
   const userInfo = {
     "userId": userData?.userId,
-    "userToken": "9d3507edcf83d1dd1",
+    "userToken": userData?.userToken,
     "responseToken": userData?.responseToken,
     "accountId": accountID
   }
@@ -83,6 +83,7 @@ const DetailedSection = () => {
   // console.log(contacts);
   // console.log(accountDetails);
   const statusUpdate = () => {
+    console.log("Test Test")
     if ((status === "BadData" || status === "Disqualified") && remark === "") {
       toast.error("remark must be added");
       return;
