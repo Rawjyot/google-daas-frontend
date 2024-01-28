@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import useDashboardAccountCall, {
@@ -48,10 +48,36 @@ const DetailedSection = () => {
   const [status, setStatus] = useState("");
   const [accountId, setAccountId] = useState("");
   const [open, setOpen] = useState(false);
+  const [reloadData, setReloadData] = useState(false);
   const [remark, setRemark] = useState("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  // const handleReload = () => setReload(true);
+
+  const handleReload = () => {
+    console.log("Hello testing")
+    setReloadData(true);
+    useGetTrailRemarkCall(
+      userInfo,
+      userData?.jwtToken
+    )
+    // After data is refetched, reset the reload state
+    setReloadData(false);
+  };
+
+  // useEffect(() => {
+  //   if (reloadData) {
+  //     // Perform data refetching logic here
+  //     console.log('Data is being refetched...');
+  //     useGetTrailRemarkCall(
+  //       userInfo,
+  //       userData?.jwtToken
+  //     )
+  //     // After data is refetched, reset the reload state
+  //     setReloadData(false);
+  //   }
+  // }, [reloadData]);
   const { accountName, accountID } = useParams();
 
   // console.log(accountName, accountID);
@@ -68,9 +94,8 @@ const DetailedSection = () => {
     userData.jwtToken
   );
   const remarkTrail = useGetTrailRemarkCall(
-    userData.id,
-    userData.jwtToken,
-    accountID
+    userInfo,
+    userData?.jwtToken
   );
   console.log(accountDetails, "Account Detail###########");
 
@@ -189,11 +214,12 @@ const DetailedSection = () => {
               <ContactComponent
                 val={item}
                 handleOpen={handleOpen}
-                setAccountId={setAccountId}
-                setStatus={setStatus}
-                status={status}
-                accountId={accountId}
+                // setAccountId={setAccountId}
+                // setStatus={setStatus}
+                // status={item?.contactStatus}
+                accountId={accountID}
                 contactId={item?.contactId}
+                key={index}
               />
 
             )}
@@ -203,53 +229,21 @@ const DetailedSection = () => {
           <h1>Activity & Remarks</h1>
           <div className="bg-white px-4 py-2 rounded h-[500px] overflow-y-scroll text-md flex flex-col gap-2 mt-3 ">
             <div>
-              {remarkTrail.length === 0
+              {remarkTrail?.activityList?.length === 0
                 ? "No Status Updated"
-                : remarkTrail?.map((remark, index) => (
+                : remarkTrail?.activityList?.map((remark, index) => (
                   <RemarkComponent
                     index={index}
                     remark={remark}
                     userData={userData}
+                    key={index}
                   />
                 ))}
             </div>
           </div>
         </div>
       </div>
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style} className="rounded-lg">
-            <div className="flex flex-col items-start">
-              <h1 className="text-2xl">Enter Your Remark :</h1>
-              <input
-                className="mt-2 outline-none border-2 rounded-md p-1"
-                type="text"
-                value={remark}
-                onChange={(e) => setRemark(e.target.value)}
-              />
-              <div className="mt-5 flex gap-3 ">
-                <button
-                  onClick={statusUpdate}
-                  className="bg-green-500 text-white font-medium p-0 rounded-md w-[100px]"
-                >
-                  Submit
-                </button>
-                <button
-                  onClick={handleClose}
-                  className="bg-red-500 text-white font-medium p-0 rounded-md w-[100px]"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </Box>
-        </Modal>
-      </div>
+
     </>
   );
 };
