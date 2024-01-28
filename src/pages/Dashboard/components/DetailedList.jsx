@@ -13,7 +13,7 @@ const DetailedList = () => {
       <div className="mainContainer">
         <AccountListNavbar />
 
-        <div className="listContainer">
+        <div className="main-content">
 
         <div className="page-header">
             <div className="row align-items-center">
@@ -29,7 +29,7 @@ const DetailedList = () => {
                     }}
                     startIcon={<ArrowBackIcon />}
                   >
-                    Back to reports
+                    Back to GridView
                   </Button>
                 </Link>
               </div>

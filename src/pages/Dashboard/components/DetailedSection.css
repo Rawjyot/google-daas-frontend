@@ -1,0 +1,145 @@
+.custom-card {
+  margin-bottom: 25px;
+  border-radius: 0;
+  border: 0;
+  box-shadow: 0 0 10px rgb(0 0 0 / 9%);
+}
+
+.custom-card .card-header {
+  background: #4286f5;
+  color: white;
+  border-radius: 0;
+  border: 0;
+}
+
+.custom-card .card-header h6 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.custom-card .card-body {
+  border-radius: 0;
+  padding: 0;
+}
+.card-inner {
+  padding: 25px;
+  height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.comp-name {
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.comp-lsit li {
+  margin-bottom: 15px; 
+}
+
+.comp-lsit li svg {
+  width: 20px;
+  margin-right: 2px;
+  fill: #4286f5;
+}
+
+.contact-box {
+  border-bottom: 1px dashed #ccc;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+.contact-box p {
+  margin-bottom: 10px;
+}
+.contact-box p span {
+  font-weight: 700;
+}
+.btn-submit {
+  display: inline-block;
+  width: 100%;
+  background: #1976d2 !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+select.form-control {
+  height: auto;
+  background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
+  background-position: calc(100% - 20px) calc(1em + 0px), calc(100% - 15px) calc(1em + 0px), calc(100% - 2.5em) 0.5em;
+  background-size: 5px 5px, 5px 5px, 0px 2em;
+  background-repeat: no-repeat;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.more-btn {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  font-weight: 700;
+  background: #eeee;
+  padding: 3px 15px;
+  margin-top: 20px;
+  border-radius: 35px;
+  font-size: 12px;
+  min-height: auto;
+  height: 30px;
+  text-transform: uppercase;
+}
+
+.remark-item {
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.remark-item h4 {
+  display: inline-block;
+  background: #ececec;
+  color: #000;
+  font-size: 12px;
+  padding: 3px 10px;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+.remark-status {
+  display: inline-block;
+  color: #000;
+  margin-bottom: 5px;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-left: 10px;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.remark-status:before {
+  content: '-';
+  margin-right: 5px;
+}
+
+.modal-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.modal-action {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.modal-action button {
+  width: 48%;
+  border-radius: 5px;
+}
+
+.btn-reset {
+  background: #f75959;
+  color: #fff;
+}

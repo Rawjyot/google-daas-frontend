@@ -7,13 +7,14 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal"
 const userData = JSON.parse(useGetLocalStorage("userData"));
 // console.log(userData.jwtToken);
+import "./DetailedSection.css";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 450,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -110,80 +111,77 @@ const ContactComponent = ({
   return (
     <>
 
-      <div className="bg-white px-2 py-1 rounded  text-md flex flex-col gap-2 mt-3">
-        <h1>
-          <span className="font-medium">Name : </span>
+      <div className="contact-box">
+        <p>
+          <span>Name : </span>
           {val?.contactName}
-        </h1>
-        <h1>
-          <span className="font-medium">Email : </span>
+        </p>
+        <p>
+          <span>Email : </span>
           {val?.emailId || 'NA'}
-        </h1>
-        <h1>
-          <span className="font-medium">Ph : </span>
+        </p>
+        <p>
+          <span>Ph : </span>
           {val?.mobile1 || 'NA'}
-        </h1>
-        <h1>
-          <span className="font-medium">Job Level : </span>
-          {val.jobLevel || 'NA'}
-        </h1>
-        <h1>
-          <span className="font-medium">Designation : </span>
+        </p>
+
+        <p>
+          <span>Designation : </span>
           {val.designation || 'NA'}
-        </h1>
+        </p>
+        <label><strong>Status</strong> :{" "}</label>
+        <form
+          action=""
+          className="flex items-center justify-center"
+          onSubmit={submit}
+        >
+          <div className="input-group">
+            <select
+              id="status"
+              name="status"
+              onChange={(e) => handleDropdown(e, val.contactaccountID)}
+              defaultValue={val.contactStatus}
+              className={`form-control `}
+            >
+              {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
+              <option value="" disabled>Select Status</option>
+              <option value="Opportunity">Opportunity</option>
+              <option value="Nurture">Nurture</option>
+              <option value="Followup">Followup</option>
+              <option value="Disqualified">Disqualified</option>
+              <option value="BadData">Bad Data</option>
+              <option value="Viewed">Viewed</option>
+              <option value="Untouched">Untouched</option>
+            </select>
+            <div className="input-group-append">
+              <button type="submit" className="btn btn-submit">Submit</button>
+            </div>{" "}
 
-        <h1 className="flex items-center">
-          <span className="font-bold mr-1">Status</span> :{" "}
-          <form
-            action=""
-            className="flex items-center justify-center"
-            onSubmit={submit}
-          >
-            <span className="border-5 border-black">
-              <select
-                id="status"
-                name="status"
-                onChange={(e) => handleDropdown(e, val.contactaccountID)}
-                defaultValue={val.contactStatus}
-                className={`outline mx-2 `}
-              >
-                {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
-                <option value="" disabled>Select Status</option>
-                <option value="Opportunity">Opportunity</option>
-                <option value="Nurture">Nurture</option>
-                <option value="Followup">Followup</option>
-                <option value="Disqualified">Disqualified</option>
-                <option value="BadData">Bad Data</option>
-                <option value="Viewed">Viewed</option>
-                <option value="Untouched">Untouched</option>
-              </select>
-
-              <button
-                type="submit"
-                className="ml-3 text-white w-auto px-2 rounded font-bold bg-sky-500"
-              >
-                Submit
-              </button>
-            </span>{" "}
-          </form>
-        </h1>
+          </div>
+        </form>
         {hide === false ? (
           ""
         ) : (
-          <h1>
-            <span className="font-bold">Department : </span>
-            {val.department}
-          </h1>
+          <div>
+            <p className="mt-3">
+              <span>Job Level : </span>
+              {val.jobLevel || 'NA'}
+            </p>
+
+            <p className="mb-0">
+              <span>Department : </span>
+              {val.department}
+            </p>
+          </div>
         )}
-        <div className="flex justify-center ">
+        <div className="text-center">
           <button
-            className="text-sky-500 font-medium p-0"
+            className="more-btn"
             onClick={() => setHide(!hide)}
           >
-            {hide === false ? "+more" : "-less"}
+            {hide === false ? "+ See More" : "- See Less"}
           </button>
-        </div>
-      </div>
+        </div></div>
       <div>
         <Modal
           open={open}
@@ -191,25 +189,24 @@ const ContactComponent = ({
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style} className="rounded-lg">
-            <div className="flex flex-col items-start">
-              <h1 className="text-2xl">Enter Your Remark :</h1>
-              <input
-                className="mt-2 outline-none border-2 rounded-md p-1"
-                type="text"
+          <Box sx={style} className="custom-modal">
+            <div className="modal-body">
+              <h2 className="modal-title">Enter Your Remark</h2>
+              <textarea
+                className="form-control"
                 value={remark}
                 onChange={(e) => setRemark(e.target.value)}
               />
-              <div className="mt-5 flex gap-3 ">
+              <div className="modal-action">
                 <button
                   onClick={statusUpdate}
-                  className="bg-green-500 text-white font-medium p-0 rounded-md w-[100px]"
+                  className="btn-submit"
                 >
                   Submit
                 </button>
                 <button
                   onClick={handleClose}
-                  className="bg-red-500 text-white font-medium p-0 rounded-md w-[100px]"
+                  className="btn-reset"
                 >
                   Cancel
                 </button>
