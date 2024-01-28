@@ -113,14 +113,12 @@ class DashBoardService {
     return this.putApiCall(url, data, token);
   }
 
-
   async statusUpdateNew(accountID, data, token) {
     let url = `${config.baseUrl}/api/activitySubmit`;
     // /
     console.log(url);
     return this.postApiCall(url, data, token);
   }
-
 
   async getTrailRemark(data, token) {
     let url = `${config.baseUrl}/api/getActivity`;
@@ -134,10 +132,10 @@ class DashBoardService {
   // }
 
   async accountActivity(role, id, token) {
-    let url = `${config.baseUrl}/api/account-activity/${role}/${id}`;
-    // console.log(url);
+    let url = `${config.baseUrl}/api/dashboard/accountActivity`;
     return this.getApiCall(url, token);
   }
+
   async partnerActivity(role, id, token) {
     // http://localhost:5000/api/partner-activity/client/22
     let url = `${config.baseUrl}/api/partner-activity/${role}/${id}`;
@@ -149,6 +147,11 @@ class DashBoardService {
 const dashboardService = new DashBoardService();
 
 export default dashboardService;
+
+export const accountActivity = async (data) => {
+  let url = `${config.baseUrl}/api/dashboard/accountActivity`;
+  return await axios.post(url, data);
+};
 
 export const getAccountListDetails = async (data) => {
   let url = `${config.baseUrl}/api/accountGridData`;

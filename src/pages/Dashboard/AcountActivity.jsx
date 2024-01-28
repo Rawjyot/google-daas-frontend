@@ -30,6 +30,7 @@ const AccountActivity = () => {
               </div>
             </div>
           </div>
+
           <AccountActivityGrid />
         </div>
       </div>
