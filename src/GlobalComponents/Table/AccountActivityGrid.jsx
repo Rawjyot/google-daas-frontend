@@ -418,7 +418,7 @@ function Row(props) {
                         )}
                       </IconButton>
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" width={"100px"}>
                       {partner.region}
                     </TableCell>
                     <TableCell>{partner.nominatedAccount}</TableCell>
@@ -512,101 +512,103 @@ export const AccountActivityGrid = () => {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead
-          component="th"
-          scope="row"
-          sx={{
-            backgroundColor: "#37BCF8",
-            color: "#fff",
-            fontSize: "14px",
-            alignItems: "center",
-            textAlign: "center",
-            p: 0.5,
-          }}
-        >
-          <TableRow>
-            <TableCell />
-            <TableCell
-              sx={{
-                alignItems: "center",
-                color: "#fff",
-                fontSize: "16px",
-              }}
-            >
-              Regions
-            </TableCell>
-            <TableCell
-              sx={{
-                alignItems: "center",
-                color: "#fff",
-                fontSize: "16px",
-              }}
-            >
-              Nominated Accounts
-            </TableCell>
-            <TableCell
-              sx={{
-                alignItems: "center",
-                color: "#fff",
-                fontSize: "16px",
-              }}
-            >
-              Profiled Accounts
-            </TableCell>
-            <TableCell
-              sx={{
-                alignItems: "center",
-                color: "#fff",
-                fontSize: "16px",
-              }}
-            >
-              Contacts
-            </TableCell>
-            <TableCell
-              sx={{
-                alignItems: "center",
-                color: "#fff",
-                fontSize: "16px",
-              }}
-            >
-              Bad Data (Contacts)
-            </TableCell>
-            <TableCell
-              sx={{
-                alignItems: "center",
-                color: "#fff",
-                fontSize: "16px",
-              }}
-            >
-              Opportunities
-            </TableCell>
-            <TableCell
-              sx={{
-                alignItems: "center",
-                color: "#fff",
-                fontSize: "16px",
-              }}
-            >
-              Follow Up
-            </TableCell>
-            <TableCell
-              sx={{
-                alignItems: "center",
-                color: "#fff",
-                fontSize: "16px",
-              }}
-            >
-              Disqualified
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {activityList &&
-            activityList.map((row) => <Row key={row.name} row={row} />)}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead
+            component="th"
+            scope="row"
+            sx={{
+              backgroundColor: "#37BCF8",
+              color: "#fff",
+              fontSize: "14px",
+              alignItems: "center",
+              textAlign: "center",
+              p: 0.5,
+            }}
+          >
+            <TableRow>
+              <TableCell />
+              <TableCell
+                sx={{
+                  alignItems: "center",
+                  color: "#fff",
+                  fontSize: "16px",
+                }}
+              >
+                Regions
+              </TableCell>
+              <TableCell
+                sx={{
+                  alignItems: "center",
+                  color: "#fff",
+                  fontSize: "16px",
+                }}
+              >
+                Nominated Accounts
+              </TableCell>
+              <TableCell
+                sx={{
+                  alignItems: "center",
+                  color: "#fff",
+                  fontSize: "16px",
+                }}
+              >
+                Profiled Accounts
+              </TableCell>
+              <TableCell
+                sx={{
+                  alignItems: "center",
+                  color: "#fff",
+                  fontSize: "16px",
+                }}
+              >
+                Contacts
+              </TableCell>
+              <TableCell
+                sx={{
+                  alignItems: "center",
+                  color: "#fff",
+                  fontSize: "16px",
+                }}
+              >
+                Bad Data (Contacts)
+              </TableCell>
+              <TableCell
+                sx={{
+                  alignItems: "center",
+                  color: "#fff",
+                  fontSize: "16px",
+                }}
+              >
+                Opportunities
+              </TableCell>
+              <TableCell
+                sx={{
+                  alignItems: "center",
+                  color: "#fff",
+                  fontSize: "16px",
+                }}
+              >
+                Follow Up
+              </TableCell>
+              <TableCell
+                sx={{
+                  alignItems: "center",
+                  color: "#fff",
+                  fontSize: "16px",
+                }}
+              >
+                Disqualified
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {activityList &&
+              activityList.map((row) => <Row key={row.name} row={row} />)}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
