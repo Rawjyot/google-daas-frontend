@@ -2,10 +2,10 @@ import { Avatar } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import { LogoutIcon } from "../../assets/icons";
+import { toggleBodyClass } from "../../utils/utils";
 import "./navbar.css";
-import { toggleBodyClass } from '../../utils/utils';
 
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 const DashBoardNavbar = () => {
   const userData = JSON.parse(useGetLocalStorage("userData"));
   // console.log(userData);
@@ -16,18 +16,14 @@ const DashBoardNavbar = () => {
   };
   const handleButtonClick = () => {
     // Toggle the 'togglesidebar' on the body element
-    toggleBodyClass('sidebar-open');
+    toggleBodyClass("sidebar-open");
   };
   return (
     <>
       <nav className="main-header navbar navbar-expand">
         <ul className="navbar-nav top-nav">
           <li>
-            <Button
-              className="togglesidebar"
-              id=""
-              onClick={handleButtonClick}
-            >
+            <Button className="togglesidebar" id="">
               <i class="bi bi-list"></i>
             </Button>
           </li>
@@ -35,9 +31,10 @@ const DashBoardNavbar = () => {
             <NavLink
               to="/account-activity"
               className={({ isActive }) =>
-                `  duration-200 ${isActive
-                  ? "bg-yellow-500 text-white "
-                  : "bg-[rgba(182,174,174,1)]"
+                `  duration-200 ${
+                  isActive
+                    ? "bg-yellow-500 text-white "
+                    : "bg-[rgba(182,174,174,1)]"
                 } w-[298px] text-center rounded-lg text-white font-bold p-2 text-lg `
               }
             >
@@ -48,9 +45,10 @@ const DashBoardNavbar = () => {
             <NavLink
               to="/partner-activity"
               className={({ isActive }) =>
-                `  duration-200 ${isActive
-                  ? "bg-yellow-500 text-white "
-                  : "bg-[rgba(182,174,174,1)]"
+                `  duration-200 ${
+                  isActive
+                    ? "bg-yellow-500 text-white "
+                    : "bg-[rgba(182,174,174,1)]"
                 } w-[298px] text-center rounded-lg text-white font-bold p-2 text-lg `
               }
             >
@@ -73,10 +71,7 @@ const DashBoardNavbar = () => {
           </li>
         </ul>
       </nav>
-
-
     </>
-
   );
 };
 
