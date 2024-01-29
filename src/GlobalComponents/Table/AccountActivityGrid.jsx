@@ -176,18 +176,18 @@ export const AccountActivityGrid = () => {
   const { activityList } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
 
-  const extractRegions = (data) => {
-    console.log("Data => ", data);
-    const partnerList = [];
-    const regions = data.map((data) => data.region);
-    data.map((data) => {
-      data.partnerList.map((partner) => {
-        partnerList.push(partner.region);
-      });
-    });
+  // const extractRegions = (data) => {
+  //   console.log("Data => ", data);
+  //   const partnerList = [];
+  //   const regions = data.map((data) => data.region);
+  //   data.map((data) => {
+  //     data.partnerList.map((partner) => {
+  //       partnerList.push(partner.region);
+  //     });
+  //   });
 
-    dispatch(regionDropdownAction(regions));
-  };
+  //   dispatch(regionDropdownAction(regions));
+  // };
 
   const fetchActivityListDetails = async () => {
     try {
@@ -198,7 +198,7 @@ export const AccountActivityGrid = () => {
         roleId: userData?.roleId,
       });
 
-      extractRegions(response.data);
+      // extractRegions(response.data);
       dispatch(activityListAction(response.data));
     } catch (error) {
       console.log(error);
