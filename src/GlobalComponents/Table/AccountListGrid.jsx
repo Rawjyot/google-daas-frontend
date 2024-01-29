@@ -134,7 +134,7 @@ export const AccountListGrid = (props) => {
 
     params.api.sizeColumnsToFit();
     params.api.resetRowHeights();
-    console.log("User Id", userRole);
+    // console.log("User Id", userRole);
     (userRole === 3 || userRole === 2) &&
       params.api.setColumnVisible("partnerName", false);
 
