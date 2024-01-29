@@ -150,13 +150,17 @@ class DashBoardService {
   }
 }
 
-
 const dashboardService = new DashBoardService();
 
 export default dashboardService;
 
 export const accountActivity = async (data) => {
   let url = `${config.baseUrl}/api/dashboard/accountActivity`;
+  return await axios.post(url, data);
+};
+
+export const accountActivityAll = async (data) => {
+  let url = `${config.baseUrl}/api/dashboard/accountActivity/all`;
   return await axios.post(url, data);
 };
 

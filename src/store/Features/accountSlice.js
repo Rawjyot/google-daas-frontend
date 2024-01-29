@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   accountListData: null,
   activityList: null,
+  activityAll: null,
   partnerActivityList: null,
   regionsdropdown: null,
   partnerdropdown: null,
@@ -21,6 +22,9 @@ const accountSlice = createSlice({
     },
     regionsList: (state, action) => {
       state.regionsList = action.payload;
+    },
+    activityAll: (state, action) => {
+      state.activityAll = action.payload;
     },
     partnerList: (state, action) => {
       state.partnerList = action.payload;
@@ -42,6 +46,7 @@ const accountSlice = createSlice({
 
 export const {
   accountList,
+  activityAll,
   activityList,
   regionsList,
   partnerList,
