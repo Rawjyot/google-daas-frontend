@@ -17,7 +17,10 @@ import * as React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { activityList as activityListAction } from "../../store/Features/accountSlice";
+import {
+  activityList as activityListAction,
+  regionsdropdown as regionDropdownAction,
+} from "../../store/Features/accountSlice";
 
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import { accountActivity } from "../../Services/dashBoardService";
@@ -170,10 +173,21 @@ const Row = (props) => {
 
 export const AccountActivityGrid = () => {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState([]);
-  const [partnerOpen, setPartnerOpen] = React.useState(false);
   const { activityList } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
+
+  const extractRegions = (data) => {
+    console.log("Data => ", data);
+    const partnerList = [];
+    const regions = data.map((data) => data.region);
+    data.map((data) => {
+      data.partnerList.map((partner) => {
+        partnerList.push(partner.region);
+      });
+    });
+
+    dispatch(regionDropdownAction(regions));
+  };
 
   const fetchActivityListDetails = async () => {
     try {
@@ -183,6 +197,8 @@ export const AccountActivityGrid = () => {
         responseToken: userData?.responseToken,
         roleId: userData?.roleId,
       });
+
+      extractRegions(response.data);
       dispatch(activityListAction(response.data));
     } catch (error) {
       console.log(error);

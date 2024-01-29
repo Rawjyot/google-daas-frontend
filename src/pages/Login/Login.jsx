@@ -12,12 +12,14 @@ import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import { useSetLocalStorage } from "../../Hooks/useSetLocalStorage";
 import authService from "../../Services/authServices";
 import logo from "../../assets/images/logo.png";
+import { partnerList as partnerListAction } from "../../store/Features/accountSlice";
 import { login } from "../../store/Features/authSlice";
 import "./login.css";
 
 const generateRandomString = (length) => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
 
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
@@ -25,8 +27,8 @@ const generateRandomString = (length) => {
   }
 
   return result;
-}
-const userToken = generateRandomString(16)
+};
+const userToken = generateRandomString(16);
 const Login = () => {
   const [loginData, setLoginData] = useState({
     userId: "",
@@ -46,7 +48,6 @@ const Login = () => {
   const onChangeData = useCallback((e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   });
-
 
   const submit = (e) => {
     e.preventDefault();
@@ -76,7 +77,14 @@ const Login = () => {
             }
 
             else {
-              dispatch(login({ ...res.data, 'userToken': userToken }));
+              dispatch(login({ ...res.data, userToken: userToken }));
+              if (res.data && res.data.userList) {
+                const list = res.data.userList.map(
+                  (list) => Object.keys(list)[0]
+                );
+                useSetLocalStorage("partnerList", list);
+                dispatch(partnerListAction(list));
+              }
               if (!JSON.parse(useGetLocalStorage("userData")).policy_accepted) {
                 navigate("/account-activity");
                 useSetLocalStorage("login", true);
