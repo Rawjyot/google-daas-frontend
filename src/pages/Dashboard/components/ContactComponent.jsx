@@ -148,7 +148,7 @@ const ContactComponent = ({
           {val.designation || 'NA'}
         </p>
         <label><strong>Status</strong> :{" "}</label>
-        {(userRole == 1 || userRole == 2) ? val?.contactStatus || ' NA' : (<form
+        {(userRole == 1 || userRole == 2 || val?.contactStatus == 'Opportunity') ? val?.contactStatus || ' NA' : (<form
           action=""
           className="flex items-center justify-center"
           onSubmit={submit}
