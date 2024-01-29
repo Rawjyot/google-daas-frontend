@@ -70,6 +70,19 @@ class AuthService {
       throw err;
     }
   }
+
+  async handleAuthError(error) {
+    if (error.response && error.response.status === 401) {
+      // Trigger logout and redirect to login
+      logoutUser();
+      // You can also redirect to the login page using your preferred routing method
+      // Example: window.location.href = '/login';
+    }
+    // If it's not a 401 error, you can handle it in other ways or rethrow it
+    return Promise.reject(error);
+  };
+
+
 }
 
 const authService = new AuthService();

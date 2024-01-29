@@ -14,6 +14,9 @@ import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
 import dashboardService from "../../../Services/dashBoardService";
 import LoadingComponent from "../../../GlobalComponents/LoadingComponent";
 import {
+  useGetMasterData,
+} from "../../../Hooks/useDashboardCall";
+import {
   AttachMoneyIcon,
   BlurCircularIcon,
   FlagIcon,
@@ -64,6 +67,7 @@ const DetailedSection = () => {
   // console.log(accountName, accountID);
   const userData = JSON.parse(useGetLocalStorage("userData"));
   const userRole = userData?.roleId
+
   // console.log(userData.jwtToken);
   const userInfo = {
     "userId": userData?.userId,
@@ -71,6 +75,14 @@ const DetailedSection = () => {
     "responseToken": userData?.responseToken,
     "accountId": accountID
   }
+
+  const masterPayload = { ...userInfo };
+  delete masterPayload.responseToken;
+
+  const masterData = useGetMasterData(
+    userInfo,
+    userData?.jwtToken
+  );
   const accountDetails = useDashboardAccountCall(
     userInfo,
     userData.jwtToken
@@ -172,6 +184,7 @@ const DetailedSection = () => {
                     status={item?.contactStatus}
                     key={index}
                     userRole={userRole}
+                    masterData={masterData}
                   />
                 )}
               </div>
