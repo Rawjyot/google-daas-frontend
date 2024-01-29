@@ -47,6 +47,8 @@ const ContactComponent = ({
     userInfo,
     userData?.jwtToken
   );
+
+
   // console.log(status)
   const payloadInfo = {
     "userId": userData?.userId,
@@ -163,7 +165,7 @@ const ContactComponent = ({
             >
               {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
               <option value="">Select Status</option>
-              {masterData?.accountStatusList?.map((statusObj, index) => {
+              {masterData ? masterData?.accountStatusList?.map((statusObj, index) => {
                 const key = Object.keys(statusObj)[0]; // Assuming there's only one key in each object
                 const value = statusObj[key];
 
@@ -172,14 +174,17 @@ const ContactComponent = ({
                     {value}
                   </option>
                 );
-              })}
-              {/* <option value="Opportunity">Opportunity</option>
-              <option value="Nurture">Nurture</option>
-              <option value="Follow Up">Follow Up</option>
-              <option value="Disqualified">Disqualified</option>
-              <option value="Bad data">Bad data</option>
-              <option value="Viewed">Viewed</option>
-              <option value="Untouched">Untouched</option> */}
+              }) : (
+                <>
+                  <option value="Opportunity">Opportunity</option>
+                  <option value="Nurture">Nurture</option>
+                  <option value="Follow Up">Follow Up</option>
+                  <option value="Disqualified">Disqualified</option>
+                  <option value="Bad data">Bad data</option>
+                  <option value="Viewed">Viewed</option>
+                  <option value="Untouched">Untouched</option></>
+              )}
+
             </select>
 
             <div className="input-group-append">

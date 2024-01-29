@@ -12,6 +12,7 @@ import useDashboardAccountCall, {
 } from "../../../Hooks/useDashboardCall";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
 import dashboardService from "../../../Services/dashBoardService";
+import LoadingComponent from "../../../GlobalComponents/LoadingComponent";
 import {
   AttachMoneyIcon,
   BlurCircularIcon,
@@ -52,34 +53,12 @@ const DetailedSection = () => {
   const [open, setOpen] = useState(false);
   const [reloadData, setReloadData] = useState(false);
   const [remark, setRemark] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   // const handleReload = () => setReload(true);
 
-  const handleReload = () => {
-    console.log("Hello testing")
-    setReloadData(true);
-    useGetTrailRemarkCall(
-      userInfo,
-      userData?.jwtToken
-    )
-    // After data is refetched, reset the reload state
-    setReloadData(false);
-  };
-
-  // useEffect(() => {
-  //   if (reloadData) {
-  //     // Perform data refetching logic here
-  //     console.log('Data is being refetched...');
-  //     useGetTrailRemarkCall(
-  //       userInfo,
-  //       userData?.jwtToken
-  //     )
-  //     // After data is refetched, reset the reload state
-  //     setReloadData(false);
-  //   }
-  // }, [reloadData]);
   const { accountName, accountID } = useParams();
 
   // console.log(accountName, accountID);
@@ -100,16 +79,12 @@ const DetailedSection = () => {
     userInfo,
     userData?.jwtToken
   );
-  console.log(accountDetails, "Account Detail###########");
+  useEffect(() => {
+    if (remarkTrail) {
+      setIsLoading(false);
+    }
+  }, [remarkTrail]);
 
-  // const contactCount = useDashboardContactCountCall(
-  //   accountName,
-  //   userData.jwtToken
-  // );
-  // console.log(contactCount);
-  // const contacts = useDashboardContactCall(accountName, userData.jwtToken);
-  // console.log(contacts);
-  // console.log(accountDetails);
   const statusUpdate = () => {
     console.log("Test Test")
     if ((status === "BadData" || status === "Disqualified") && remark === "") {
@@ -129,12 +104,13 @@ const DetailedSection = () => {
       .catch((err) => console.log(err));
     handleClose();
   };
+  // setIsLoading(false);
 
   return (
     <>
 
 
-      <div className="row">
+      {!isLoading ? (<div className="row">
         <div className="col-lg-4">
           <div className="card custom-card">
             <div className="card-header">
@@ -224,7 +200,8 @@ const DetailedSection = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>) : <LoadingComponent />
+      }
 
 
 

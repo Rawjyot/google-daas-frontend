@@ -14,6 +14,7 @@ import authService from "../../Services/authServices";
 import logo from "../../assets/images/logo.png";
 import { partnerList as partnerListAction } from "../../store/Features/accountSlice";
 import { login } from "../../store/Features/authSlice";
+import LoadingComponent from "../../GlobalComponents/LoadingComponent";
 import "./login.css";
 
 const generateRandomString = (length) => {
@@ -44,6 +45,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false)
 
   const onChangeData = useCallback((e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -65,6 +67,7 @@ const Login = () => {
       // || !loginData.captchaToken
       toast.error("all details required");
     } else {
+      setIsLoading(true);
       authService
         .login(loginData)
         .then((res) => {
@@ -73,6 +76,7 @@ const Login = () => {
             // return
             if (res?.data?.statusCode != "200") {
               toast.error(res?.data?.message);
+              setIsLoading(false);
               return;
             }
 
@@ -94,6 +98,7 @@ const Login = () => {
         })
         .catch((err) => {
           // console.log(err);
+          setIsLoading(false);
           toast.error("something went wrong");
         });
     }
@@ -179,19 +184,19 @@ const Login = () => {
                 </div> */}
 
                 <Stack direction="row" spacing={1} sx={{ pt: 2 }}>
-                  <Button
+                  {isLoading ? <LoadingComponent submit={true} /> : <Button
                     type="submit"
                     variant="contained"
                     sx={{ width: "120px", borderRadius: 5 }}
                   >
                     Sign in
-                  </Button>
+                  </Button>}
                 </Stack>
               </form>
             </div>
           </div>
         </div>
-      </div>
+      </div>)
       <ToastContainer />
     </>
   );
