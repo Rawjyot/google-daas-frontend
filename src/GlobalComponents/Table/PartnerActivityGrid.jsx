@@ -1,5 +1,6 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
@@ -16,10 +17,16 @@ import * as React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { partnerActivityList as partnerActivityListAction } from "../../store/Features/accountSlice";
+import {
+  partnerActivityAll as partnerActivityAllAction,
+  partnerActivityList as partnerActivityListAction,
+} from "../../store/Features/accountSlice";
 
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
-import { partnerActivity } from "../../Services/dashBoardService";
+import {
+  getPartnerActivityAll,
+  partnerActivity,
+} from "../../Services/dashBoardService";
 
 const PartnerRow = (props) => {
   const [partnerOpen, setPartnerOpen] = React.useState(false);
@@ -40,7 +47,7 @@ const PartnerRow = (props) => {
             size="small"
             onClick={() => setPartnerOpen(!partnerOpen)}
           >
-            {partnerOpen ? (
+            {!partnerOpen ? (
               <KeyboardArrowRightIcon />
             ) : (
               <KeyboardArrowDownIcon />
@@ -77,13 +84,9 @@ const PartnerRow = (props) => {
                       },
                     }}
                   >
-                    <TableCell sx={{ p: 0 }}>
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        onClick={() => setPartnerOpen(!partnerOpen)}
-                      >
-                        {open ? "" : ""}
+                    <TableCell sx={{ p: 1, m: 1, minWidth: "50px" }}>
+                      <IconButton aria-label="expand row" size="small">
+                        <PersonOutlineIcon />
                       </IconButton>
                     </TableCell>
                     <TableCell component="th" scope="row" width="300px">
@@ -117,9 +120,105 @@ const PartnerRow = (props) => {
   );
 };
 
+const UserListRow = (props) => {
+  return (
+    <>
+      <TableRow
+        sx={{
+          "& > *": {
+            borderBottom: "unset",
+            backgroundColor: "#f4f8ff",
+          },
+        }}
+      >
+        <TableCell sx={{ p: 1, m: 1, minWidth: "50px" }}>
+          <IconButton aria-label="expand row" size="small">
+            <PersonOutlineIcon />
+          </IconButton>
+        </TableCell>
+
+        <TableCell width="300px">{props.user.region}</TableCell>
+        <TableCell width="300px">{props.user.assignedAccounts}</TableCell>
+        <TableCell width="300px">{props.user.assignedContacts}</TableCell>
+        <TableCell width="300px">{props.user.accountsViewed}</TableCell>
+        <TableCell width="300px">{props.user.accountsTouched}</TableCell>
+        <TableCell width="300px">{props.user.contactsTouched}</TableCell>
+        <TableCell width="300px">{props.user.loginsPerMonth}</TableCell>
+      </TableRow>
+    </>
+  );
+};
+
+const RegionRow = (props) => {
+  const [partnerOpen, setPartnerOpen] = React.useState(false);
+  const userData = JSON.parse(useGetLocalStorage("userData"));
+  const userRole = userData?.roleId;
+
+  return (
+    <>
+      <TableRow
+        sx={{
+          "& > *": {
+            borderBottom: "unset",
+            backgroundColor: "#fff",
+          },
+        }}
+      >
+        <TableCell sx={{ p: 0 }}>
+          <IconButton
+            // disabled={!props.region.partnerList}
+            aria-label="expand row"
+            size="small"
+            onClick={() => setPartnerOpen(!partnerOpen)}
+          >
+            {!partnerOpen ? (
+              <KeyboardArrowRightIcon />
+            ) : (
+              <KeyboardArrowDownIcon />
+            )}
+          </IconButton>
+        </TableCell>
+        <TableCell width="300px">{props.region.region}</TableCell>
+        <TableCell width="300px">{props.region.assignedAccounts}</TableCell>
+        <TableCell width="300px">{props.region.assignedContacts}</TableCell>
+        <TableCell width="300px">{props.region.accountsViewed}</TableCell>
+        <TableCell width="300px">{props.region.accountsTouched}</TableCell>
+        <TableCell width="300px">{props.region.contactsTouched}</TableCell>
+        <TableCell width="300px">{props.region.loginsPerMonth}</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell
+          style={{
+            paddingBottom: 0,
+            paddingTop: 0,
+            backgroundColor: "#f4f8ff",
+          }}
+          colSpan={20}
+        >
+          <Collapse in={partnerOpen} timeout="auto" unmountOnExit>
+            {userRole === 1 &&
+              props.region.partnerList &&
+              props.region.partnerList.map((data) => (
+                <PartnerRow key={data.region} partner={data} />
+              ))}
+
+            {userRole === 2 &&
+              props.region.userList &&
+              props.region.userList.map((user) => (
+                <UserListRow key={user.region} user={user} />
+              ))}
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+};
+
 const Row = (props) => {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+
+  if (!row) return;
 
   return (
     <>
@@ -130,12 +229,12 @@ const Row = (props) => {
       >
         <TableCell sx={{ p: 1, m: 1 }}>
           <IconButton
-            disabled={!row.partnerList}
+            // disabled={!row.regionList}
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
+            {!open ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
 
@@ -160,9 +259,9 @@ const Row = (props) => {
           colSpan={20}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {row.partnerList &&
-              row.partnerList.map((partner) => (
-                <PartnerRow key={partner.region} partner={partner} />
+            {row.regionList &&
+              row.regionList.map((data) => (
+                <RegionRow key={data.region} region={data} />
               ))}
           </Collapse>
         </TableCell>
@@ -173,7 +272,9 @@ const Row = (props) => {
 
 export const PartnerActivityGrid = () => {
   const dispatch = useDispatch();
-  const { partnerActivityList } = useSelector((state) => state.account);
+  const { regionsFilter } = useSelector((state) => state.account);
+  const { partnerFilter } = useSelector((state) => state.account);
+  const { partnerActivityAll } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
 
   const fetchPartnerActivityListDetails = async () => {
@@ -185,14 +286,32 @@ export const PartnerActivityGrid = () => {
         roleId: userData?.roleId,
       });
       dispatch(partnerActivityListAction(response.data));
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchPartnerActivityAll = async () => {
+    try {
+      const response = await getPartnerActivityAll({
+        userId: userData?.userId,
+        userToken: userData?.userToken,
+        responseToken: userData?.responseToken,
+        roleId: userData?.roleId,
+      });
+
+      const partnerList = await fetchPartnerActivityListDetails();
+      response.data.regionList = partnerList;
+      dispatch(partnerActivityAllAction(response.data));
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchPartnerActivityListDetails();
-  }, []);
+    fetchPartnerActivityAll();
+  }, [regionsFilter, partnerFilter]);
 
   return (
     <>
@@ -317,10 +436,10 @@ export const PartnerActivityGrid = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {partnerActivityList &&
-                      partnerActivityList.map((row) => (
-                        <Row key={row.name} row={row} />
-                      ))}
+                    <Row
+                      key={partnerActivityAll && partnerActivityAll.region}
+                      row={partnerActivityAll}
+                    />
                   </TableBody>
                 </Table>
               </TableContainer>

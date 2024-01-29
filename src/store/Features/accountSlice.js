@@ -4,6 +4,7 @@ const initialState = {
   accountListData: null,
   activityList: null,
   activityAll: null,
+  partnerActivityAll: null,
   agentFilter: [],
   revenueFilter: [],
   regionsFilter: [],
@@ -82,6 +83,9 @@ const accountSlice = createSlice({
     activityAll: (state, action) => {
       state.activityAll = action.payload;
     },
+    partnerActivityAll: (state, action) => {
+      state.partnerActivityAll = action.payload;
+    },
     partnerList: (state, action) => {
       state.partnerList = action.payload;
     },
@@ -112,6 +116,7 @@ export const {
   agentList,
   accountList,
   activityAll,
+  partnerActivityAll,
   activityList,
   regionsList,
   revenueList,
