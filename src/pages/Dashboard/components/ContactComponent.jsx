@@ -6,6 +6,9 @@ import dashboardService from "../../../Services/dashBoardService";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal"
 const userData = JSON.parse(useGetLocalStorage("userData"));
+import {
+  useGetMasterData,
+} from "../../../Hooks/useDashboardCall";
 // console.log(userData.jwtToken);
 import "./DetailedSection.css";
 
@@ -34,6 +37,16 @@ const ContactComponent = ({
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const userInfo = {
+    "userId": userData?.userId,
+    "userToken": userData?.userToken,
+    "responseToken": userData?.responseToken,
+
+  }
+  const masterData = useGetMasterData(
+    userInfo,
+    userData?.jwtToken
+  );
   // console.log(status)
   const payloadInfo = {
     "userId": userData?.userId,
@@ -54,9 +67,10 @@ const ContactComponent = ({
     // setAccountId(val);
   };
 
+  // console.log(masterData);
   const statusUpdate = (e) => {
 
-    if ((status === "Bad Data" || status === "Disqualified") && remark === "") {
+    if ((status === "Bad data" || status === "Disqualified") && remark === "") {
       toast.error("remark must be added");
       return;
     }
@@ -134,7 +148,7 @@ const ContactComponent = ({
           {val.designation || 'NA'}
         </p>
         <label><strong>Status</strong> :{" "}</label>
-        {userRole == 1 ? val?.contactStatus || ' NA' : (<form
+        {(userRole == 1 || userRole == 2) ? val?.contactStatus || ' NA' : (<form
           action=""
           className="flex items-center justify-center"
           onSubmit={submit}
@@ -144,19 +158,30 @@ const ContactComponent = ({
               id="status"
               name="status"
               onChange={(e) => handleDropdown(e, val.contactaccountID)}
-              defaultValue={val.contactStatus}
+              value={status}
               className={`form-control `}
             >
               {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
               <option value="">Select Status</option>
-              <option value="Opportunity">Opportunity</option>
+              {masterData?.accountStatusList?.map((statusObj, index) => {
+                const key = Object.keys(statusObj)[0]; // Assuming there's only one key in each object
+                const value = statusObj[key];
+
+                return (
+                  <option key={index} value={value}>
+                    {value}
+                  </option>
+                );
+              })}
+              {/* <option value="Opportunity">Opportunity</option>
               <option value="Nurture">Nurture</option>
-              <option value="Followup">Followup</option>
+              <option value="Follow Up">Follow Up</option>
               <option value="Disqualified">Disqualified</option>
-              <option value="Bad Data">Bad Data</option>
+              <option value="Bad data">Bad data</option>
               <option value="Viewed">Viewed</option>
-              <option value="Untouched">Untouched</option>
+              <option value="Untouched">Untouched</option> */}
             </select>
+
             <div className="input-group-append">
               <button type="submit" className="btn btn-submit">Submit</button>
             </div>{" "}

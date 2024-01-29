@@ -66,6 +66,21 @@ export const useGetTrailRemarkCall = (payload, token) => {
   }, []);
   return data;
 };
+
+
+export const useGetMasterData = (payload, token) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    dashboardService
+      .getMastersList(payload, token)
+      .then((res) => {
+        // console.log(res);
+        setData(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  return data;
+};
 // export const useGetAccountActivityCall = (role, id, token) => {
 //   const [data, setData] = useState([]);
 //   useEffect(() => {

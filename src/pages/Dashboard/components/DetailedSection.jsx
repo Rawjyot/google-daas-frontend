@@ -144,9 +144,9 @@ const DetailedSection = () => {
               <div className="card-inner">
                 <h3 className="comp-name">
                   {accountDetails?.accountData?.accountName}{" "}
-                  <span>
+                  {/* <span>
                     <FlagIcon />
-                  </span>
+                  </span> */}
                 </h3>
                 <ul className="comp-lsit">
                   <li><span><LanguageIcon /></span> {accountDetails?.accountData?.website || ""}</li>
@@ -167,8 +167,8 @@ const DetailedSection = () => {
 
                       <Chip
                         label={accountDetails?.accountData?.accountStatus}
-                        color={accountDetails?.accountData?.accountStatus === 'Nurture' ? 'default' : 'primary'}
-                        className={accountDetails?.accountData?.accountStatus === 'Nurture' ? 'green-chip' : ''}
+                        color={accountDetails?.accountData?.accountStatus === 'Opportunity' ? 'default' : 'primary'}
+                        className={accountDetails?.accountData?.accountStatus === 'Opportunity' ? 'green-chip' : ''}
                       />
 
 

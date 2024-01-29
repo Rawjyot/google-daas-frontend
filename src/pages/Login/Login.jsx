@@ -72,6 +72,7 @@ const Login = () => {
             // return
             if (res?.data?.statusCode != "200") {
               toast.error(res?.data?.message);
+              return;
             }
 
             else {
