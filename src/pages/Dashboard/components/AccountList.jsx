@@ -2,7 +2,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AccountListGrid } from "../../../GlobalComponents/Table/AccountListGrid";
 import AccountListNavbar from "../../../GlobalComponents/navbar/AccountListNavbar";
@@ -10,22 +10,108 @@ import Sidebar from "../../../GlobalComponents/sideBar/Sidebar";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
 import { accountList } from "../../../store/Features/accountSlice";
 
-import { getAccountListDetails } from "../../../Services/dashBoardService";
+import {
+  getAccountListDetails,
+  getAccountListDetailsFiltered,
+} from "../../../Services/dashBoardService";
 import AccountListMeta from "./AccountListMeta";
 import "./acountList.css";
 
 const AccountList = () => {
   const dispatch = useDispatch();
+  const { partnerFilter } = useSelector((state) => state.account);
+  const { agentFilter } = useSelector((state) => state.account);
+  const { empSizeFilter } = useSelector((state) => state.account);
+  const { countryFilter } = useSelector((state) => state.account);
+  const { stateFilter } = useSelector((state) => state.account);
+  const { revenueFilter } = useSelector((state) => state.account);
+  const { cityFilter } = useSelector((state) => state.account);
+  const { verticalFilter } = useSelector((state) => state.account);
+  const { statusFilter } = useSelector((state) => state.account);
+  const { regionsFilter } = useSelector((state) => state.account);
+  const { technographicsFilter } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
 
   const fetchAccountListDetails = async () => {
+    console.log("technographicsFilter => ", technographicsFilter);
     try {
-      const response = await getAccountListDetails({
-        userId: userData?.userId,
-        userToken: userData?.userToken,
-        responseToken: userData?.responseToken,
-        roleId: userData?.roleId,
-      });
+      let response = null;
+      if (
+        (empSizeFilter && empSizeFilter.length > 0) ||
+        (partnerFilter && partnerFilter.length > 0) ||
+        (agentFilter && agentFilter.length > 0) ||
+        (statusFilter && statusFilter.length > 0) ||
+        (regionsFilter && regionsFilter.length > 0) ||
+        (countryFilter && countryFilter.length > 0) ||
+        (stateFilter && stateFilter.length > 0) ||
+        (cityFilter && cityFilter.length > 0) ||
+        (verticalFilter && verticalFilter.length > 0) ||
+        (revenueFilter && revenueFilter.length > 0) ||
+        (technographicsFilter && technographicsFilter.length > 0)
+      ) {
+        response = await getAccountListDetailsFiltered({
+          userId: userData?.userId,
+          userToken: userData?.userToken,
+          responseToken: userData?.responseToken,
+          roleId: userData?.roleId,
+          partnerId:
+            (partnerFilter &&
+              partnerFilter.length > 0 &&
+              partnerFilter.join("^")) ||
+            "",
+          agentId:
+            (agentFilter && agentFilter.length > 0 && agentFilter.join("^")) ||
+            "",
+          accountStatus:
+            (statusFilter &&
+              statusFilter.length > 0 &&
+              statusFilter.join("^")) ||
+            "",
+          region:
+            (regionsFilter &&
+              regionsFilter.length > 0 &&
+              regionsFilter.join("^")) ||
+            "",
+          country:
+            (countryFilter &&
+              countryFilter.length > 0 &&
+              countryFilter.join("^")) ||
+            "",
+          state:
+            (stateFilter && stateFilter.length > 0 && stateFilter.join("^")) ||
+            "",
+          city:
+            (cityFilter && cityFilter.length > 0 && cityFilter.join("^")) || "",
+          vertical:
+            (verticalFilter &&
+              verticalFilter.length > 0 &&
+              verticalFilter.join("^")) ||
+            "",
+          empSize:
+            (empSizeFilter &&
+              empSizeFilter.length > 0 &&
+              empSizeFilter.join("^")) ||
+            "",
+          revenue:
+            (revenueFilter &&
+              revenueFilter.length > 0 &&
+              revenueFilter.join("^")) ||
+            "",
+          technographics:
+            (technographicsFilter &&
+              technographicsFilter.length > 0 &&
+              technographicsFilter.join("^")) ||
+            "",
+        });
+      } else {
+        response = await getAccountListDetails({
+          userId: userData?.userId,
+          userToken: userData?.userToken,
+          responseToken: userData?.responseToken,
+          roleId: userData?.roleId,
+        });
+      }
+
       dispatch(accountList(response.data));
     } catch (error) {
       console.log(error);
@@ -34,14 +120,20 @@ const AccountList = () => {
 
   useEffect(() => {
     fetchAccountListDetails();
-  }, []);
+  }, [
+    technographicsFilter,
+    revenueFilter,
+    regionsFilter,
+    empSizeFilter,
+    verticalFilter,
+    statusFilter,
+  ]);
 
   return (
     <>
       <Sidebar page="accountList" />
       <div className="mainContainer">
         <AccountListNavbar />
-
         <div className="main-content">
           <div className="page-header">
             <div className="row align-items-center">
