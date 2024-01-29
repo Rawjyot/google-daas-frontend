@@ -27,6 +27,7 @@ const ContactComponent = ({
   accountId,
   setAccountId,
   userRole,
+  masterData,
   // setStatus,
   // status,
   contactId
@@ -37,16 +38,7 @@ const ContactComponent = ({
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const userInfo = {
-    "userId": userData?.userId,
-    "userToken": userData?.userToken,
-    "responseToken": userData?.responseToken,
 
-  }
-  const masterData = useGetMasterData(
-    userInfo,
-    userData?.jwtToken
-  );
 
 
   // console.log(status)
