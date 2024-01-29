@@ -62,7 +62,6 @@ class AuthService {
     }
   }
 
-
   async logout(payload) {
     try {
       const url = `${config.baseUrl}/api/logout`;

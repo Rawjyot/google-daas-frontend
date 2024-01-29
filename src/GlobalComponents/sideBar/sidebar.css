@@ -58,57 +58,9 @@
   color: #fff;
 }
 
-.filter-control {
-  margin-bottom: 15px;
-}
+@media (max-width:767px) {
 
-.sidebar-filter {
-  padding: 10px;
-}
-
-.filter-control .MuiInputBase-input {
-  font-size: 14px !important;
-  font-weight: 400;
-  color: black;
-  text-shadow: none !important;
-}
-
-.sidebar-filter .MuiAccordionSummary-content {
-  margin: 0 !important;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.sidebar-filter .MuiAccordionSummary-root {
-  flex-direction: row-reverse;
-}
-
-.main-sidebar {
-  overflow-y: auto;
-  height: 100%;
-}
-
-.sidebar-filter .MuiAutocomplete-root {
-  width: 100% !important;
-}
-
-.sidebar-filter .MuiAutocomplete-input {
-  font-size: 14px !important;
-}
-
-.sidebar-filter .MuiAccordionSummary-expandIconWrapper svg {
-  rotate: -90deg;
-}
-
-.sidebar-filter .MuiAccordionSummary-expandIconWrapper.Mui-expanded svg {
-  rotate: -180deg;
-}
-
-.sidebar-filter .MuiPaper-root {
-  background-color: #e2edff;
-}
-
-
-.sidebar-filter .Mui-expanded {
-  background-color: #fff;
+  .main-sidebar {
+    display: none;
+  }
 }
