@@ -159,7 +159,7 @@ const RegionRow = (props) => {
             paddingBottom: 0,
             paddingTop: 0,
             paddingRight: 0,
-            backgroundColor: "#f4f8ff",
+            backgroundColor: "#fff",
           }}
           colSpan={10}
         >
@@ -216,7 +216,7 @@ const Row = (props) => {
             paddingBottom: 0,
             paddingTop: 0,
             paddingRight: 0,
-            backgroundColor: "#ededed",
+            backgroundColor: "#fff",
           }}
           colSpan={10}
         >
@@ -400,9 +400,6 @@ export const AccountActivityGrid = () => {
                       </TableCell>
                     </TableRow>
                   </TableHead>
-                  {/* <TableBody>
-            <Row key={activityAll.region} row={activityAll} />
-          </TableBody> */}
                   <TableBody>
                     <Row
                       key={activityAll && activityAll.region}
@@ -415,136 +412,6 @@ export const AccountActivityGrid = () => {
           </div>
         </div>
       </div>
-      {/* <Box>
-        <Box sx={{ pt: 2, pb: 2 }}>
-          <Typography className="page-title">Account Activity</Typography>
-        </Box>
-        <Box sx={{ display: "flex", pb: 2, justifyContent: "space-between" }}>
-          <Box>
-            <Button
-              variant="contained"
-              sx={{
-                alignItems: "center",
-                textAlign: "center",
-                width: "220px",
-              }}
-            >
-              Expand All
-            </Button>
-          </Box>
-          <Box sx={{ pr: 1 }}>
-            <Link to="/account-list">
-              <Button
-                variant="contained"
-                sx={{
-                  alignItems: "center",
-                  textAlign: "center",
-                  width: "220px",
-                }}
-                startIcon={<ArrowBackIcon />}
-              >
-                View All Account
-              </Button>
-            </Link>
-          </Box>
-        </Box>
-      </Box>
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
-          <TableHead
-            component="th"
-            scope="row"
-            sx={{
-              backgroundColor: "#37BCF8",
-              color: "#fff",
-              fontSize: "14px",
-              alignItems: "center",
-              textAlign: "center",
-              p: 0.5,
-            }}
-          >
-            <TableRow>
-              <TableCell />
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                  minWidth: 100,
-                }}
-              >
-                Regions
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Nominated Accounts
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Profiled Accounts
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Contacts
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Bad Data (Contacts)
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Opportunities
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Follow Up
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Disqualified
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <Row key={activityAll && activityAll.region} row={activityAll} />
-          </TableBody>
-        </Table>
-      </TableContainer> */}
     </>
   );
 };

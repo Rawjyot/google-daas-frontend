@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AccountActivityGrid } from "../../GlobalComponents/Table/AccountActivityGrid";
 import DashBoardNavbar from "../../GlobalComponents/navbar/DashboardNavbar";
 import Sidebar from "../../GlobalComponents/sideBar/Sidebar";
@@ -9,6 +9,7 @@ import { regionsList as regionsListAction } from "../../store/Features/accountSl
 import "./dashboard.css";
 const AccountActivity = () => {
   const dispatch = useDispatch();
+  const { technographicsFilter } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
 
   const fetchRegionList = async () => {

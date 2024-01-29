@@ -17,8 +17,13 @@ import { NavLink } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import logo from "../../assets/images/logo.png";
 import {
+  empSizeFilter as empSizeFilterAction,
   partnerFilter as partnerFilterAction,
   regionsFilter as regionsFilterAction,
+  revenueFilter as revenueFilterAction,
+  statusFilter as statusFilterAction,
+  technographicsFilter as technographicsFilterAction,
+  verticalFilter as verticalFilterAction,
 } from "../../store/Features/accountSlice";
 import "./sidebar.css";
 
@@ -27,12 +32,18 @@ export default function Sidebar(props) {
   const { regionsList } = useSelector((state) => state.account);
   const { partnerFilter } = useSelector((state) => state.account);
   const { regionsFilter } = useSelector((state) => state.account);
-  const { revenueList } = useSelector((state) => state.account);
+  const { empSizeFilter } = useSelector((state) => state.account);
+  const { verticalFilter } = useSelector((state) => state.account);
+  const { statusFilter } = useSelector((state) => state.account);
   const { revenueFilter } = useSelector((state) => state.account);
+  const { technographicsFilter } = useSelector((state) => state.account);
+
+  const { revenueList } = useSelector((state) => state.account);
   const { verticalList } = useSelector((state) => state.account);
   const { empSizeList } = useSelector((state) => state.account);
   const { contactStatusList } = useSelector((state) => state.account);
   const { technographicsList } = useSelector((state) => state.account);
+
   const { partnerList } = useSelector((state) => state.account);
 
   const [regionOpen, setRegionOpen] = useState(false);
@@ -60,6 +71,46 @@ export default function Sidebar(props) {
     } = event;
     const contextValue = typeof value === "string" ? value.split(",") : value;
     dispatch(partnerFilterAction(contextValue));
+  };
+
+  const handleTechnoChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    dispatch(technographicsFilterAction(contextValue));
+  };
+
+  const handleRevenueChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    dispatch(revenueFilterAction(contextValue));
+  };
+
+  const handleEmpSizeFilterChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    dispatch(empSizeFilterAction(contextValue));
+  };
+
+  const handleVerticalChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    dispatch(verticalFilterAction(contextValue));
+  };
+
+  const handleStatusChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    dispatch(statusFilterAction(contextValue));
   };
 
   const ITEM_HEIGHT = 50;
@@ -345,9 +396,10 @@ export default function Sidebar(props) {
                           labelId="demo-multiple-name-label"
                           id="demo-multiple-name"
                           size="small"
+                          multiple
                           displayEmpty
-                          value={revenueFilter}
-                          onChange={handlePartnerChange}
+                          value={statusFilter}
+                          onChange={handleStatusChange}
                           input={<OutlinedInput />}
                           MenuProps={MenuProps}
                           sx={{
@@ -356,9 +408,21 @@ export default function Sidebar(props) {
                           renderValue={(selected) => {
                             if (!selected || selected.length === 0) {
                               return <em>Select Status</em>;
+                            } else {
+                              return (
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: 0.5,
+                                  }}
+                                >
+                                  {selected.map((value) => {
+                                    return <Chip key={value} label={value} />;
+                                  })}
+                                </Box>
+                              );
                             }
-
-                            return selected;
                           }}
                           inputProps={{ "aria-label": "Without label" }}
                         >
@@ -380,8 +444,9 @@ export default function Sidebar(props) {
                           id="demo-multiple-name"
                           size="small"
                           displayEmpty
-                          value={revenueFilter}
-                          onChange={handlePartnerChange}
+                          multiple
+                          value={verticalFilter}
+                          onChange={handleVerticalChange}
                           input={<OutlinedInput />}
                           MenuProps={MenuProps}
                           sx={{
@@ -390,9 +455,21 @@ export default function Sidebar(props) {
                           renderValue={(selected) => {
                             if (!selected || selected.length === 0) {
                               return <em>Select Industry</em>;
+                            } else {
+                              return (
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: 0.5,
+                                  }}
+                                >
+                                  {selected.map((value) => {
+                                    return <Chip key={value} label={value} />;
+                                  })}
+                                </Box>
+                              );
                             }
-
-                            return selected;
                           }}
                           inputProps={{ "aria-label": "Without label" }}
                         >
@@ -413,8 +490,9 @@ export default function Sidebar(props) {
                         id="demo-multiple-name"
                         size="small"
                         displayEmpty
-                        value={revenueFilter}
-                        onChange={handlePartnerChange}
+                        multiple
+                        value={empSizeFilter}
+                        onChange={handleEmpSizeFilterChange}
                         input={<OutlinedInput />}
                         MenuProps={MenuProps}
                         sx={{
@@ -423,9 +501,21 @@ export default function Sidebar(props) {
                         renderValue={(selected) => {
                           if (!selected || selected.length === 0) {
                             return <em>Select Size</em>;
+                          } else {
+                            return (
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: 0.5,
+                                }}
+                              >
+                                {selected.map((value) => {
+                                  return <Chip key={value} label={value} />;
+                                })}
+                              </Box>
+                            );
                           }
-
-                          return selected;
                         }}
                         inputProps={{ "aria-label": "Without label" }}
                       >
@@ -444,8 +534,9 @@ export default function Sidebar(props) {
                       id="demo-multiple-name"
                       size="small"
                       displayEmpty
-                      value={revenueFilter}
-                      onChange={handlePartnerChange}
+                      multiple
+                      value={regionsFilter}
+                      onChange={handleRegionChange}
                       input={<OutlinedInput />}
                       MenuProps={MenuProps}
                       sx={{
@@ -454,9 +545,21 @@ export default function Sidebar(props) {
                       renderValue={(selected) => {
                         if (!selected || selected.length === 0) {
                           return <em>Select Region</em>;
+                        } else {
+                          return (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 0.5,
+                              }}
+                            >
+                              {selected.map((value) => {
+                                return <Chip key={value} label={value} />;
+                              })}
+                            </Box>
+                          );
                         }
-
-                        return selected;
                       }}
                       inputProps={{ "aria-label": "Without label" }}
                     >
@@ -491,8 +594,9 @@ export default function Sidebar(props) {
                         id="demo-multiple-name"
                         size="small"
                         displayEmpty
+                        multiple
                         value={revenueFilter}
-                        onChange={handlePartnerChange}
+                        onChange={handleRevenueChange}
                         input={<OutlinedInput />}
                         MenuProps={MenuProps}
                         sx={{
@@ -501,9 +605,21 @@ export default function Sidebar(props) {
                         renderValue={(selected) => {
                           if (!selected || selected.length === 0) {
                             return <em>Select Revenue</em>;
+                          } else {
+                            return (
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: 0.5,
+                                }}
+                              >
+                                {selected.map((value) => {
+                                  return <Chip key={value} label={value} />;
+                                })}
+                              </Box>
+                            );
                           }
-
-                          return selected;
                         }}
                         inputProps={{ "aria-label": "Without label" }}
                       >
@@ -523,8 +639,9 @@ export default function Sidebar(props) {
                         id="demo-multiple-name"
                         size="small"
                         displayEmpty
-                        value={revenueFilter}
-                        onChange={handlePartnerChange}
+                        multiple
+                        value={technographicsFilter}
+                        onChange={handleTechnoChange}
                         input={<OutlinedInput />}
                         MenuProps={MenuProps}
                         sx={{
@@ -533,9 +650,21 @@ export default function Sidebar(props) {
                         renderValue={(selected) => {
                           if (!selected || selected.length === 0) {
                             return <em>Select Technographics</em>;
+                          } else {
+                            return (
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: 0.5,
+                                }}
+                              >
+                                {selected.map((value) => {
+                                  return <Chip key={value} label={value} />;
+                                })}
+                              </Box>
+                            );
                           }
-
-                          return selected;
                         }}
                         inputProps={{ "aria-label": "Without label" }}
                       >

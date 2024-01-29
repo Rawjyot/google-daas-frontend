@@ -174,6 +174,11 @@ export const getAccountListDetails = async (data) => {
   return await axios.post(url, data);
 };
 
+export const getAccountListDetailsFiltered = async (data) => {
+  let url = `${config.baseUrl}/api/accountGridDataFiltered`;
+  return await axios.post(url, data);
+};
+
 export const getMasterData = async (data) => {
   let url = `${config.baseUrl}/api/getMasterData`;
   return await axios.post(url, data);
