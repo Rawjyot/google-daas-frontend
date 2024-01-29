@@ -15,15 +15,18 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
+  activityAll as activityAllAction,
   activityList as activityListAction,
-  regionsdropdown as regionDropdownAction,
 } from "../../store/Features/accountSlice";
 
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
-import { accountActivity } from "../../Services/dashBoardService";
+import {
+  accountActivity,
+  accountActivityAll,
+} from "../../Services/dashBoardService";
 
 const PartnerRow = (props) => {
   const [partnerOpen, setPartnerOpen] = React.useState(false);
@@ -116,8 +119,8 @@ const PartnerRow = (props) => {
   );
 };
 
-const Row = (props) => {
-  const { row } = props;
+const RegionRow = (props) => {
+  const { regionList } = props;
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -129,7 +132,7 @@ const Row = (props) => {
       >
         <TableCell sx={{ p: 1, m: 1 }}>
           <IconButton
-            disabled={!row.partnerList}
+            disabled={!regionList.partnerList}
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
@@ -139,7 +142,64 @@ const Row = (props) => {
         </TableCell>
 
         <TableCell component="th" width="300px" scope="row">
-          {row.region}
+          {regionList.region}
+        </TableCell>
+        <TableCell width="300px">{regionList.nominatedAccount}</TableCell>
+        <TableCell width="300px">{regionList.profiledAccount}</TableCell>
+        <TableCell width="300px">{regionList.contacts}</TableCell>
+        <TableCell width="300px">{regionList.badData}</TableCell>
+        <TableCell width="300px">{regionList.opportunities}</TableCell>
+        <TableCell width="300px">{regionList.followUp}</TableCell>
+        <TableCell width="300px">{regionList.disqualified}</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell
+          style={{
+            paddingBottom: 0,
+            paddingTop: 0,
+            paddingRight: 0,
+            backgroundColor: "#ededed",
+          }}
+          colSpan={10}
+        >
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            {regionList.partnerList &&
+              regionList.partnerList.map((partner) => (
+                <PartnerRow key={partner.region} partner={partner} />
+              ))}
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+};
+
+const Row = (props) => {
+  const { row } = props;
+  const [open, setOpen] = React.useState(false);
+
+  if (!row) return;
+
+  return (
+    <>
+      <TableRow
+        sx={{
+          "& > *": { borderBottom: "unset", backgroundColor: "#cbe9f7" },
+        }}
+      >
+        <TableCell sx={{ p: 1, m: 1 }}>
+          <IconButton
+            disabled={!row.regionList}
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {!open ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+
+        <TableCell component="th" width="300px" scope="row">
+          {row && row.region}
         </TableCell>
         <TableCell width="300px">{row.nominatedAccount}</TableCell>
         <TableCell width="300px">{row.profiledAccount}</TableCell>
@@ -160,9 +220,9 @@ const Row = (props) => {
           colSpan={10}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {row.partnerList &&
-              row.partnerList.map((partner) => (
-                <PartnerRow key={partner.region} partner={partner} />
+            {row.regionList &&
+              row.regionList.map((data) => (
+                <RegionRow key={data.region} regionList={data} />
               ))}
           </Collapse>
         </TableCell>
@@ -174,21 +234,9 @@ const Row = (props) => {
 export const AccountActivityGrid = () => {
   const dispatch = useDispatch();
   const { activityList } = useSelector((state) => state.account);
+  const { activityAll } = useSelector((state) => state.account);
+
   const userData = JSON.parse(useGetLocalStorage("userData"));
-
-  // const extractRegions = (data) => {
-  //   console.log("Data => ", data);
-  //   const partnerList = [];
-  //   const regions = data.map((data) => data.region);
-  //   data.map((data) => {
-  //     data.partnerList.map((partner) => {
-  //       partnerList.push(partner.region);
-  //     });
-  //   });
-
-  //   dispatch(regionDropdownAction(regions));
-  // };
-
   const fetchActivityListDetails = async () => {
     try {
       const response = await accountActivity({
@@ -198,15 +246,32 @@ export const AccountActivityGrid = () => {
         roleId: userData?.roleId,
       });
 
-      // extractRegions(response.data);
       dispatch(activityListAction(response.data));
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchActivityAll = async () => {
+    try {
+      const response = await accountActivityAll({
+        userId: userData?.userId,
+        userToken: userData?.userToken,
+        responseToken: userData?.responseToken,
+        roleId: userData?.roleId,
+      });
+
+      const activityList = await fetchActivityListDetails();
+      response.data.regionList = activityList;
+      dispatch(activityAllAction(response.data));
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchActivityListDetails();
+    fetchActivityAll();
   }, []);
 
   return (
@@ -337,9 +402,11 @@ export const AccountActivityGrid = () => {
               </TableCell>
             </TableRow>
           </TableHead>
+          {/* <TableBody>
+            <Row key={activityAll.region} row={activityAll} />
+          </TableBody> */}
           <TableBody>
-            {activityList &&
-              activityList.map((row) => <Row key={row.region} row={row} />)}
+            <Row key={activityAll && activityAll.region} row={activityAll} />
           </TableBody>
         </Table>
       </TableContainer>
