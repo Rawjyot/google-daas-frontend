@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "../configurations/config";
+import { sha256, sha256Bytes } from 'js-sha256';
 
 class AuthService {
   async apiPostCall(url, data) {
@@ -8,16 +9,21 @@ class AuthService {
 
   async login({ userId, userPassword, userToken }) {
     try {
+      // sha256("Denave@123").then(hash => {
+      // console.log(sha256("Denave@123"));
+      // })
+      // return;
       const data = {
         userId,
-        userPassword:
-          "23C5667F5E0B028051582D37E03C4EA5CE74043CFDAB3D664770C6CE7FE706BA",
+        userPassword: sha256(userPassword),
+        // "23C5667F5E0B028051582D37E03C4EA5CE74043CFDAB3D664770C6CE7FE706BA",
         userToken,
       };
       const url = `${config.baseUrl}/api/loginGoogle`;
       const res = await this.apiPostCall(url, data);
       return res;
     } catch (err) {
+      console.log(err);
       throw err;
     }
   }

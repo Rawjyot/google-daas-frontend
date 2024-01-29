@@ -26,6 +26,7 @@
     "axios": "^1.6.5",
     "html-react-parser": "^5.1.1",
     "html-to-json-parser": "^2.0.0",
+    "js-sha256": "^0.11.0",
     "react": "^18.2.0",
     "react-data-grid": "^7.0.0-beta.42",
     "react-dom": "^18.2.0",

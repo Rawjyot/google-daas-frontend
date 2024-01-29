@@ -15,6 +15,7 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { activityList as activityListAction } from "../../store/Features/accountSlice";
 
@@ -212,17 +213,19 @@ export const AccountActivityGrid = () => {
             </Button>
           </Box>
           <Box sx={{ pr: 1 }}>
-            <Button
-              variant="contained"
-              sx={{
-                alignItems: "center",
-                textAlign: "center",
-                width: "220px",
-              }}
-              startIcon={<ArrowBackIcon />}
-            >
-              View All Account
-            </Button>
+            <Link to="/account-list">
+              <Button
+                variant="contained"
+                sx={{
+                  alignItems: "center",
+                  textAlign: "center",
+                  width: "220px",
+                }}
+                startIcon={<ArrowBackIcon />}
+              >
+                View All Account
+              </Button>
+            </Link>
           </Box>
         </Box>
       </Box>
