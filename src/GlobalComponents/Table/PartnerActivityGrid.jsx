@@ -1,7 +1,6 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import Box from "@mui/material/Box";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -14,9 +13,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { partnerActivityList as partnerActivityListAction } from "../../store/Features/accountSlice";
 
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
@@ -26,7 +25,6 @@ const PartnerRow = (props) => {
   const [partnerOpen, setPartnerOpen] = React.useState(false);
   return (
     <>
-
       <TableRow
         sx={{
           "& > *": {
@@ -198,7 +196,6 @@ export const PartnerActivityGrid = () => {
 
   return (
     <>
-
       <div className="main-content">
         <div className="page-header">
           <div className="row align-items-center">
@@ -225,7 +222,7 @@ export const PartnerActivityGrid = () => {
                     textAlign: "center",
                     width: "220px",
                   }}
-                  startIcon={<ArrowBackIcon />}
+                  startIcon={<VisibilityIcon />}
                 >
                   View All Account
                 </Button>
@@ -237,107 +234,100 @@ export const PartnerActivityGrid = () => {
         <div className="row">
           <div className="col-md-12">
             <div className="grid-data">
-
-
-
               <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
-          <TableHead
-            component="th"
-            scope="row"
-            sx={{
-              backgroundColor: "#4286f5",
-              color: "#fff",
-              fontSize: "14px",
-              alignItems: "center",
-              textAlign: "center",
-              p: 0.5,
-            }}
-          >
-            <TableRow>
-              <TableCell />
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Regions
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Assigned Accounts
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Assigned Contacts
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Account Viewed
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Account Touched
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
+                <Table aria-label="collapsible table">
+                  <TableHead
+                    component="th"
+                    scope="row"
+                    sx={{
+                      backgroundColor: "#4286f5",
+                      color: "#fff",
+                      fontSize: "14px",
+                      alignItems: "center",
+                      textAlign: "center",
+                      p: 0.5,
+                    }}
+                  >
+                    <TableRow>
+                      <TableCell />
+                      <TableCell
+                        sx={{
+                          alignItems: "center",
+                          color: "#fff",
+                          fontSize: "16px",
+                        }}
+                      >
+                        Regions
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          alignItems: "center",
+                          color: "#fff",
+                          fontSize: "16px",
+                        }}
+                      >
+                        Assigned Accounts
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          alignItems: "center",
+                          color: "#fff",
+                          fontSize: "16px",
+                        }}
+                      >
+                        Assigned Contacts
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          alignItems: "center",
+                          color: "#fff",
+                          fontSize: "16px",
+                        }}
+                      >
+                        Account Viewed
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          alignItems: "center",
+                          color: "#fff",
+                          fontSize: "16px",
+                        }}
+                      >
+                        Account Touched
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          alignItems: "center",
+                          color: "#fff",
 
-                  fontSize: "16px",
-                }}
-              >
-                Contacts Touched
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignItems: "center",
-                  color: "#fff",
-                  fontSize: "16px",
-                }}
-              >
-                Login Per Month
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {partnerActivityList &&
-              partnerActivityList.map((row) => (
-                <Row key={row.name} row={row} />
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                          fontSize: "16px",
+                        }}
+                      >
+                        Contacts Touched
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          alignItems: "center",
+                          color: "#fff",
+                          fontSize: "16px",
+                        }}
+                      >
+                        Login Per Month
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {partnerActivityList &&
+                      partnerActivityList.map((row) => (
+                        <Row key={row.name} row={row} />
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
           </div>
         </div>
       </div>
-
-
-
-      
     </>
   );
 };

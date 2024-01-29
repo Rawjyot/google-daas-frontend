@@ -4,6 +4,8 @@ const initialState = {
   accountListData: null,
   activityList: null,
   activityAll: null,
+  regionsFilter: [],
+  partnerFilter: [],
   partnerActivityList: null,
   regionsdropdown: null,
   partnerdropdown: null,
@@ -41,6 +43,12 @@ const accountSlice = createSlice({
     revenueFilter: (state, action) => {
       state.revenueFilter = action.payload;
     },
+    regionsFilter: (state, action) => {
+      state.regionsFilter = action.payload;
+    },
+    partnerFilter: (state, action) => {
+      state.partnerFilter = action.payload;
+    },
     technographicsList: (state, action) => {
       state.technographicsList = action.payload;
     },
@@ -77,6 +85,8 @@ export const {
   partnerList,
   verticalList,
   empSizeList,
+  regionsFilter,
+  partnerFilter,
   contactStatusList,
   technographicsList,
   partnerActivityList,

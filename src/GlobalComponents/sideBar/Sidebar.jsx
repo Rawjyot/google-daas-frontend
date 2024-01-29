@@ -3,21 +3,30 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Chip,
   FormControl,
   OutlinedInput,
   Select,
 } from "@mui/material";
+import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import logo from "../../assets/images/logo.png";
+import {
+  partnerFilter as partnerFilterAction,
+  regionsFilter as regionsFilterAction,
+} from "../../store/Features/accountSlice";
 import "./sidebar.css";
 
 export default function Sidebar(props) {
+  const dispatch = useDispatch();
   const { regionsList } = useSelector((state) => state.account);
+  const { partnerFilter } = useSelector((state) => state.account);
+  const { regionsFilter } = useSelector((state) => state.account);
   const { revenueList } = useSelector((state) => state.account);
   const { revenueFilter } = useSelector((state) => state.account);
   const { verticalList } = useSelector((state) => state.account);
@@ -26,8 +35,6 @@ export default function Sidebar(props) {
   const { technographicsList } = useSelector((state) => state.account);
   const { partnerList } = useSelector((state) => state.account);
 
-  const [regionFilter, setRegionFilter] = useState("");
-  const [partnerFilter, setPartnerFilter] = useState("");
   const [regionOpen, setRegionOpen] = useState(false);
   const [partnerOpen, setPartnerOpen] = useState(false);
 
@@ -38,18 +45,21 @@ export default function Sidebar(props) {
     const {
       target: { value },
     } = event;
-    setRegionFilter(typeof value === "string" ? value.split(",") : value);
+
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    dispatch(regionsFilterAction(contextValue));
   };
 
   const handlePartnerChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPartnerFilter(typeof value === "string" ? value.split(",") : value);
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    dispatch(partnerFilterAction(contextValue));
   };
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
+  const ITEM_HEIGHT = 50;
+  const ITEM_PADDING_TOP = 4;
   const MenuProps = {
     PaperProps: {
       style: {
@@ -61,10 +71,6 @@ export default function Sidebar(props) {
 
   const toggleRegions = () => {
     setRegionOpen(!regionOpen);
-  };
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
   };
 
   const togglePartner = () => {
@@ -115,8 +121,9 @@ export default function Sidebar(props) {
                               labelId="demo-multiple-name-label"
                               id="demo-multiple-name"
                               size="small"
+                              multiple
                               displayEmpty
-                              value={regionFilter}
+                              value={regionsFilter}
                               onChange={handleRegionChange}
                               input={<OutlinedInput />}
                               MenuProps={MenuProps}
@@ -124,11 +131,25 @@ export default function Sidebar(props) {
                                 backgroundColor: "#fff",
                               }}
                               renderValue={(selected) => {
-                                if (selected.length === 0) {
+                                if (!selected || selected.length === 0) {
                                   return <em>Select Region</em>;
+                                } else {
+                                  return (
+                                    <Box
+                                      sx={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        gap: 0.5,
+                                      }}
+                                    >
+                                      {selected.map((value) => {
+                                        return (
+                                          <Chip key={value} label={value} />
+                                        );
+                                      })}
+                                    </Box>
+                                  );
                                 }
-
-                                return selected;
                               }}
                               inputProps={{ "aria-label": "Without label" }}
                             >
@@ -161,6 +182,7 @@ export default function Sidebar(props) {
                               labelId="demo-multiple-name-label"
                               id="demo-multiple-name"
                               size="small"
+                              multiple
                               displayEmpty
                               value={partnerFilter}
                               onChange={handlePartnerChange}
@@ -170,11 +192,25 @@ export default function Sidebar(props) {
                                 backgroundColor: "#fff",
                               }}
                               renderValue={(selected) => {
-                                if (selected.length === 0) {
+                                if (!selected || selected.length === 0) {
                                   return <em>Select Partner</em>;
+                                } else {
+                                  return (
+                                    <Box
+                                      sx={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        gap: 0.5,
+                                      }}
+                                    >
+                                      {selected.map((value) => {
+                                        return (
+                                          <Chip key={value} label={value} />
+                                        );
+                                      })}
+                                    </Box>
+                                  );
                                 }
-
-                                return selected;
                               }}
                               inputProps={{ "aria-label": "Without label" }}
                             >
