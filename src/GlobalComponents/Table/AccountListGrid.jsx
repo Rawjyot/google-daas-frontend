@@ -51,7 +51,7 @@ export const AccountListGrid = (props) => {
     {
       field: "createdDate",
       headerName: "Created Date",
-      minWidth: 120,
+      minWidth: 180,
     },
     {
       field: "empSize",

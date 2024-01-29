@@ -68,7 +68,7 @@ const AccountList = () => {
 
           <div className="row">
             <div className="col-md-12">
-              <div className="grid-data">
+              <div className="grid-data grid-datatable">
                 <AccountListMeta />
                 <AccountListGrid />
               </div>
