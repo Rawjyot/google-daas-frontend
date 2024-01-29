@@ -38,9 +38,10 @@
    padding: 2px 15px;
  }
 
- .grid-data .MuiTableContainer-root{
-  border-radius: 8px;
+ .grid-data .MuiTableContainer-root {
+   border-radius: 8px;
  }
+
  .grid-data .MuiBox-root {
    margin: 0;
    margin-bottom: 10px;
@@ -57,15 +58,20 @@
 
  .grid-data th {
    white-space: nowrap;
+   padding: 0;
+   height: 50px;
  }
 
  .ag-theme-quartz {
-   --ag-grid-size: 10px;
+   /* --ag-grid-size: 10px; */
    --ag-foreground-color: #000;
    --ag-background-color: #fff;
    --ag-header-foreground-color: #fff;
    --ag-header-background-color: #4286f5;
-   --ag-font-size: 14px;
-   --ag-font-family: 'Roboto';
-   --ag-header-height: 55px;
+   --ag-font-size: 13px;
+   --ag-header-height: 50px;
+ }
+
+ .ag-theme-quartz .ag-header-cell {
+   font-size: 14px;
  }

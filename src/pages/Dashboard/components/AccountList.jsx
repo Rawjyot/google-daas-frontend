@@ -156,7 +156,7 @@ const AccountList = () => {
     <>
       <Sidebar page="accountList" />
       <div className="mainContainer">
-        <AccountListNavbar />
+        <AccountListNavbar page="list" />
         <div className="main-content">
           <div className="page-header">
             <div className="row align-items-center">

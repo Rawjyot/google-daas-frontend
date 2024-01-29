@@ -8,8 +8,7 @@ import { useSelector } from "react-redux";
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 import { ModuleRegistry } from "@ag-grid-community/core";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
-
-// ...
+import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 
 // Custom cell renderer function for the "Account Name" column
 const accountNameCellRenderer = (params) => {
@@ -46,6 +45,9 @@ export const AccountListGrid = (props) => {
       field: "accountName",
       headerName: "Account Name",
       minWidth: 300,
+      cellStyle: (params) => {
+        return { textDecoration: "underline", color: "#4185F4" };
+      },
       cellRenderer: accountNameCellRenderer,
     },
     {
@@ -107,8 +109,13 @@ export const AccountListGrid = (props) => {
       field: "accountStatus",
       headerName: "Status",
       minWidth: 120,
+      cellStyle: (params) => {
+        if (params.value === "Opportunity") {
+          return { color: "green", fontWeight: 600 };
+        }
+        return null;
+      },
     },
-
     {
       field: "partnerName",
       headerName: "Partner Name",
@@ -122,8 +129,17 @@ export const AccountListGrid = (props) => {
   ]);
 
   const onGridReady = (params) => {
+    const userData = JSON.parse(useGetLocalStorage("userData"));
+    const userRole = userData?.roleId;
+
     params.api.sizeColumnsToFit();
     params.api.resetRowHeights();
+    console.log("User Id", userRole);
+    (userRole === 3 || userRole === 2) &&
+      params.api.setColumnVisible("partnerName", false);
+
+    userRole === 3 && params.api.setColumnVisible("user", false);
+    // userRole === 3 && params.api.setColumnVisible("user", false);
   };
 
   return (

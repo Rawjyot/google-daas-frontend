@@ -10,7 +10,7 @@ const DetailedList = () => {
     <>
       <Sidebar page="detailedList" />
       <div className="mainContainer">
-        <AccountListNavbar />
+        <AccountListNavbar page="detailed" />
 
         <div className="main-content">
           <div className="page-header">

@@ -1,5 +1,6 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -37,7 +38,7 @@ const PartnerRow = (props) => {
         sx={{
           "& > *": {
             borderBottom: "unset",
-            backgroundColor: "#f4f8ff",
+            backgroundColor: "#fff",
           },
         }}
       >
@@ -56,14 +57,21 @@ const PartnerRow = (props) => {
           </IconButton>
         </TableCell>
         {/*Inner 1st Grid*/}
-        <TableCell width="110px">{props.partner.region}</TableCell>
+
+        <TableCell width="210px">{props.partner.region}</TableCell>
         <TableCell width="300px">{props.partner.nominatedAccount}</TableCell>
         <TableCell width="280px">{props.partner.profiledAccount}</TableCell>
         <TableCell width="260px">{props.partner.contacts}</TableCell>
-        <TableCell width="310px">{props.partner.badData}</TableCell>
-        <TableCell width="350px">{props.partner.opportunities}</TableCell>
+        <TableCell width="310px" sx={{ color: "#FF0000" }}>
+          {props.partner.badData}
+        </TableCell>
+        <TableCell width="350px" sx={{ color: "#228B22" }}>
+          {props.partner.opportunities}
+        </TableCell>
         <TableCell width="250px">{props.partner.followUp}</TableCell>
-        <TableCell width="340px">{props.partner.disqualified}</TableCell>
+        <TableCell width="340px" sx={{ color: "#FF0000" }}>
+          {props.partner.disqualified}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -79,41 +87,45 @@ const PartnerRow = (props) => {
             {/*Third Row*/}
             {props.partner.userList &&
               props.partner.userList.map((userList) => (
-                <>
-                  <TableRow
-                    sx={{
-                      "& > *": {
-                        borderBottom: "unset",
-                        textAlign: "left",
-                        backgroundColor: "#fff",
-                      },
-                    }}
-                  >
-                    <TableCell sx={{ p: 0 }}>
-                      <IconButton aria-label="expand row" size="small">
-                        {open ? "" : ""}
-                      </IconButton>
-                    </TableCell>
-                    <TableCell component="th" scope="row" width="265px">
-                      {userList.region}
-                    </TableCell>
-                    <TableCell width="300px">
-                      {userList.nominatedAccount}
-                    </TableCell>
-                    <TableCell width="300px">
-                      {userList.profiledAccount}
-                    </TableCell>
-                    <TableCell width="300px">{userList.contacts}</TableCell>
-                    <TableCell width="300px">{userList.badData}</TableCell>
-                    <TableCell width="300px">
-                      {userList.opportunities}
-                    </TableCell>
-                    <TableCell width="300px">{userList.followUp}</TableCell>
-                    <TableCell width="300px">{userList.disqualified}</TableCell>
-                  </TableRow>
-                </>
+                <UserListRow key={userList.region} user={userList} />
               ))}
           </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+};
+
+const UserListRow = (props) => {
+  return (
+    <>
+      <TableRow
+        sx={{
+          "& > *": {
+            borderBottom: "unset",
+            backgroundColor: "#f4f8ff",
+          },
+        }}
+      >
+        <TableCell sx={{ p: 1, m: 1, minWidth: "50px" }}>
+          <IconButton aria-label="expand row" size="small">
+            <PersonOutlineIcon />
+          </IconButton>
+        </TableCell>
+
+        <TableCell width="210px">{props.user.region}</TableCell>
+        <TableCell width="300px">{props.user.nominatedAccount}</TableCell>
+        <TableCell width="280px">{props.user.profiledAccount}</TableCell>
+        <TableCell width="260px">{props.user.contacts}</TableCell>
+        <TableCell width="310px" sx={{ color: "#FF0000" }}>
+          {props.user.badData}
+        </TableCell>
+        <TableCell width="350px" sx={{ color: "#228B22" }}>
+          {props.user.opportunities}
+        </TableCell>
+        <TableCell width="250px">{props.user.followUp}</TableCell>
+        <TableCell width="340px" sx={{ color: "#FF0000" }}>
+          {props.user.disqualified}
         </TableCell>
       </TableRow>
     </>
@@ -124,6 +136,9 @@ const RegionRow = (props) => {
   const { regionList } = props;
   const [open, setOpen] = React.useState(false);
 
+  const userData = JSON.parse(useGetLocalStorage("userData"));
+  const userRole = userData?.roleId;
+
   return (
     <>
       <TableRow
@@ -133,7 +148,7 @@ const RegionRow = (props) => {
       >
         <TableCell sx={{ p: 1, m: 1 }}>
           <IconButton
-            disabled={!regionList.partnerList}
+            // disabled={!regionList.partnerList || regionList.userList}
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
@@ -142,16 +157,22 @@ const RegionRow = (props) => {
           </IconButton>
         </TableCell>
 
-        <TableCell component="th" width="300px" scope="row">
+        <TableCell width="300px" scope="row">
           {regionList.region}
         </TableCell>
         <TableCell width="300px">{regionList.nominatedAccount}</TableCell>
         <TableCell width="300px">{regionList.profiledAccount}</TableCell>
         <TableCell width="300px">{regionList.contacts}</TableCell>
-        <TableCell width="300px">{regionList.badData}</TableCell>
-        <TableCell width="300px">{regionList.opportunities}</TableCell>
+        <TableCell width="300px" sx={{ color: "#FF0000" }}>
+          {regionList.badData}
+        </TableCell>
+        <TableCell width="300px" sx={{ color: "#228B22" }}>
+          {regionList.opportunities}
+        </TableCell>
         <TableCell width="300px">{regionList.followUp}</TableCell>
-        <TableCell width="300px">{regionList.disqualified}</TableCell>
+        <TableCell width="300px" sx={{ color: "#FF0000" }}>
+          {regionList.disqualified}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -164,9 +185,16 @@ const RegionRow = (props) => {
           colSpan={10}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {regionList.partnerList &&
+            {userRole === 1 &&
+              regionList.partnerList &&
               regionList.partnerList.map((partner) => (
                 <PartnerRow key={partner.region} partner={partner} />
+              ))}
+
+            {userRole === 2 &&
+              regionList.userList &&
+              regionList.userList.map((user) => (
+                <UserListRow key={user.region} user={user} />
               ))}
           </Collapse>
         </TableCell>
@@ -199,16 +227,22 @@ const Row = (props) => {
           </IconButton>
         </TableCell>
 
-        <TableCell component="th" width="300px" scope="row">
+        <TableCell width="250px" scope="row">
           {row && row.region}
         </TableCell>
-        <TableCell width="300px">{row.nominatedAccount}</TableCell>
+        <TableCell width="180px">{row.nominatedAccount}</TableCell>
         <TableCell width="300px">{row.profiledAccount}</TableCell>
-        <TableCell width="300px">{row.contacts}</TableCell>
-        <TableCell width="300px">{row.badData}</TableCell>
-        <TableCell width="300px">{row.opportunities}</TableCell>
-        <TableCell width="300px">{row.followUp}</TableCell>
-        <TableCell width="300px">{row.disqualified}</TableCell>
+        <TableCell width="350px">{row.contacts}</TableCell>
+        <TableCell width="350px" sx={{ color: "#FF0000" }}>
+          {row.badData}
+        </TableCell>
+        <TableCell width="200px" sx={{ color: "#228B22" }}>
+          {row.opportunities}
+        </TableCell>
+        <TableCell width="250px">{row.followUp}</TableCell>
+        <TableCell width="300px" sx={{ color: "#FF0000" }}>
+          {row.disqualified}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -247,8 +281,10 @@ export const AccountActivityGrid = () => {
         userToken: userData?.userToken,
         responseToken: userData?.responseToken,
         roleId: userData?.roleId,
-        regionIds: regionsFilter,
-        partnerIds: partnerFilter,
+        dashboardFilter: {
+          regionIds: regionsFilter,
+          partnerIds: partnerFilter,
+        },
       });
 
       dispatch(activityListAction(response.data));
@@ -325,6 +361,8 @@ export const AccountActivityGrid = () => {
                     component="th"
                     scope="row"
                     sx={{
+                      fontSize: "14px",
+                      height: "50px",
                       backgroundColor: "#4286f5",
                       color: "#fff",
                       alignItems: "center",
@@ -336,8 +374,10 @@ export const AccountActivityGrid = () => {
                       <TableCell />
                       <TableCell
                         sx={{
+                          p: 0,
                           alignItems: "center",
                           color: "#fff",
+                          minWidth: 150,
                         }}
                       >
                         Regions
@@ -346,6 +386,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
+                          // minWidth: 10.0,
                         }}
                       >
                         Nominated Accounts

@@ -1,8 +1,5 @@
-import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
-
-import { Typography } from "@mui/material";
 
 const AccountListMeta = () => {
   const { accountListData } = useSelector((state) => state.account);
@@ -174,15 +171,34 @@ const AccountListMeta = () => {
 
   return (
     <>
-
-      <div class="account-meta">
-        <div class="row align-items-center">
-          <div class="col-4"><p>Total Accounts <span>{accountListData && accountListData.totalAccounts}</span></p></div>
-          <div class="col-4"><p>Total Contacts <span>{accountListData && accountListData.totalContacts}{" "}</span></p></div>
-          <div class="col-4"><p>New Contacts <span>{accountListData && accountListData.totalNewContacts}{" "}</span></p></div>
+      <div className="account-meta">
+        <div className="row align-items-center">
+          <div className="col-4">
+            <p>
+              Total Accounts{" "}
+              <span style={{ color: "#4185F4" }}>
+                {accountListData && accountListData.totalAccounts}
+              </span>
+            </p>
+          </div>
+          <div className="col-4">
+            <p>
+              Total Contacts{" "}
+              <span style={{ color: "#4185F4" }}>
+                {accountListData && accountListData.totalContacts}{" "}
+              </span>
+            </p>
+          </div>
+          <div className="col-4">
+            <p>
+              New Contacts{" "}
+              <span style={{ color: "#4185F4" }}>
+                {accountListData && accountListData.totalNewContacts}{" "}
+              </span>
+            </p>
+          </div>
         </div>
       </div>
-
     </>
   );
 };
