@@ -38,7 +38,7 @@ const AccountList = () => {
 
   return (
     <>
-      <Sidebar />
+      <Sidebar page="accountList" />
       <div className="mainContainer">
         <AccountListNavbar />
 

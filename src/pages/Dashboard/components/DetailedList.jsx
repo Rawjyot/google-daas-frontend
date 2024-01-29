@@ -1,25 +1,25 @@
-import React from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import AccountListNavbar from "../../../GlobalComponents/navbar/AccountListNavbar";
 import Sidebar from "../../../GlobalComponents/sideBar/Sidebar";
 import DetailedSection from "./DetailedSection";
-import Button from "@mui/material/Button";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Typography from "@mui/material/Typography";
 const DetailedList = () => {
   return (
     <>
-      <Sidebar />
+      <Sidebar page="detailedList" />
       <div className="mainContainer">
         <AccountListNavbar />
 
         <div className="main-content">
-
-        <div className="page-header">
+          <div className="page-header">
             <div className="row align-items-center">
-              <div className="col-md-6"><Typography className="page-title">Account Details</Typography></div>
+              <div className="col-md-6">
+                <Typography className="page-title">Account Details</Typography>
+              </div>
               <div className="col-md-6 text-right">
-              <Link to="/account-List">
+                <Link to="/account-List">
                   <Button
                     variant="contained"
                     sx={{
@@ -36,8 +36,6 @@ const DetailedList = () => {
             </div>
           </div>
 
-
-         
           <DetailedSection />
         </div>
       </div>

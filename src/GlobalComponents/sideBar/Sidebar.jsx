@@ -3,11 +3,9 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Autocomplete,
   FormControl,
   OutlinedInput,
   Select,
-  TextField,
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
@@ -17,8 +15,15 @@ import { NavLink } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import logo from "../../assets/images/logo.png";
 import "./sidebar.css";
-export default function Sidebar() {
+
+export default function Sidebar(props) {
   const { regionsList } = useSelector((state) => state.account);
+  const { revenueList } = useSelector((state) => state.account);
+  const { revenueFilter } = useSelector((state) => state.account);
+  const { verticalList } = useSelector((state) => state.account);
+  const { empSizeList } = useSelector((state) => state.account);
+  const { contactStatusList } = useSelector((state) => state.account);
+  const { technographicsList } = useSelector((state) => state.account);
   const { partnerList } = useSelector((state) => state.account);
 
   const [regionFilter, setRegionFilter] = useState("");
@@ -27,33 +32,20 @@ export default function Sidebar() {
   const [partnerOpen, setPartnerOpen] = useState(false);
 
   const userData = JSON.parse(useGetLocalStorage("userData"));
-  const userRole = userData?.roleId
-  // console.log(userData.jwtToken);
-  const userInfo = {
-    "userId": userData?.userId,
-    "userToken": userData?.userToken,
-    "responseToken": userData?.responseToken,
-    // "accountId": accountID
-  }
+  const userRole = userData?.roleId;
 
   const handleRegionChange = (event) => {
     const {
       target: { value },
     } = event;
-    setRegionFilter(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setRegionFilter(typeof value === "string" ? value.split(",") : value);
   };
 
   const handlePartnerChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPartnerFilter(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setPartnerFilter(typeof value === "string" ? value.split(",") : value);
   };
 
   const ITEM_HEIGHT = 48;
@@ -66,17 +58,6 @@ export default function Sidebar() {
       },
     },
   };
-
-  const AutoData = [
-    { title: "Region One" },
-    { title: "Region Two" },
-    { title: "Region Three" },
-    { title: "Region Four" },
-    { title: "Region Five" },
-  ];
-
-  // For Select
-  const [age, setAge] = useState("");
 
   const toggleRegions = () => {
     setRegionOpen(!regionOpen);
@@ -112,102 +93,104 @@ export default function Sidebar() {
                     `${isActive ? "menu-active" : "menu-inactive"}`
                   }
                 >
-                  <i class="bi bi-ui-radios-grid"></i> DashBoard
+                  <i className="bi bi-ui-radios-grid"></i> DashBoard
                 </NavLink>
               </MenuItem>
-              <div className="submenu">
-                <MenuItem>
-                  <NavLink onClick={toggleRegions}>
-                    {regionOpen ? (
-                      <i class="bi bi-chevron-down" />
-                    ) : (
-                      <i class="bi bi-chevron-right" />
-                    )}{" "}
-                    Regions
-                  </NavLink>
-                  {regionOpen && (
-                    <>
-                      <div>
-                        <FormControl sx={{ m: "0 35px", width: 180 }}>
-                          <Select
-                            labelId="demo-multiple-name-label"
-                            id="demo-multiple-name"
-                            size="small"
-                            displayEmpty
-                            value={regionFilter}
-                            onChange={handleRegionChange}
-                            input={<OutlinedInput />}
-                            MenuProps={MenuProps}
-                            sx={{
-                              backgroundColor: "#fff",
-                            }}
-                            renderValue={(selected) => {
-                              if (selected.length === 0) {
-                                return <em>Select Region</em>;
-                              }
+              {props.page === "accountActivity" && (
+                <div className="submenu">
+                  <MenuItem>
+                    <NavLink onClick={toggleRegions}>
+                      {regionOpen ? (
+                        <i className="bi bi-chevron-down" />
+                      ) : (
+                        <i className="bi bi-chevron-right" />
+                      )}{" "}
+                      Regions
+                    </NavLink>
+                    {regionOpen && (
+                      <>
+                        <div>
+                          <FormControl sx={{ m: "0 35px", width: 180 }}>
+                            <Select
+                              labelId="demo-multiple-name-label"
+                              id="demo-multiple-name"
+                              size="small"
+                              displayEmpty
+                              value={regionFilter}
+                              onChange={handleRegionChange}
+                              input={<OutlinedInput />}
+                              MenuProps={MenuProps}
+                              sx={{
+                                backgroundColor: "#fff",
+                              }}
+                              renderValue={(selected) => {
+                                if (selected.length === 0) {
+                                  return <em>Select Region</em>;
+                                }
 
-                              return selected;
-                            }}
-                            inputProps={{ "aria-label": "Without label" }}
-                          >
-                            {regionsList &&
-                              regionsList.map((name) => (
+                                return selected;
+                              }}
+                              inputProps={{ "aria-label": "Without label" }}
+                            >
+                              {regionsList &&
+                                regionsList.map((name) => (
+                                  <MenuItem key={name} value={name}>
+                                    {name}
+                                  </MenuItem>
+                                ))}
+                            </Select>
+                          </FormControl>
+                        </div>
+                      </>
+                    )}
+                  </MenuItem>
+                  <MenuItem>
+                    <NavLink onClick={togglePartner}>
+                      {partnerOpen ? (
+                        <i className="bi bi-chevron-down" />
+                      ) : (
+                        <i className="bi bi-chevron-right" />
+                      )}{" "}
+                      Partner
+                    </NavLink>
+                    {partnerOpen && (
+                      <>
+                        <div>
+                          <FormControl sx={{ m: "0 35px", width: 180 }}>
+                            <Select
+                              labelId="demo-multiple-name-label"
+                              id="demo-multiple-name"
+                              size="small"
+                              displayEmpty
+                              value={partnerFilter}
+                              onChange={handlePartnerChange}
+                              input={<OutlinedInput />}
+                              MenuProps={MenuProps}
+                              sx={{
+                                backgroundColor: "#fff",
+                              }}
+                              renderValue={(selected) => {
+                                if (selected.length === 0) {
+                                  return <em>Select Partner</em>;
+                                }
+
+                                return selected;
+                              }}
+                              inputProps={{ "aria-label": "Without label" }}
+                            >
+                              {getPartnerList().map((name) => (
                                 <MenuItem key={name} value={name}>
                                   {name}
                                 </MenuItem>
                               ))}
-                          </Select>
-                        </FormControl>
-                      </div>
-                    </>
-                  )}
-                </MenuItem>
-                <MenuItem>
-                  <NavLink onClick={togglePartner}>
-                    {partnerOpen ? (
-                      <i class="bi bi-chevron-down" />
-                    ) : (
-                      <i class="bi bi-chevron-right" />
-                    )}{" "}
-                    Partner
-                  </NavLink>
-                  {partnerOpen && (
-                    <>
-                      <div>
-                        <FormControl sx={{ m: "0 35px", width: 180 }}>
-                          <Select
-                            labelId="demo-multiple-name-label"
-                            id="demo-multiple-name"
-                            size="small"
-                            displayEmpty
-                            value={partnerFilter}
-                            onChange={handlePartnerChange}
-                            input={<OutlinedInput />}
-                            MenuProps={MenuProps}
-                            sx={{
-                              backgroundColor: "#fff",
-                            }}
-                            renderValue={(selected) => {
-                              if (selected.length === 0) {
-                                return <em>Select Partner</em>;
-                              }
-
-                              return selected;
-                            }}
-                            inputProps={{ "aria-label": "Without label" }}
-                          >
-                            {getPartnerList().map((name) => (
-                              <MenuItem key={name} value={name}>
-                                {name}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                      </div>
-                    </>
-                  )}
-                </MenuItem>
-              </div>
+                            </Select>
+                          </FormControl>
+                        </div>
+                      </>
+                    )}
+                  </MenuItem>
+                </div>
+              )}
 
               <MenuItem>
                 <NavLink
@@ -216,212 +199,319 @@ export default function Sidebar() {
                     `${isActive ? "menu-active" : "menu-inactive"}`
                   }
                 >
-                  <i class="bi bi-list-stars"></i> AccountList
+                  <i className="bi bi-list-stars"></i> AccountList
                 </NavLink>
               </MenuItem>
             </MenuList>
           </div>
-          {/* <hr className="mt-3 mb-3 bg-white"></hr> */}
-          {userRole == 2 ? <div className="sidebar-filter">
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-              >
-                Agent Search
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
-                    <Select
-                      labelId="status"
-                      id="status-select"
-                      value={0}
-                      input={<OutlinedInput />}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={0}>Agent</MenuItem>
-                      <MenuItem value={10}>Agent One</MenuItem>
-                      <MenuItem value={20}>Agent Two</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-              </AccordionDetails>
-            </Accordion>
-          </div> : ''}
+          {userRole == 2 && props.page === "accountList" ? (
+            <div className="sidebar-filter">
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                >
+                  Agent Search
+                </AccordionSummary>
+                <AccordionDetails>
+                  <div className="filter-control">
+                    <FormControl fullWidth size="small">
+                      <Select
+                        labelId="status"
+                        id="status-select"
+                        value={0}
+                        input={<OutlinedInput />}
+                        label="Status"
+                        onChange={handleChange}
+                      >
+                        <MenuItem value={0}>Agent</MenuItem>
+                        <MenuItem value={10}>Agent One</MenuItem>
+                        <MenuItem value={20}>Agent Two</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          ) : (
+            ""
+          )}
 
-          {(userRole === 1) ? <div className="sidebar-filter">
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-              >
-                Partner Search
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
+          {userRole === 1 && props.page === "accountList" ? (
+            <div className="sidebar-filter">
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                >
+                  Partner Search
+                </AccordionSummary>
+                <AccordionDetails>
+                  <div className="filter-control">
+                    <FormControl fullWidth size="small">
+                      <Select
+                        labelId="status"
+                        input={<OutlinedInput />}
+                        id="status-select"
+                        value={0}
+                        label="Status"
+                        onChange={handleChange}
+                      >
+                        <MenuItem value={0}>Partner Name</MenuItem>
+                        <MenuItem value={10}>Partner One</MenuItem>
+                        <MenuItem value={20}>Partner Two</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <div className="filter-control">
+                    <FormControl fullWidth size="small">
+                      <Select
+                        labelId="status"
+                        id="status-select"
+                        value={0}
+                        input={<OutlinedInput />}
+                        label="Status"
+                        onChange={handleChange}
+                      >
+                        <MenuItem value={0}>Agent</MenuItem>
+                        <MenuItem value={10}>Agent One</MenuItem>
+                        <MenuItem value={20}>Agent Two</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          ) : (
+            ""
+          )}
+          {props.page === "accountList" && (
+            <div className="sidebar-filter">
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                >
+                  Account Search
+                </AccordionSummary>
+                <AccordionDetails>
+                  <div className="filter-control">
+                    <FormControl fullWidth size="small">
+                      <FormControl>
+                        <Select
+                          labelId="demo-multiple-name-label"
+                          id="demo-multiple-name"
+                          size="small"
+                          displayEmpty
+                          value={revenueFilter}
+                          onChange={handlePartnerChange}
+                          input={<OutlinedInput />}
+                          MenuProps={MenuProps}
+                          sx={{
+                            backgroundColor: "#fff",
+                          }}
+                          renderValue={(selected) => {
+                            if (!selected || selected.length === 0) {
+                              return <em>Select Status</em>;
+                            }
+
+                            return selected;
+                          }}
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          {contactStatusList &&
+                            contactStatusList.map((name) => (
+                              <MenuItem key={name} value={name}>
+                                {name}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </FormControl>
+                    </FormControl>
+                  </div>
+                  <div className="filter-control">
+                    <FormControl fullWidth size="small">
+                      <FormControl>
+                        <Select
+                          labelId="demo-multiple-name-label"
+                          id="demo-multiple-name"
+                          size="small"
+                          displayEmpty
+                          value={revenueFilter}
+                          onChange={handlePartnerChange}
+                          input={<OutlinedInput />}
+                          MenuProps={MenuProps}
+                          sx={{
+                            backgroundColor: "#fff",
+                          }}
+                          renderValue={(selected) => {
+                            if (!selected || selected.length === 0) {
+                              return <em>Select Industry</em>;
+                            }
+
+                            return selected;
+                          }}
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          {verticalList &&
+                            verticalList.map((name) => (
+                              <MenuItem key={name} value={name}>
+                                {name}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </FormControl>
+                    </FormControl>
+                  </div>
+                  <div className="filter-control">
+                    <FormControl>
+                      <Select
+                        labelId="demo-multiple-name-label"
+                        id="demo-multiple-name"
+                        size="small"
+                        displayEmpty
+                        value={revenueFilter}
+                        onChange={handlePartnerChange}
+                        input={<OutlinedInput />}
+                        MenuProps={MenuProps}
+                        sx={{
+                          backgroundColor: "#fff",
+                        }}
+                        renderValue={(selected) => {
+                          if (!selected || selected.length === 0) {
+                            return <em>Select Size</em>;
+                          }
+
+                          return selected;
+                        }}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        {empSizeList &&
+                          empSizeList.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <div className="filter-control">
                     <Select
-                      labelId="status"
-                      input={<OutlinedInput />}
-                      id="status-select"
-                      value={0}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={0}>Partner Name</MenuItem>
-                      <MenuItem value={10}>Partner One</MenuItem>
-                      <MenuItem value={20}>Partner Two</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
-                    <Select
-                      labelId="status"
-                      id="status-select"
-                      value={0}
-                      input={<OutlinedInput />}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={0}>Agent</MenuItem>
-                      <MenuItem value={10}>Agent One</MenuItem>
-                      <MenuItem value={20}>Agent Two</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-              </AccordionDetails>
-            </Accordion>
-          </div> : ''}
-          <div className="sidebar-filter">
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-              >
-                Account Search
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
-                    <Select
-                      labelId="status"
+                      labelId="demo-multiple-name-label"
+                      id="demo-multiple-name"
                       size="small"
+                      displayEmpty
+                      value={revenueFilter}
+                      onChange={handlePartnerChange}
                       input={<OutlinedInput />}
-                      id="status-select"
-                      value={0}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={0}>Status</MenuItem>
-                      <MenuItem value={10}>Status One</MenuItem>
-                      <MenuItem value={20}>Status Two</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
-                    <Select
-                      labelId="status"
-                      id="status-select"
-                      value={0}
-                      input={<OutlinedInput />}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={0}>Industry</MenuItem>
-                      <MenuItem value={10}>Industry One</MenuItem>
-                      <MenuItem value={20}>Industry Two</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
-                    <Select
-                      labelId="status"
-                      id="status-select"
-                      input={<OutlinedInput />}
-                      value={0}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={0}>Size One</MenuItem>
-                      <MenuItem value={10}>Size One</MenuItem>
-                      <MenuItem value={20}>Size Two</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className="filter-control">
-                  <Autocomplete
-                    fullWidth
-                    size="small"
-                    multiple
-                    limitTags={2}
-                    input={<OutlinedInput />}
-                    id="multiple-limit-tags"
-                    options={AutoData}
-                    getOptionLabel={(option) => option.title}
-                    defaultValue={[]}
-                    renderInput={(params) => (
-                      <TextField {...params} placeholder="Region" />
-                    )}
-                    sx={{ width: "200px" }}
-                  />
-                </div>
-              </AccordionDetails>
-            </Accordion>
-          </div>
+                      MenuProps={MenuProps}
+                      sx={{
+                        backgroundColor: "#fff",
+                      }}
+                      renderValue={(selected) => {
+                        if (!selected || selected.length === 0) {
+                          return <em>Select Region</em>;
+                        }
 
-          <div className="sidebar-filter">
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-              >
-                Advance Search
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
-                    <Select
-                      labelId="status"
-                      input={<OutlinedInput />}
-                      id="status-select"
-                      value={0}
-                      label="Status"
-                      onChange={handleChange}
+                        return selected;
+                      }}
+                      inputProps={{ "aria-label": "Without label" }}
                     >
-                      <MenuItem value={0}>Revenue</MenuItem>
-                      <MenuItem value={10}>Revenue One</MenuItem>
-                      <MenuItem value={20}>Revenue Two</MenuItem>
+                      {regionsList &&
+                        regionsList.map((name) => (
+                          <MenuItem key={name} value={name}>
+                            {name}
+                          </MenuItem>
+                        ))}
                     </Select>
-                  </FormControl>
-                </div>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
-                    <Select
-                      labelId="status"
-                      id="status-select"
-                      value={0}
-                      input={<OutlinedInput />}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={0}>Technographics</MenuItem>
-                      <MenuItem value={10}>Technographics One</MenuItem>
-                      <MenuItem value={20}>Technographics Two</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-              </AccordionDetails>
-            </Accordion>
-          </div>
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          )}
+
+          {props.page === "accountList" && (
+            <div className="sidebar-filter">
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                >
+                  Advance Search
+                </AccordionSummary>
+                <AccordionDetails>
+                  <div className="filter-control">
+                    <FormControl>
+                      <Select
+                        labelId="demo-multiple-name-label"
+                        id="demo-multiple-name"
+                        size="small"
+                        displayEmpty
+                        value={revenueFilter}
+                        onChange={handlePartnerChange}
+                        input={<OutlinedInput />}
+                        MenuProps={MenuProps}
+                        sx={{
+                          backgroundColor: "#fff",
+                        }}
+                        renderValue={(selected) => {
+                          if (!selected || selected.length === 0) {
+                            return <em>Select Revenue</em>;
+                          }
+
+                          return selected;
+                        }}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        {revenueList &&
+                          revenueList.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <div className="filter-control">
+                    <FormControl sx={{ width: "170px" }}>
+                      <Select
+                        labelId="demo-multiple-name-label"
+                        id="demo-multiple-name"
+                        size="small"
+                        displayEmpty
+                        value={revenueFilter}
+                        onChange={handlePartnerChange}
+                        input={<OutlinedInput />}
+                        MenuProps={MenuProps}
+                        sx={{
+                          backgroundColor: "#fff",
+                        }}
+                        renderValue={(selected) => {
+                          if (!selected || selected.length === 0) {
+                            return <em>Select Technographics</em>;
+                          }
+
+                          return selected;
+                        }}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        {technographicsList &&
+                          technographicsList.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    </FormControl>
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          )}
         </div>
       </aside>
     </>

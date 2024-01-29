@@ -7,7 +7,7 @@ const PartnerActivity = () => {
   return (
     <>
       <div className="home">
-        <Sidebar />
+        <Sidebar page="accountActivity" />
         <div className="mainContainer">
           <DashBoardNavbar />
 
