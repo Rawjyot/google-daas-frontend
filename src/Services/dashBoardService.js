@@ -109,20 +109,20 @@ class DashBoardService {
   async statusUpdate(accountID, data, token) {
     let url = `${config.baseUrl}/api/account/statusupdate?accountId=${accountID}`;
     // /
-    console.log(url);
+    // console.log(url);
     return this.putApiCall(url, data, token);
   }
 
   async statusUpdateNew(accountID, data, token) {
     let url = `${config.baseUrl}/api/activitySubmit`;
     // /
-    console.log(url);
+    // console.log(url);
     return this.postApiCall(url, data, token);
   }
 
   async getTrailRemark(data, token) {
     let url = `${config.baseUrl}/api/getActivity`;
-    console.log(url);
+    // console.log(url);
     return this.postApiCall(url, data, token);
   }
   // async addMark(accountId, data, token) {
@@ -145,7 +145,6 @@ class DashBoardService {
 
   async getMastersList(data, token) {
     let url = `${config.baseUrl}/api/getMasterData`;
-    console.log(url);
     return this.postApiCall(url, data, token);
   }
 }
