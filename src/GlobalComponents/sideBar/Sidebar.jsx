@@ -26,6 +26,16 @@ export default function Sidebar() {
   const [regionOpen, setRegionOpen] = useState(false);
   const [partnerOpen, setPartnerOpen] = useState(false);
 
+  const userData = JSON.parse(useGetLocalStorage("userData"));
+  const userRole = userData?.roleId
+  // console.log(userData.jwtToken);
+  const userInfo = {
+    "userId": userData?.userId,
+    "userToken": userData?.userToken,
+    "responseToken": userData?.responseToken,
+    // "accountId": accountID
+  }
+
   const handleRegionChange = (event) => {
     const {
       target: { value },
@@ -211,7 +221,82 @@ export default function Sidebar() {
               </MenuItem>
             </MenuList>
           </div>
-          <hr className="mt-3 mb-3 bg-white"></hr>
+          {/* <hr className="mt-3 mb-3 bg-white"></hr> */}
+          {userRole == 2 ? <div className="sidebar-filter">
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                Agent Search
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="filter-control">
+                  <FormControl fullWidth size="small">
+                    <Select
+                      labelId="status"
+                      id="status-select"
+                      value={0}
+                      input={<OutlinedInput />}
+                      label="Status"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={0}>Agent</MenuItem>
+                      <MenuItem value={10}>Agent One</MenuItem>
+                      <MenuItem value={20}>Agent Two</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          </div> : ''}
+
+          {(userRole === 1) ? <div className="sidebar-filter">
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                Partner Search
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="filter-control">
+                  <FormControl fullWidth size="small">
+                    <Select
+                      labelId="status"
+                      input={<OutlinedInput />}
+                      id="status-select"
+                      value={0}
+                      label="Status"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={0}>Partner Name</MenuItem>
+                      <MenuItem value={10}>Partner One</MenuItem>
+                      <MenuItem value={20}>Partner Two</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className="filter-control">
+                  <FormControl fullWidth size="small">
+                    <Select
+                      labelId="status"
+                      id="status-select"
+                      value={0}
+                      input={<OutlinedInput />}
+                      label="Status"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={0}>Agent</MenuItem>
+                      <MenuItem value={10}>Agent One</MenuItem>
+                      <MenuItem value={20}>Agent Two</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          </div> : ''}
           <div className="sidebar-filter">
             <Accordion>
               <AccordionSummary
@@ -291,51 +376,7 @@ export default function Sidebar() {
               </AccordionDetails>
             </Accordion>
           </div>
-          <div className="sidebar-filter">
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-              >
-                Partner Search
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
-                    <Select
-                      labelId="status"
-                      input={<OutlinedInput />}
-                      id="status-select"
-                      value={0}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={0}>Partner Name</MenuItem>
-                      <MenuItem value={10}>Partner One</MenuItem>
-                      <MenuItem value={20}>Partner Two</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className="filter-control">
-                  <FormControl fullWidth size="small">
-                    <Select
-                      labelId="status"
-                      id="status-select"
-                      value={0}
-                      input={<OutlinedInput />}
-                      label="Status"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={0}>Agent</MenuItem>
-                      <MenuItem value={10}>Agent One</MenuItem>
-                      <MenuItem value={20}>Agent Two</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-              </AccordionDetails>
-            </Accordion>
-          </div>
+
           <div className="sidebar-filter">
             <Accordion>
               <AccordionSummary
