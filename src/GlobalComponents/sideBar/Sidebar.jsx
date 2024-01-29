@@ -50,6 +50,10 @@ export default function Sidebar(props) {
     dispatch(regionsFilterAction(contextValue));
   };
 
+  const handleChange = () => {
+    return true;
+  };
+
   const handlePartnerChange = (event) => {
     const {
       target: { value },
