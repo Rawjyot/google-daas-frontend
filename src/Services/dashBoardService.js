@@ -142,7 +142,14 @@ class DashBoardService {
     // console.log(url);
     return this.getApiCall(url, token);
   }
+
+  async getMastersList(data, token) {
+    let url = `${config.baseUrl}/api/getMasterData`;
+    console.log(url);
+    return this.postApiCall(url, data, token);
+  }
 }
+
 
 const dashboardService = new DashBoardService();
 
