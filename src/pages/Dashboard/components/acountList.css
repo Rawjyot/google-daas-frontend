@@ -18,3 +18,10 @@
   margin: 0;
   margin-bottom: 10px;
 }
+.grid-data .ag-header, .grid-data .ag-advanced-filter-header{
+  background:#4286f5;
+  color:#fff;
+}
+.grid-data .ag-header-cell-text,.grid-data .ag-icon{
+  color:#fff;
+}

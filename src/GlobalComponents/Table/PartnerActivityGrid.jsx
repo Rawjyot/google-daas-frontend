@@ -26,11 +26,12 @@ const PartnerRow = (props) => {
   const [partnerOpen, setPartnerOpen] = React.useState(false);
   return (
     <>
+
       <TableRow
         sx={{
           "& > *": {
             borderBottom: "unset",
-            backgroundColor: "#ededed",
+            backgroundColor: "#fff",
           },
         }}
       >
@@ -61,7 +62,7 @@ const PartnerRow = (props) => {
           style={{
             paddingBottom: 0,
             paddingTop: 0,
-            backgroundColor: "#fff",
+            backgroundColor: "#f4f8ff",
           }}
           colSpan={20}
         >
@@ -74,7 +75,7 @@ const PartnerRow = (props) => {
                       "& > *": {
                         borderBottom: "unset",
                         textAlign: "left",
-                        backgroundColor: "#fff",
+                        backgroundColor: "#f4f8ff",
                       },
                     }}
                   >
@@ -126,7 +127,7 @@ const Row = (props) => {
     <>
       <TableRow
         sx={{
-          "& > *": { borderBottom: "unset", backgroundColor: "#cbe9f7" },
+          "& > *": { borderBottom: "unset", backgroundColor: "#fff" },
         }}
       >
         <TableCell sx={{ p: 1, m: 1 }}>
@@ -197,47 +198,55 @@ export const PartnerActivityGrid = () => {
 
   return (
     <>
-      <Box>
-        <Box sx={{ pt: 2, pb: 2 }}>
-          <Typography className="page-title">Patner Activity</Typography>
-        </Box>
-        <Box sx={{ display: "flex", pb: 2, justifyContent: "space-between" }}>
-          <Box>
-            <Button
-              variant="contained"
-              sx={{
-                alignItems: "center",
-                textAlign: "center",
-                width: "220px",
-              }}
-            >
-              Expand All
-            </Button>
-          </Box>
-          <Box sx={{ pr: 1 }}>
-            <Link to="/account-list">
+
+      <div className="main-content">
+        <div className="page-header">
+          <div className="row align-items-center">
+            <div className="col-md-6">
+              <Typography className="page-title">Patner Activity</Typography>
               <Button
+                className="mt-4 mb-3"
                 variant="contained"
                 sx={{
                   alignItems: "center",
                   textAlign: "center",
                   width: "220px",
                 }}
-                startIcon={<ArrowBackIcon />}
               >
-                View All Account
+                Expand All
               </Button>
-            </Link>
-          </Box>
-        </Box>
-      </Box>
-      <TableContainer component={Paper}>
+            </div>
+            <div className="col-md-6 text-right">
+              <Link to="/account-list">
+                <Button
+                  variant="contained"
+                  sx={{
+                    alignItems: "center",
+                    textAlign: "center",
+                    width: "220px",
+                  }}
+                  startIcon={<ArrowBackIcon />}
+                >
+                  View All Account
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-12">
+            <div className="grid-data">
+
+
+
+              <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead
             component="th"
             scope="row"
             sx={{
-              backgroundColor: "#37BCF8",
+              backgroundColor: "#4286f5",
               color: "#fff",
               fontSize: "14px",
               alignItems: "center",
@@ -321,6 +330,14 @@ export const PartnerActivityGrid = () => {
           </TableBody>
         </Table>
       </TableContainer>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      
     </>
   );
 };
