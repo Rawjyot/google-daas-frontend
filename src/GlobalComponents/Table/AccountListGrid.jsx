@@ -89,6 +89,11 @@ export const AccountListGrid = (props) => {
       minWidth: 150,
     },
     {
+      field: "region",
+      headerName: "Region",
+      minWidth: 150,
+    },
+    {
       field: "noOfContact",
       headerName: "Contacts",
       minWidth: 100,
@@ -103,10 +108,16 @@ export const AccountListGrid = (props) => {
       headerName: "Status",
       minWidth: 120,
     },
+
     {
-      field: "assignedTo",
-      headerName: "Assignee",
-      minWidth: 120,
+      field: "partnerName",
+      headerName: "Partner Name",
+      minWidth: 200,
+    },
+    {
+      field: "user",
+      headerName: "User",
+      minWidth: 150,
     },
   ]);
 
