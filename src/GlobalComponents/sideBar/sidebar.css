@@ -71,6 +71,7 @@
 
 .sidebar-filter {
   padding: 10px;
+  margin-left: 25px;
 }
 
 .filter-control .MuiInputBase-input {
@@ -80,14 +81,16 @@
   text-shadow: none !important;
   background: #fff;
 }
-.filter-control .MuiInputBase-root{
+
+.filter-control .MuiInputBase-root {
   background: #fff;
 }
+
 .sidebar-filter .MuiAccordionSummary-content {
   margin: 0 !important;
   color: #fff;
   font-weight: 400;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .sidebar-filter .MuiAccordionSummary-root {
@@ -96,6 +99,7 @@
   /* margin-left: 25px; */
   min-height: auto !important;
 }
+
 .sidebar-filter .MuiAccordionSummary-expandIconWrapper {
   color: #fff;
   font-weight: 400;
@@ -105,6 +109,7 @@
 .sidebar-filter .MuiAccordionSummary-expandIconWrapper svg {
   width: 30px;
 }
+
 .main-sidebar {
   overflow-y: auto;
   height: 100%;
@@ -136,6 +141,7 @@
   margin-left: 25px;
   margin-top: 8px;
 }
+
 .sidebar-filter .Mui-expanded {
   /* background-color: #fff; */
 }
