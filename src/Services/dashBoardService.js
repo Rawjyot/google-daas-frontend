@@ -184,6 +184,11 @@ export const getMasterData = async (data) => {
   return await axios.post(url, data);
 };
 
+export const getAgentList = async (data) => {
+  let url = `${config.baseUrl}/api/getPartnerUserList`;
+  return await axios.post(url, data);
+};
+
 // export async function send(
 //   params: {
 //     baseurl: string;

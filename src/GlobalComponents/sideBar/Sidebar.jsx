@@ -17,6 +17,7 @@ import { NavLink } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import logo from "../../assets/images/logo.png";
 import {
+  agentFilter as agentFilterAction,
   empSizeFilter as empSizeFilterAction,
   partnerFilter as partnerFilterAction,
   regionsFilter as regionsFilterAction,
@@ -30,6 +31,7 @@ import "./sidebar.css";
 export default function Sidebar(props) {
   const dispatch = useDispatch();
   const { regionsList } = useSelector((state) => state.account);
+  const { agentFilter } = useSelector((state) => state.account);
   const { partnerFilter } = useSelector((state) => state.account);
   const { regionsFilter } = useSelector((state) => state.account);
   const { empSizeFilter } = useSelector((state) => state.account);
@@ -38,12 +40,12 @@ export default function Sidebar(props) {
   const { revenueFilter } = useSelector((state) => state.account);
   const { technographicsFilter } = useSelector((state) => state.account);
 
+  const { agentList } = useSelector((state) => state.account);
   const { revenueList } = useSelector((state) => state.account);
   const { verticalList } = useSelector((state) => state.account);
   const { empSizeList } = useSelector((state) => state.account);
   const { contactStatusList } = useSelector((state) => state.account);
   const { technographicsList } = useSelector((state) => state.account);
-
   const { partnerList } = useSelector((state) => state.account);
 
   const [regionOpen, setRegionOpen] = useState(false);
@@ -111,6 +113,14 @@ export default function Sidebar(props) {
     } = event;
     const contextValue = typeof value === "string" ? value.split(",") : value;
     dispatch(statusFilterAction(contextValue));
+  };
+
+  const handleAgentChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    dispatch(agentFilterAction(contextValue));
   };
 
   const ITEM_HEIGHT = 50;
@@ -309,16 +319,45 @@ export default function Sidebar(props) {
                   <div className="filter-control">
                     <FormControl fullWidth size="small">
                       <Select
-                        labelId="status"
-                        id="status-select"
-                        value={0}
+                        labelId="demo-multiple-name-label"
+                        id="demo-multiple-name"
+                        size="small"
+                        multiple
+                        displayEmpty
+                        value={agentFilter}
+                        onChange={handleAgentChange}
                         input={<OutlinedInput />}
-                        label="Status"
-                        onChange={handleChange}
+                        MenuProps={MenuProps}
+                        sx={{
+                          backgroundColor: "#fff",
+                        }}
+                        renderValue={(selected) => {
+                          if (!selected || selected.length === 0) {
+                            return <em>Select Agent</em>;
+                          } else {
+                            return (
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: 0.5,
+                                }}
+                              >
+                                {selected.map((value) => {
+                                  return <Chip key={value} label={value} />;
+                                })}
+                              </Box>
+                            );
+                          }
+                        }}
+                        inputProps={{ "aria-label": "Without label" }}
                       >
-                        <MenuItem value={0}>Agent</MenuItem>
-                        <MenuItem value={10}>Agent One</MenuItem>
-                        <MenuItem value={20}>Agent Two</MenuItem>
+                        {agentList &&
+                          agentList.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
+                            </MenuItem>
+                          ))}
                       </Select>
                     </FormControl>
                   </div>
@@ -343,32 +382,89 @@ export default function Sidebar(props) {
                   <div className="filter-control">
                     <FormControl fullWidth size="small">
                       <Select
-                        labelId="status"
+                        labelId="demo-multiple-name-label"
+                        id="demo-multiple-name"
+                        size="small"
+                        multiple
+                        displayEmpty
+                        value={partnerFilter}
+                        onChange={handlePartnerChange}
                         input={<OutlinedInput />}
-                        id="status-select"
-                        value={0}
-                        label="Status"
-                        onChange={handleChange}
+                        MenuProps={MenuProps}
+                        sx={{
+                          backgroundColor: "#fff",
+                        }}
+                        renderValue={(selected) => {
+                          if (!selected || selected.length === 0) {
+                            return <em>Select Partner</em>;
+                          } else {
+                            return (
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: 0.5,
+                                }}
+                              >
+                                {selected.map((value) => {
+                                  return <Chip key={value} label={value} />;
+                                })}
+                              </Box>
+                            );
+                          }
+                        }}
+                        inputProps={{ "aria-label": "Without label" }}
                       >
-                        <MenuItem value={0}>Partner Name</MenuItem>
-                        <MenuItem value={10}>Partner One</MenuItem>
-                        <MenuItem value={20}>Partner Two</MenuItem>
+                        {getPartnerList().map((name) => (
+                          <MenuItem key={name} value={name}>
+                            {name}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </div>
                   <div className="filter-control">
                     <FormControl fullWidth size="small">
                       <Select
-                        labelId="status"
-                        id="status-select"
-                        value={0}
+                        labelId="demo-multiple-name-label"
+                        id="demo-multiple-name"
+                        size="small"
+                        multiple
+                        displayEmpty
+                        value={agentFilter}
+                        onChange={handleAgentChange}
                         input={<OutlinedInput />}
-                        label="Status"
-                        onChange={handleChange}
+                        MenuProps={MenuProps}
+                        sx={{
+                          backgroundColor: "#fff",
+                        }}
+                        renderValue={(selected) => {
+                          if (!selected || selected.length === 0) {
+                            return <em>Select Agent</em>;
+                          } else {
+                            return (
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: 0.5,
+                                }}
+                              >
+                                {selected.map((value) => {
+                                  return <Chip key={value} label={value} />;
+                                })}
+                              </Box>
+                            );
+                          }
+                        }}
+                        inputProps={{ "aria-label": "Without label" }}
                       >
-                        <MenuItem value={0}>Agent</MenuItem>
-                        <MenuItem value={10}>Agent One</MenuItem>
-                        <MenuItem value={20}>Agent Two</MenuItem>
+                        {agentList &&
+                          agentList.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
+                            </MenuItem>
+                          ))}
                       </Select>
                     </FormControl>
                   </div>

@@ -4,6 +4,7 @@ const initialState = {
   accountListData: null,
   activityList: null,
   activityAll: null,
+  agentFilter: [],
   revenueFilter: [],
   regionsFilter: [],
   partnerFilter: [],
@@ -11,6 +12,7 @@ const initialState = {
   verticalFilter: [],
   statusFilter: [],
   technographicsFilter: [],
+  agentList: null,
   partnerActivityList: null,
   regionsdropdown: null,
   partnerdropdown: null,
@@ -29,6 +31,9 @@ const accountSlice = createSlice({
   name: "account",
   initialState,
   reducers: {
+    agentList: (state, action) => {
+      state.agentList = action.payload;
+    },
     regionsdropdown: (state, action) => {
       state.regionsdropdown = action.payload;
     },
@@ -43,6 +48,9 @@ const accountSlice = createSlice({
     },
     contactStatusList: (state, action) => {
       state.contactStatusList = action.payload;
+    },
+    agentFilter: (state, action) => {
+      state.agentFilter = action.payload;
     },
     revenueFilter: (state, action) => {
       state.revenueFilter = action.payload;
@@ -93,6 +101,7 @@ const accountSlice = createSlice({
 });
 
 export const {
+  agentFilter,
   regionsFilter,
   partnerFilter,
   revenueFilter,
@@ -100,6 +109,7 @@ export const {
   verticalFilter,
   statusFilter,
   technographicsFilter,
+  agentList,
   accountList,
   activityAll,
   activityList,

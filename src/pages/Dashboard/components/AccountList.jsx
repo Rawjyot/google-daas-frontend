@@ -8,11 +8,15 @@ import { AccountListGrid } from "../../../GlobalComponents/Table/AccountListGrid
 import AccountListNavbar from "../../../GlobalComponents/navbar/AccountListNavbar";
 import Sidebar from "../../../GlobalComponents/sideBar/Sidebar";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
-import { accountList } from "../../../store/Features/accountSlice";
+import {
+  accountList,
+  agentList as agentListAction,
+} from "../../../store/Features/accountSlice";
 
 import {
   getAccountListDetails,
   getAccountListDetailsFiltered,
+  getAgentList,
 } from "../../../Services/dashBoardService";
 import AccountListMeta from "./AccountListMeta";
 import "./acountList.css";
@@ -33,7 +37,6 @@ const AccountList = () => {
   const userData = JSON.parse(useGetLocalStorage("userData"));
 
   const fetchAccountListDetails = async () => {
-    console.log("technographicsFilter => ", technographicsFilter);
     try {
       let response = null;
       if (
@@ -118,8 +121,26 @@ const AccountList = () => {
     }
   };
 
+  const fetchAgentList = async () => {
+    const response = await getAgentList({
+      userId: userData?.userId,
+      userToken: userData?.userToken,
+      responseToken: userData?.responseToken,
+      roleId: userData?.roleId,
+      dataFor: partnerFilter.join(","),
+    });
+
+    const agentList =
+      response.data &&
+      response.data.userList &&
+      response.data.userList.map((list) => Object.keys(list)[0]);
+
+    dispatch(agentListAction(agentList));
+  };
+
   useEffect(() => {
     fetchAccountListDetails();
+    fetchAgentList();
   }, [
     technographicsFilter,
     revenueFilter,
@@ -127,6 +148,8 @@ const AccountList = () => {
     empSizeFilter,
     verticalFilter,
     statusFilter,
+    partnerFilter,
+    agentFilter,
   ]);
 
   return (
