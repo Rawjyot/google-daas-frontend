@@ -173,36 +173,17 @@ const AccountListMeta = () => {
   ];
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        m: 1,
-        pr: 10,
-      }}
-    >
-      <Typography sx={{ fontSize: "20px" }}>
-        Total Accounts :
-        <span className="text-sky-500">
-          {" "}
-          {accountListData && accountListData.totalAccounts}{" "}
-        </span>
-      </Typography>
-      <Typography sx={{ fontSize: "20px" }}>
-        Total Contacts :
-        <span className="text-sky-500">
-          {" "}
-          {accountListData && accountListData.totalContacts}{" "}
-        </span>
-      </Typography>
-      <Typography sx={{ fontSize: "20px" }}>
-        New Contacts :
-        <span className="text-sky-500">
-          {" "}
-          {accountListData && accountListData.totalNewContacts}{" "}
-        </span>
-      </Typography>
-    </Box>
+    <>
+
+      <div class="account-meta">
+        <div class="row align-items-center">
+          <div class="col-4"><p>Total Accounts <span>{accountListData && accountListData.totalAccounts}</span></p></div>
+          <div class="col-4"><p>Total Contacts <span>{accountListData && accountListData.totalContacts}{" "}</span></p></div>
+          <div class="col-4"><p>New Contacts <span>{accountListData && accountListData.totalNewContacts}{" "}</span></p></div>
+        </div>
+      </div>
+
+    </>
   );
 };
 export default AccountListMeta;
