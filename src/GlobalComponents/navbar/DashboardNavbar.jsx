@@ -1,21 +1,19 @@
 import { Avatar } from "@mui/material";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
-import { LogoutIcon } from "../../assets/icons";
+import { toggleBodyClass } from "../../utils/utils";
 import Logout from "../navbar/Logout";
 import "./navbar.css";
-import { useState } from "react";
-import { toggleBodyClass } from '../../utils/utils';
 
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 const DashBoardNavbar = () => {
   const userData = JSON.parse(useGetLocalStorage("userData"));
   // console.log(userData);
   const handleButtonClick = () => {
     // Toggle the 'togglesidebar' on the body element
-    toggleBodyClass('sidebar-open');
+    toggleBodyClass("sidebar-open");
   };
-
 
   const [isActive, setActive] = useState("false");
   const ToggleClass = () => {
@@ -23,33 +21,24 @@ const DashBoardNavbar = () => {
   };
   return (
     <>
-
       <nav className="main-header navbar navbar-expand">
         <div className="small-action d-none">
-          <Button
-            className="togglesidebar"
-            id=""
-            onClick={handleButtonClick}
-          >
-            <i class="bi bi-list"></i>
+          <Button className="togglesidebar" id="" onClick={handleButtonClick}>
+            <i className="bi bi-list"></i>
           </Button>
-          {/* <Button
-          className="togglesidebar"
-          id=""
-          onClick={ToggleClass}
-        >
-          <i class="bi bi-three-dots-vertical"></i>
-        </Button> */}
         </div>
-        <ul className={isActive ? "header-menu-open navbar-nav top-nav" : "navbar-nav top-nav"}>
+        <ul
+          className={
+            isActive
+              ? "header-menu-open navbar-nav top-nav"
+              : "navbar-nav top-nav"
+          }
+        >
           <li>
             <NavLink
               to="/account-activity"
               className={({ isActive }) =>
-                `${isActive
-                  ? "top-nav-active top-nav-link"
-                  : "top-nav-link"
-                }`
+                `${isActive ? "top-nav-active top-nav-link" : "top-nav-link"}`
               }
             >
               Account Activity
@@ -59,10 +48,7 @@ const DashBoardNavbar = () => {
             <NavLink
               to="/partner-activity"
               className={({ isActive }) =>
-                `${isActive
-                  ? "top-nav-active top-nav-link"
-                  : "top-nav-link"
-                }`
+                `${isActive ? "top-nav-active top-nav-link" : "top-nav-link"}`
               }
             >
               Partner Activity
@@ -70,25 +56,17 @@ const DashBoardNavbar = () => {
           </li>
         </ul>
 
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
             <div className="top-user">
               <p> Welcome {userData?.name}</p>
               <Avatar src="https://www.w3schools.com/howto/img_avatar.png" />
             </div>
           </li>
-          {/* <li class="nav-item">
-            <a class="nav-link log-out-btn" onClick={handleLogout}>
-              <LogoutIcon /> Log Out
-            </a>
-          </li> */}
           <Logout />
         </ul>
       </nav>
-
-
     </>
-
   );
 };
 

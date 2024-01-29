@@ -63,10 +63,6 @@ export default function Sidebar(props) {
     dispatch(regionsFilterAction(contextValue));
   };
 
-  const handleChange = () => {
-    return true;
-  };
-
   const handlePartnerChange = (event) => {
     const {
       target: { value },
@@ -144,7 +140,8 @@ export default function Sidebar(props) {
 
   const getPartnerList = () => {
     if (partnerList) return partnerList;
-    const partnerListCache = useGetLocalStorage("partnerList").split(",") || [];
+    const partnerListCache =
+      useGetLocalStorage("partnerList")?.split(",") || [];
     return partnerListCache;
   };
 
@@ -230,66 +227,68 @@ export default function Sidebar(props) {
                       </>
                     )}
                   </MenuItem>
-                  <MenuItem>
-                    <NavLink onClick={togglePartner}>
-                      {partnerOpen ? (
-                        <i className="bi bi-chevron-down" />
-                      ) : (
-                        <i className="bi bi-chevron-right" />
-                      )}{" "}
-                      Partner
-                    </NavLink>
-                    {partnerOpen && (
-                      <>
-                        <div>
-                          <FormControl sx={{ m: "0 35px", width: 180 }}>
-                            <Select
-                              labelId="demo-multiple-name-label"
-                              id="demo-multiple-name"
-                              size="small"
-                              multiple
-                              displayEmpty
-                              value={partnerFilter}
-                              onChange={handlePartnerChange}
-                              input={<OutlinedInput />}
-                              MenuProps={MenuProps}
-                              sx={{
-                                backgroundColor: "#fff",
-                              }}
-                              renderValue={(selected) => {
-                                if (!selected || selected.length === 0) {
-                                  return <em>Select Partner</em>;
-                                } else {
-                                  return (
-                                    <Box
-                                      sx={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: 0.5,
-                                      }}
-                                    >
-                                      {selected.map((value) => {
-                                        return (
-                                          <Chip key={value} label={value} />
-                                        );
-                                      })}
-                                    </Box>
-                                  );
-                                }
-                              }}
-                              inputProps={{ "aria-label": "Without label" }}
-                            >
-                              {getPartnerList().map((name) => (
-                                <MenuItem key={name} value={name}>
-                                  {name}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                        </div>
-                      </>
-                    )}
-                  </MenuItem>
+                  {userRole == 1 && (
+                    <MenuItem>
+                      <NavLink onClick={togglePartner}>
+                        {partnerOpen ? (
+                          <i className="bi bi-chevron-down" />
+                        ) : (
+                          <i className="bi bi-chevron-right" />
+                        )}{" "}
+                        Partner
+                      </NavLink>
+                      {partnerOpen && (
+                        <>
+                          <div>
+                            <FormControl sx={{ m: "0 35px", width: 180 }}>
+                              <Select
+                                labelId="demo-multiple-name-label"
+                                id="demo-multiple-name"
+                                size="small"
+                                multiple
+                                displayEmpty
+                                value={partnerFilter}
+                                onChange={handlePartnerChange}
+                                input={<OutlinedInput />}
+                                MenuProps={MenuProps}
+                                sx={{
+                                  backgroundColor: "#fff",
+                                }}
+                                renderValue={(selected) => {
+                                  if (!selected || selected.length === 0) {
+                                    return <em>Select Partner</em>;
+                                  } else {
+                                    return (
+                                      <Box
+                                        sx={{
+                                          display: "flex",
+                                          flexWrap: "wrap",
+                                          gap: 0.5,
+                                        }}
+                                      >
+                                        {selected.map((value) => {
+                                          return (
+                                            <Chip key={value} label={value} />
+                                          );
+                                        })}
+                                      </Box>
+                                    );
+                                  }
+                                }}
+                                inputProps={{ "aria-label": "Without label" }}
+                              >
+                                {getPartnerList().map((name) => (
+                                  <MenuItem key={name} value={name}>
+                                    {name}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+                          </div>
+                        </>
+                      )}
+                    </MenuItem>
+                  )}
                 </div>
               )}
 
@@ -305,7 +304,7 @@ export default function Sidebar(props) {
               </MenuItem>
             </MenuList>
           </div>
-          {userRole == 2 && props.page === "accountList" ? (
+          {userRole == 2 && props.page === "accountList" && (
             <div className="sidebar-filter">
               <Accordion>
                 <AccordionSummary
@@ -317,15 +316,15 @@ export default function Sidebar(props) {
                 </AccordionSummary>
                 <AccordionDetails>
                   <div className="filter-control">
-                    <FormControl fullWidth size="small">
+                    <FormControl size="small">
                       <Select
                         labelId="demo-multiple-name-label"
                         id="demo-multiple-name"
                         size="small"
                         multiple
                         displayEmpty
-                        value={agentFilter}
-                        onChange={handleAgentChange}
+                        value={partnerFilter}
+                        onChange={handlePartnerChange}
                         input={<OutlinedInput />}
                         MenuProps={MenuProps}
                         sx={{
@@ -352,23 +351,20 @@ export default function Sidebar(props) {
                         }}
                         inputProps={{ "aria-label": "Without label" }}
                       >
-                        {agentList &&
-                          agentList.map((name) => (
-                            <MenuItem key={name} value={name}>
-                              {name}
-                            </MenuItem>
-                          ))}
+                        {getPartnerList().map((name) => (
+                          <MenuItem key={name} value={name}>
+                            {name}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </div>
                 </AccordionDetails>
               </Accordion>
             </div>
-          ) : (
-            ""
           )}
 
-          {userRole === 1 && props.page === "accountList" ? (
+          {userRole === 1 && props.page === "accountList" && (
             <div className="sidebar-filter">
               <Accordion>
                 <AccordionSummary
@@ -471,8 +467,6 @@ export default function Sidebar(props) {
                 </AccordionDetails>
               </Accordion>
             </div>
-          ) : (
-            ""
           )}
           {props.page === "accountList" && (
             <div className="sidebar-filter">
