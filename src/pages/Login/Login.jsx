@@ -68,8 +68,12 @@ const Login = () => {
         .login(loginData)
         .then((res) => {
           if (res) {
-            // console.log(res);
-            if (res.data === "Credentials Invalid !!") toast.error(res.data);
+            // console.log(res.data?.statusCode);
+            // return
+            if (res?.data?.statusCode != "200") {
+              toast.error(res?.data?.message);
+            }
+
             else {
               dispatch(login({ ...res.data, 'userToken': userToken }));
               if (!JSON.parse(useGetLocalStorage("userData")).policy_accepted) {

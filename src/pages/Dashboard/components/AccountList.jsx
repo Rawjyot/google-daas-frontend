@@ -60,7 +60,7 @@ const AccountList = () => {
                 <Typography className="page-title">Account List</Typography>
               </div>
               <div className="col-md-6 text-right">
-                <Link to="/dashboard">
+                <Link to="/account-activity">
                   <Button
                     variant="contained"
                     sx={{
