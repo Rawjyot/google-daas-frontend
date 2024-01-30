@@ -1,3 +1,4 @@
+import ClearIcon from "@mui/icons-material/Clear";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
@@ -79,6 +80,43 @@ export default function Sidebar(props) {
     dispatch(technographicsFilterAction(contextValue));
   };
 
+  const handleChipDelete = (value, filter, filterKey) => {
+    const updatedFilter = filter.slice();
+    const index = updatedFilter.indexOf(value);
+    if (index > -1) {
+      updatedFilter.splice(index, 1);
+    }
+
+    switch (filterKey) {
+      case "revenueFilter":
+        dispatch(revenueFilterAction(updatedFilter));
+        break;
+      case "technographicsFilter":
+        dispatch(technographicsFilterAction(updatedFilter));
+        break;
+      case "partnerFilter":
+        dispatch(partnerFilterAction(updatedFilter));
+        break;
+      case "regionsFilter":
+        dispatch(regionsFilterAction(updatedFilter));
+        break;
+      case "empSizeFilter":
+        dispatch(empSizeFilterAction(updatedFilter));
+        break;
+      case "verticalFilter":
+        dispatch(verticalFilterAction(updatedFilter));
+        break;
+      case "statusFilter":
+        dispatch(statusFilterAction(updatedFilter));
+        break;
+      case "agentFilter":
+        dispatch(agentFilterAction(updatedFilter));
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleRevenueChange = (event) => {
     const {
       target: { value },
@@ -108,6 +146,7 @@ export default function Sidebar(props) {
       target: { value },
     } = event;
     const contextValue = typeof value === "string" ? value.split(",") : value;
+
     dispatch(statusFilterAction(contextValue));
   };
 
@@ -206,7 +245,24 @@ export default function Sidebar(props) {
                                     >
                                       {selected.map((value) => {
                                         return (
-                                          <Chip key={value} label={value} />
+                                          <Chip
+                                            key={value}
+                                            label={value}
+                                            deleteIcon={
+                                              <ClearIcon
+                                                onMouseDown={(event) =>
+                                                  event.stopPropagation()
+                                                }
+                                              />
+                                            }
+                                            onDelete={() =>
+                                              handleChipDelete(
+                                                value,
+                                                regionsFilter,
+                                                "regionsFilter"
+                                              )
+                                            }
+                                          />
                                         );
                                       })}
                                     </Box>
@@ -268,7 +324,24 @@ export default function Sidebar(props) {
                                       >
                                         {selected.map((value) => {
                                           return (
-                                            <Chip key={value} label={value} />
+                                            <Chip
+                                              key={value}
+                                              label={value}
+                                              deleteIcon={
+                                                <ClearIcon
+                                                  onMouseDown={(event) =>
+                                                    event.stopPropagation()
+                                                  }
+                                                />
+                                              }
+                                              onDelete={() =>
+                                                handleChipDelete(
+                                                  value,
+                                                  partnerFilter,
+                                                  "partnerFilter"
+                                                )
+                                              }
+                                            />
                                           );
                                         })}
                                       </Box>
@@ -343,7 +416,26 @@ export default function Sidebar(props) {
                                 }}
                               >
                                 {selected.map((value) => {
-                                  return <Chip key={value} label={value} />;
+                                  return (
+                                    <Chip
+                                      key={value}
+                                      label={value}
+                                      deleteIcon={
+                                        <ClearIcon
+                                          onMouseDown={(event) =>
+                                            event.stopPropagation()
+                                          }
+                                        />
+                                      }
+                                      onDelete={() =>
+                                        handleChipDelete(
+                                          value,
+                                          partnerFilter,
+                                          "partnerFilter"
+                                        )
+                                      }
+                                    />
+                                  );
                                 })}
                               </Box>
                             );
@@ -403,7 +495,26 @@ export default function Sidebar(props) {
                                 }}
                               >
                                 {selected.map((value) => {
-                                  return <Chip key={value} label={value} />;
+                                  return (
+                                    <Chip
+                                      key={value}
+                                      label={value}
+                                      deleteIcon={
+                                        <ClearIcon
+                                          onMouseDown={(event) =>
+                                            event.stopPropagation()
+                                          }
+                                        />
+                                      }
+                                      onDelete={() =>
+                                        handleChipDelete(
+                                          value,
+                                          partnerFilter,
+                                          "partnerFilter"
+                                        )
+                                      }
+                                    />
+                                  );
                                 })}
                               </Box>
                             );
@@ -447,7 +558,26 @@ export default function Sidebar(props) {
                                 }}
                               >
                                 {selected.map((value) => {
-                                  return <Chip key={value} label={value} />;
+                                  return (
+                                    <Chip
+                                      key={value}
+                                      label={value}
+                                      deleteIcon={
+                                        <ClearIcon
+                                          onMouseDown={(event) =>
+                                            event.stopPropagation()
+                                          }
+                                        />
+                                      }
+                                      onDelete={() =>
+                                        handleChipDelete(
+                                          value,
+                                          agentFilter,
+                                          "agentFilter"
+                                        )
+                                      }
+                                    />
+                                  );
                                 })}
                               </Box>
                             );
@@ -508,7 +638,27 @@ export default function Sidebar(props) {
                                   }}
                                 >
                                   {selected.map((value) => {
-                                    return <Chip key={value} label={value} />;
+                                    return (
+                                      <Chip
+                                        clickable
+                                        key={value}
+                                        label={value}
+                                        deleteIcon={
+                                          <ClearIcon
+                                            onMouseDown={(event) =>
+                                              event.stopPropagation()
+                                            }
+                                          />
+                                        }
+                                        onDelete={() =>
+                                          handleChipDelete(
+                                            value,
+                                            statusFilter,
+                                            "statusFilter"
+                                          )
+                                        }
+                                      />
+                                    );
                                   })}
                                 </Box>
                               );
@@ -555,7 +705,26 @@ export default function Sidebar(props) {
                                   }}
                                 >
                                   {selected.map((value) => {
-                                    return <Chip key={value} label={value} />;
+                                    return (
+                                      <Chip
+                                        key={value}
+                                        label={value}
+                                        deleteIcon={
+                                          <ClearIcon
+                                            onMouseDown={(event) =>
+                                              event.stopPropagation()
+                                            }
+                                          />
+                                        }
+                                        onDelete={() =>
+                                          handleChipDelete(
+                                            value,
+                                            verticalFilter,
+                                            "verticalFilter"
+                                          )
+                                        }
+                                      />
+                                    );
                                   })}
                                 </Box>
                               );
@@ -601,7 +770,26 @@ export default function Sidebar(props) {
                                 }}
                               >
                                 {selected.map((value) => {
-                                  return <Chip key={value} label={value} />;
+                                  return (
+                                    <Chip
+                                      key={value}
+                                      label={value}
+                                      deleteIcon={
+                                        <ClearIcon
+                                          onMouseDown={(event) =>
+                                            event.stopPropagation()
+                                          }
+                                        />
+                                      }
+                                      onDelete={() =>
+                                        handleChipDelete(
+                                          value,
+                                          empSizeFilter,
+                                          "empSizeFilter"
+                                        )
+                                      }
+                                    />
+                                  );
                                 })}
                               </Box>
                             );
@@ -645,7 +833,26 @@ export default function Sidebar(props) {
                               }}
                             >
                               {selected.map((value) => {
-                                return <Chip key={value} label={value} />;
+                                return (
+                                  <Chip
+                                    key={value}
+                                    label={value}
+                                    deleteIcon={
+                                      <ClearIcon
+                                        onMouseDown={(event) =>
+                                          event.stopPropagation()
+                                        }
+                                      />
+                                    }
+                                    onDelete={() =>
+                                      handleChipDelete(
+                                        value,
+                                        regionsFilter,
+                                        "regionsFilter"
+                                      )
+                                    }
+                                  />
+                                );
                               })}
                             </Box>
                           );
@@ -705,7 +912,26 @@ export default function Sidebar(props) {
                                 }}
                               >
                                 {selected.map((value) => {
-                                  return <Chip key={value} label={value} />;
+                                  return (
+                                    <Chip
+                                      key={value}
+                                      label={value}
+                                      deleteIcon={
+                                        <ClearIcon
+                                          onMouseDown={(event) =>
+                                            event.stopPropagation()
+                                          }
+                                        />
+                                      }
+                                      onDelete={() =>
+                                        handleChipDelete(
+                                          value,
+                                          revenueFilter,
+                                          "revenueFilter"
+                                        )
+                                      }
+                                    />
+                                  );
                                 })}
                               </Box>
                             );
@@ -750,7 +976,26 @@ export default function Sidebar(props) {
                                 }}
                               >
                                 {selected.map((value) => {
-                                  return <Chip key={value} label={value} />;
+                                  return (
+                                    <Chip
+                                      key={value}
+                                      label={value}
+                                      deleteIcon={
+                                        <ClearIcon
+                                          onMouseDown={(event) =>
+                                            event.stopPropagation()
+                                          }
+                                        />
+                                      }
+                                      onDelete={() =>
+                                        handleChipDelete(
+                                          value,
+                                          technographicsFilter,
+                                          "technographicsFilter"
+                                        )
+                                      }
+                                    />
+                                  );
                                 })}
                               </Box>
                             );
