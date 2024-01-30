@@ -36,11 +36,11 @@ const PartnerRow = (props) => {
         sx={{
           "& > *": {
             borderBottom: "unset",
-            backgroundColor: "#fff",
+            backgroundColor: "#f3f3f3",
           },
         }}
       >
-        <TableCell sx={{ p: 0 }}>
+        <TableCell>
           <IconButton
             disabled={!props.partner.userList}
             aria-label="expand row"
@@ -65,8 +65,7 @@ const PartnerRow = (props) => {
       <TableRow>
         <TableCell
           style={{
-            paddingBottom: 0,
-            paddingTop: 0,
+            padding: 0,
             backgroundColor: "#f4f8ff",
           }}
           colSpan={20}
@@ -80,16 +79,16 @@ const PartnerRow = (props) => {
                       "& > *": {
                         borderBottom: "unset",
                         textAlign: "left",
-                        backgroundColor: "#f4f8ff",
+                        backgroundColor: "#f7faff",
                       },
                     }}
                   >
-                    <TableCell sx={{ p: 1, m: 1, minWidth: "50px" }}>
+                    <TableCell>
                       <IconButton aria-label="expand row" size="small">
                         <PersonOutlineIcon />
                       </IconButton>
                     </TableCell>
-                    <TableCell component="th" scope="row" width="300px">
+                    <TableCell scope="row" width="300px">
                       {userList.region}
                     </TableCell>
                     <TableCell width="300px">
@@ -164,7 +163,7 @@ const RegionRow = (props) => {
           },
         }}
       >
-        <TableCell sx={{ p: 0 }}>
+        <TableCell>
           <IconButton
             // disabled={!props.region.partnerList}
             aria-label="expand row"
@@ -189,8 +188,7 @@ const RegionRow = (props) => {
       <TableRow>
         <TableCell
           style={{
-            paddingBottom: 0,
-            paddingTop: 0,
+            padding: 0,
             backgroundColor: "#f4f8ff",
           }}
           colSpan={20}
@@ -227,7 +225,7 @@ const Row = (props) => {
           "& > *": { borderBottom: "unset", backgroundColor: "#fff" },
         }}
       >
-        <TableCell sx={{ p: 1, m: 1 }}>
+        <TableCell>
           <IconButton
             // disabled={!row.regionList}
             aria-label="expand row"
@@ -238,7 +236,7 @@ const Row = (props) => {
           </IconButton>
         </TableCell>
 
-        <TableCell component="th" width="300px" scope="row">
+        <TableCell width="300px" scope="row">
           {row.region}
         </TableCell>
         <TableCell width="300px">{row.assignedAccounts}</TableCell>
@@ -251,9 +249,7 @@ const Row = (props) => {
       <TableRow>
         <TableCell
           style={{
-            paddingBottom: 0,
-            paddingTop: 0,
-            paddingRight: 0,
+            padding: 0,
             backgroundColor: "#ededed",
           }}
           colSpan={20}
@@ -318,21 +314,10 @@ export const PartnerActivityGrid = () => {
       <div className="main-content">
         <div className="page-header">
           <div className="row align-items-center">
-            <div className="col-md-6">
+            <div className="col-md-6 col-12">
               <Typography className="page-title">Patner Activity</Typography>
-              <Button
-                className="mt-4 mb-3"
-                variant="contained"
-                sx={{
-                  alignItems: "center",
-                  textAlign: "center",
-                  width: "220px",
-                }}
-              >
-                Expand All
-              </Button>
             </div>
-            <div className="col-md-6 text-right">
+            <div className="col-md-6 col-12 text-md-right mt-4" >
               <Link to="/account-list">
                 <Button
                   variant="contained"
@@ -347,12 +332,28 @@ export const PartnerActivityGrid = () => {
                 </Button>
               </Link>
             </div>
+            <div className="col-md-12">
+              <Button
+                className="mt-4 mb-3"
+                variant="contained"
+                sx={{
+                  alignItems: "center",
+                  textAlign: "center",
+                  width: "220px",
+                }}
+              >
+                Expand All
+              </Button>
+            </div>
+
+
+
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-12">
-            <div className="grid-data">
+            <div className="grid-data dashboard-tabel" >
               <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                   <TableHead
@@ -364,7 +365,6 @@ export const PartnerActivityGrid = () => {
                       fontSize: "14px",
                       alignItems: "center",
                       textAlign: "center",
-                      p: 0.5,
                     }}
                   >
                     <TableRow>
