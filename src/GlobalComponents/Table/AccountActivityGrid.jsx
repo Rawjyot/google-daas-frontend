@@ -335,7 +335,7 @@ export const AccountActivityGrid = () => {
                 </Button>
               </Link>
             </div>
-            <div className="col-md-12">
+            {/* <div className="col-md-12">
               <Button
                 className="mt-4 mb-3"
                 variant="contained"
@@ -347,7 +347,7 @@ export const AccountActivityGrid = () => {
               >
                 Expand All
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
 
