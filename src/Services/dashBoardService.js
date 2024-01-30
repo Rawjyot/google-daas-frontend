@@ -185,12 +185,12 @@ class DashBoardService {
     return this.getApiCall(url, token);
   }
 
-  async partnerActivity(role, id, token) {
-    // http://localhost:5000/api/partner-activity/client/22
-    let url = `${config.baseUrl}/api/partner-activity/${role}/${id}`;
-    // console.log(url);
-    return this.getApiCall(url, token);
-  }
+  // async partnerActivity(role, id, token) {
+  //   // http://localhost:5000/api/partner-activity/client/22
+  //   let url = `${config.baseUrl}/api/partner-activity/${role}/${id}`;
+  //   // console.log(url);
+  //   return this.getApiCall(url, token);
+  // }
 
   async getMastersList(data, token) {
     let url = `${config.baseUrl}/api/getMasterData`;
