@@ -3,7 +3,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -31,6 +31,28 @@ const generateRandomString = (length) => {
 };
 const userToken = generateRandomString(16);
 const Login = () => {
+  useEffect(() => {
+    // Retrieve the stored error message
+    const login = JSON.parse(useGetLocalStorage("login"));
+    // const userRole = userData?.roleId;
+
+    // // console.log(userData.jwtToken);
+    // const userInfo = {
+    //   userId: userData?.userId,
+    //   userToken: userData?.userToken,
+    //   responseToken: userData?.responseToken,
+    //   accountId: accountID,
+    // };
+    if (login) navigate("/account-activity")
+    const errorMessage = localStorage.getItem('sessionExpired');
+
+    if (errorMessage) {
+      // Display the error message in a toast notification
+      toast.error(errorMessage);
+      // Clear the stored error message
+      localStorage.removeItem('sessionExpired');
+    }
+  }, []);
   const [loginData, setLoginData] = useState({
     userId: "",
     userPassword: "",
@@ -89,7 +111,7 @@ const Login = () => {
                 useSetLocalStorage("partnerList", list);
                 dispatch(partnerListAction(list));
               }
-              if (!JSON.parse(useGetLocalStorage("userData")).policy_accepted) {
+              if (JSON.parse(useGetLocalStorage("userData")).policyAccept) {
                 navigate("/account-activity");
                 useSetLocalStorage("login", true);
               } else navigate("/policy-acceptance");

@@ -25,11 +25,11 @@ import {
 Box;
 
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
-import {
-  accountActivity,
-  accountActivityAll,
-} from "../../Services/dashBoardService";
-
+// import {
+//   accountActivity,
+//   accountActivityAll,
+// } from "../../Services/dashBoardService";
+import dashboardService from "../../Services/dashBoardService";
 const PartnerRow = (props) => {
   const [partnerOpen, setPartnerOpen] = React.useState(false);
   return (
@@ -276,7 +276,7 @@ export const AccountActivityGrid = () => {
   const userData = JSON.parse(useGetLocalStorage("userData"));
   const fetchActivityListDetails = async () => {
     try {
-      const response = await accountActivity({
+      const response = await dashboardService.accountActivity({
         userId: userData?.userId,
         userToken: userData?.userToken,
         responseToken: userData?.responseToken,
@@ -296,7 +296,7 @@ export const AccountActivityGrid = () => {
 
   const fetchActivityAll = async () => {
     try {
-      const response = await accountActivityAll({
+      const response = await dashboardService.accountActivityAll({
         userId: userData?.userId,
         userToken: userData?.userToken,
         responseToken: userData?.responseToken,

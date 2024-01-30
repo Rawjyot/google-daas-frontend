@@ -71,13 +71,16 @@ class AuthService {
     }
   }
 
-  async handleAuthError(error) {
-    if (error.response && error.response.status === 401) {
-      // Trigger logout and redirect to login
-      logoutUser();
-      // You can also redirect to the login page using your preferred routing method
-      // Example: window.location.href = '/login';
-    }
+  async logoutUser(errorMessage) {
+
+    // Trigger logout and redirect to login
+    // logoutUser();
+    localStorage.clear();
+    localStorage.setItem('sessionExpired', errorMessage);
+    window.location.href = "/";
+    // You can also redirect to the login page using your preferred routing method
+    // Example: window.location.href = '/login';
+    // }
     // If it's not a 401 error, you can handle it in other ways or rethrow it
     return Promise.reject(error);
   };

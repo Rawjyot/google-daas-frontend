@@ -157,7 +157,7 @@ const ContactComponent = ({
             >
               {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
               <option value="">Select Status</option>
-              {masterData ? masterData?.accountStatusList?.map((statusObj, index) => {
+              {masterData ? masterData?.contactStatusList?.map((statusObj, index) => {
                 const key = Object.keys(statusObj)[0]; // Assuming there's only one key in each object
                 const value = statusObj[key];
 
@@ -173,7 +173,7 @@ const ContactComponent = ({
                   <option value="Follow Up">Follow Up</option>
                   <option value="Disqualified">Disqualified</option>
                   <option value="Bad data">Bad data</option>
-                  <option value="Viewed">Viewed</option>
+                  {/* <option value="Viewed">Viewed</option> */}
                   <option value="Untouched">Untouched</option></>
               )}
 
