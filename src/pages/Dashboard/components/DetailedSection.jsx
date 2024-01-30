@@ -74,7 +74,7 @@ const DetailedSection = () => {
   delete masterPayload.responseToken;
 
   const masterData = useGetMasterData(userInfo, userData?.jwtToken);
-  const accountDetails = useDashboardAccountCall(userInfo, userData.jwtToken);
+  const accountDetails = useDashboardAccountCall(userInfo, userData?.jwtToken);
   const remarkTrail = useGetTrailRemarkCall(userInfo, userData?.jwtToken);
   useEffect(() => {
     if (remarkTrail) {
@@ -174,13 +174,13 @@ const DetailedSection = () => {
                           label={accountDetails?.accountData?.accountStatus}
                           color={
                             accountDetails?.accountData?.accountStatus ===
-                            "Opportunity"
+                              "Opportunity"
                               ? "default"
                               : "primary"
                           }
                           className={
                             accountDetails?.accountData?.accountStatus ===
-                            "Opportunity"
+                              "Opportunity"
                               ? "green-chip"
                               : ""
                           }
@@ -226,13 +226,13 @@ const DetailedSection = () => {
                   {remarkTrail?.activityList?.length === 0
                     ? "No Status Updated"
                     : remarkTrail?.activityList?.map((remark, index) => (
-                        <RemarkComponent
-                          index={index}
-                          remark={remark}
-                          userData={userData}
-                          key={index}
-                        />
-                      ))}
+                      <RemarkComponent
+                        index={index}
+                        remark={remark}
+                        userData={userData}
+                        key={index}
+                      />
+                    ))}
                 </div>
               </div>
             </div>

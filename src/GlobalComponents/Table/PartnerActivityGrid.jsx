@@ -279,7 +279,7 @@ export const PartnerActivityGrid = () => {
 
   const fetchPartnerActivityListDetails = async () => {
     try {
-      const response = await partnerActivity({
+      const response = await dashboardService.partnerActivity({
         userId: userData?.userId,
         userToken: userData?.userToken,
         responseToken: userData?.responseToken,
