@@ -5,7 +5,7 @@ const AccountListMeta = () => {
   const { accountListData } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
   let header;
-  if (userData.role === "user") {
+  if (userData?.role === "user") {
     header = [
       "accountName",
       "size",
@@ -19,7 +19,7 @@ const AccountListMeta = () => {
       "newContacts",
       "status",
     ];
-  } else if (userData.role === "Partner") {
+  } else if (userData?.role === "Partner") {
     header = [
       "accountName",
       "size",
