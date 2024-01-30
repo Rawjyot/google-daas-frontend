@@ -172,11 +172,11 @@ const DetailedSection = () => {
                       <Stack direction="row" spacing={1}>
                         <Chip
                           label={accountDetails?.accountData?.accountStatus}
-                          color={
-                            accountDetails?.accountData?.accountStatus ===
+                          color={accountDetails?.accountData?.accountStatus === "Bad data" || accountDetails?.accountData?.accountStatus === "Disqualified" ? "error" :
+                            (accountDetails?.accountData?.accountStatus ===
                               "Opportunity"
                               ? "default"
-                              : "primary"
+                              : "primary")
                           }
                           className={
                             accountDetails?.accountData?.accountStatus ===
