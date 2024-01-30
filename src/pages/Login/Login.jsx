@@ -89,7 +89,7 @@ const Login = () => {
                 useSetLocalStorage("partnerList", list);
                 dispatch(partnerListAction(list));
               }
-              if (!JSON.parse(useGetLocalStorage("userData")).policy_accepted) {
+              if (JSON.parse(useGetLocalStorage("userData")).policyAccept) {
                 navigate("/account-activity");
                 useSetLocalStorage("login", true);
               } else navigate("/policy-acceptance");
