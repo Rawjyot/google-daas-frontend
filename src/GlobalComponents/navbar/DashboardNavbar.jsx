@@ -59,7 +59,7 @@ const DashBoardNavbar = () => {
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             <div className="top-user">
-              <p> Welcome {userData?.name}</p>
+              <p> Welcome {userData?.userName}</p>
               <Avatar src="https://www.w3schools.com/howto/img_avatar.png" />
             </div>
           </li>

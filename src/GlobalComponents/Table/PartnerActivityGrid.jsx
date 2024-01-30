@@ -164,7 +164,7 @@ const RegionRow = (props) => {
         }}
       >
         <TableCell>
-          <IconButton
+          {userRole != 3 ? <IconButton
             // disabled={!props.region.partnerList}
             aria-label="expand row"
             size="small"
@@ -175,7 +175,7 @@ const RegionRow = (props) => {
             ) : (
               <KeyboardArrowDownIcon />
             )}
-          </IconButton>
+          </IconButton> : ''}
         </TableCell>
         <TableCell width="300px">{props.region.region}</TableCell>
         <TableCell width="300px">{props.region.assignedAccounts}</TableCell>
@@ -332,7 +332,7 @@ export const PartnerActivityGrid = () => {
                 </Button>
               </Link>
             </div>
-            <div className="col-md-12">
+            {/* <div className="col-md-12">
               <Button
                 className="mt-4 mb-3"
                 variant="contained"
@@ -344,7 +344,7 @@ export const PartnerActivityGrid = () => {
               >
                 Expand All
               </Button>
-            </div>
+            </div> */}
 
 
 

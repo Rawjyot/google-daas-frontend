@@ -34,7 +34,7 @@ const PartnerRow = (props) => {
   const [partnerOpen, setPartnerOpen] = React.useState(false);
   return (
     <>
- 
+
       <TableRow
         sx={{
           "& > *": {
@@ -43,9 +43,9 @@ const PartnerRow = (props) => {
           },
         }}
       >
-        <TableCell  style={{
-            padding: 8, 
-          }}>
+        <TableCell style={{
+          padding: 8,
+        }}>
           <IconButton
             disabled={!props.partner.userList}
             aria-label="expand row"
@@ -65,14 +65,14 @@ const PartnerRow = (props) => {
         <TableCell >{props.partner.nominatedAccount}</TableCell>
         <TableCell >{props.partner.profiledAccount}</TableCell>
         <TableCell >{props.partner.contacts}</TableCell>
-        <TableCell  sx={{ color: "#FF0000" }}>
+        <TableCell sx={{ color: "#FF0000" }}>
           {props.partner.badData}
         </TableCell>
-        <TableCell  sx={{ color: "#228B22" }}>
+        <TableCell sx={{ color: "#228B22" }}>
           {props.partner.opportunities}
         </TableCell>
         <TableCell >{props.partner.followUp}</TableCell>
-        <TableCell  sx={{ color: "#FF0000" }}>
+        <TableCell sx={{ color: "#FF0000" }}>
           {props.partner.disqualified}
         </TableCell>
       </TableRow>
@@ -118,14 +118,14 @@ const UserListRow = (props) => {
         <TableCell >{props.user.nominatedAccount}</TableCell>
         <TableCell >{props.user.profiledAccount}</TableCell>
         <TableCell >{props.user.contacts}</TableCell>
-        <TableCell  sx={{ color: "#FF0000" }}>
+        <TableCell sx={{ color: "#FF0000" }}>
           {props.user.badData}
         </TableCell>
-        <TableCell  sx={{ color: "#228B22" }}>
+        <TableCell sx={{ color: "#228B22" }}>
           {props.user.opportunities}
         </TableCell>
         <TableCell >{props.user.followUp}</TableCell>
-        <TableCell  sx={{ color: "#FF0000" }}>
+        <TableCell sx={{ color: "#FF0000" }}>
           {props.user.disqualified}
         </TableCell>
       </TableRow>
@@ -148,37 +148,37 @@ const RegionRow = (props) => {
         }}
       >
         <TableCell sx={{ p: 1, m: 1 }}>
-          <IconButton
+          {userRole != 3 ? <IconButton
             // disabled={!regionList.partnerList || regionList.userList}
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
           >
             {!open ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
+          </IconButton> : ''}
         </TableCell>
 
-        <TableCell  scope="row">
+        <TableCell scope="row">
           {regionList.region}
         </TableCell>
         <TableCell >{regionList.nominatedAccount}</TableCell>
         <TableCell >{regionList.profiledAccount}</TableCell>
         <TableCell >{regionList.contacts}</TableCell>
-        <TableCell  sx={{ color: "#FF0000" }}>
+        <TableCell sx={{ color: "#FF0000" }}>
           {regionList.badData}
         </TableCell>
-        <TableCell  sx={{ color: "#228B22" }}>
+        <TableCell sx={{ color: "#228B22" }}>
           {regionList.opportunities}
         </TableCell>
         <TableCell >{regionList.followUp}</TableCell>
-        <TableCell  sx={{ color: "#FF0000" }}>
+        <TableCell sx={{ color: "#FF0000" }}>
           {regionList.disqualified}
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
-          style={{ 
-            padding:0,
+          style={{
+            padding: 0,
             backgroundColor: "#fff",
           }}
           colSpan={10}
@@ -226,27 +226,27 @@ const Row = (props) => {
           </IconButton>
         </TableCell>
 
-        <TableCell  scope="row">
+        <TableCell scope="row">
           {row && row.region}
         </TableCell>
         <TableCell >{row.nominatedAccount}</TableCell>
         <TableCell >{row.profiledAccount}</TableCell>
         <TableCell >{row.contacts}</TableCell>
-        <TableCell  sx={{ color: "#FF0000" }}>
+        <TableCell sx={{ color: "#FF0000" }}>
           {row.badData}
         </TableCell>
-        <TableCell  sx={{ color: "#228B22" }}>
+        <TableCell sx={{ color: "#228B22" }}>
           {row.opportunities}
         </TableCell>
         <TableCell >{row.followUp}</TableCell>
-        <TableCell  sx={{ color: "#FF0000" }}>
+        <TableCell sx={{ color: "#FF0000" }}>
           {row.disqualified}
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
           style={{
-            padding:0,
+            padding: 0,
             backgroundColor: "#fff",
           }}
           colSpan={10}
@@ -318,7 +318,7 @@ export const AccountActivityGrid = () => {
         <div className="page-header">
           <div className="row align-items-center">
             <div className="col-md-6 col-12">
-              <Typography className="page-title">Account Activity</Typography> 
+              <Typography className="page-title">Account Activity</Typography>
             </div>
             <div className="col-md-6 col-12 text-md-right mt-4" >
               <Link to="/account-list">
@@ -335,7 +335,7 @@ export const AccountActivityGrid = () => {
                 </Button>
               </Link>
             </div>
-            <div className="col-md-12"> 
+            {/* <div className="col-md-12">
               <Button
                 className="mt-4 mb-3"
                 variant="contained"
@@ -347,7 +347,7 @@ export const AccountActivityGrid = () => {
               >
                 Expand All
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -364,17 +364,17 @@ export const AccountActivityGrid = () => {
                       height: "50px",
                       backgroundColor: "#4286f5",
                       color: "#fff",
-                      alignItems: "center",  
+                      alignItems: "center",
                     }}
                   >
                     <TableRow>
                       {/*TOP Row*/}
                       <TableCell />
                       <TableCell
-                        sx={{ 
+                        sx={{
                           alignItems: "center",
-                          color: "#fff",  
-                          
+                          color: "#fff",
+
                         }}
                       >
                         Regions
@@ -382,8 +382,8 @@ export const AccountActivityGrid = () => {
                       <TableCell
                         sx={{
                           alignItems: "center",
-                          color: "#fff", 
-                          
+                          color: "#fff",
+
                         }}
                       >
                         Nominated Accounts
@@ -392,7 +392,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
-                          
+
                         }}
                       >
                         Profiled Accounts
@@ -401,7 +401,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
-                          
+
                         }}
                       >
                         Contacts
@@ -410,7 +410,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
-                          
+
                         }}
                       >
                         Bad Data (Contacts)
@@ -419,7 +419,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
-                          
+
                         }}
                       >
                         Opportunities
@@ -428,7 +428,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
-                          
+
                         }}
                       >
                         Follow Up
@@ -437,7 +437,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
-                          
+
                         }}
                       >
                         Disqualified
