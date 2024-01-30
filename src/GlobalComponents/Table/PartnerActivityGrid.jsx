@@ -164,7 +164,7 @@ const RegionRow = (props) => {
         }}
       >
         <TableCell>
-          <IconButton
+          {userRole != 3 ? <IconButton
             // disabled={!props.region.partnerList}
             aria-label="expand row"
             size="small"
@@ -175,7 +175,7 @@ const RegionRow = (props) => {
             ) : (
               <KeyboardArrowDownIcon />
             )}
-          </IconButton>
+          </IconButton> : ''}
         </TableCell>
         <TableCell width="300px">{props.region.region}</TableCell>
         <TableCell width="300px">{props.region.assignedAccounts}</TableCell>
