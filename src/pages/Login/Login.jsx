@@ -128,35 +128,33 @@ const Login = () => {
   };
   return (
     <>
-      <div className="h-[100vh] login">
-        <div className="flex flex-col ">
-          <div className="self-start mt-16 ml-10">
-            <img src={logo} alt="logo" className=" h-20 w-40" />
+      <div className="h-[100vh] login login-main">
+        <div className="login-inner">
+          <div className="login-header">
+            <img src={logo} alt="logo" className=" h-20 w-40 mauto" />
           </div>
-          <div className="w-[320px] self-center">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-              <h2 className=" text-3xl font-medium leading-9 tracking-tight text-gray-900">
-                Welcome to DAAS
+          <div className="login-box">
+            <div className="login-form">
+              <h2>
+                Welcome to Partner Data Management System
               </h2>
-            </div>
-
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
               <form className="space-y-6 text-gray-500" onSubmit={submit}>
                 <div>
                   <label
                     htmlFor="userId"
-                    className="block mb-1 text-xl  font-normal leading-6 "
+                    className=""
                   >
                     Username
                   </label>
-                  <div className="mt-4 rounded-md shadow-md shadow-sky-500/100">
+                  <div className="form-group">
                     <input
                       id="userId"
                       name="userId"
                       type="text"
                       required={true}
-                      className="h-12 block w-full  border-0 p-2 font-normal text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 outline-none"
+                      className="form-control"
                       onChange={(e) => onChangeData(e)}
+                      placeholder="Enter provided username"
                       value={loginData.userId}
                     />
                   </div>
@@ -165,21 +163,22 @@ const Login = () => {
                 <div>
                   <label
                     htmlFor="userPassword"
-                    className="block mb-1 text-lg font-normal leading-6 "
+                    className=""
                   >
                     Password
                   </label>
-                  <div className="mt-4 shadow-md flex justify-center items-center shadow-sky-500/100">
+                  <div className="form-group position-relative">
                     <input
                       id="userPassword"
                       name="userPassword"
                       type={visibility ? "text" : "password"}
                       required
-                      className="h-12 block w-full   p-2 font-normal shadow-sm  ring-inset ring-gray-300 placeholder:text-gray-400 outline-none"
+                      className="form-control"
                       onChange={(e) => onChangeData(e)}
                       value={loginData.userPassword}
+                      placeholder="Enter your password"
                     />
-                    <div className="mr-2 cursor-pointer">
+                    <div className="cursor-pointer">
                       {visibility ? (
                         <RemoveRedEyeIcon onClick={visible} />
                       ) : (
@@ -206,11 +205,11 @@ const Login = () => {
                   />
                 </div> */}
 
-                <Stack direction="row" spacing={1} sx={{ pt: 2 }}>
+                <Stack direction="row">
                   {isLoading ? <LoadingComponent submit={true} /> : <Button
                     type="submit"
                     variant="contained"
-                    sx={{ width: "120px", borderRadius: 5 }}
+                    className="login-btn" 
                   >
                     Sign in
                   </Button>}
@@ -219,7 +218,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </div>)
+      </div>
       <ToastContainer />
     </>
   );

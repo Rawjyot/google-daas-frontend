@@ -34,15 +34,18 @@ const PartnerRow = (props) => {
   const [partnerOpen, setPartnerOpen] = React.useState(false);
   return (
     <>
+ 
       <TableRow
         sx={{
           "& > *": {
             borderBottom: "unset",
-            backgroundColor: "#fff",
+            backgroundColor: "#f3f3f3",
           },
         }}
       >
-        <TableCell sx={{ p: 0 }}>
+        <TableCell  style={{
+            padding: 8, 
+          }}>
           <IconButton
             disabled={!props.partner.userList}
             aria-label="expand row"
@@ -58,27 +61,25 @@ const PartnerRow = (props) => {
         </TableCell>
         {/*Inner 1st Grid*/}
 
-        <TableCell width="210px">{props.partner.region}</TableCell>
-        <TableCell width="300px">{props.partner.nominatedAccount}</TableCell>
-        <TableCell width="280px">{props.partner.profiledAccount}</TableCell>
-        <TableCell width="260px">{props.partner.contacts}</TableCell>
-        <TableCell width="310px" sx={{ color: "#FF0000" }}>
+        <TableCell >{props.partner.region}</TableCell>
+        <TableCell >{props.partner.nominatedAccount}</TableCell>
+        <TableCell >{props.partner.profiledAccount}</TableCell>
+        <TableCell >{props.partner.contacts}</TableCell>
+        <TableCell  sx={{ color: "#FF0000" }}>
           {props.partner.badData}
         </TableCell>
-        <TableCell width="350px" sx={{ color: "#228B22" }}>
+        <TableCell  sx={{ color: "#228B22" }}>
           {props.partner.opportunities}
         </TableCell>
-        <TableCell width="250px">{props.partner.followUp}</TableCell>
-        <TableCell width="340px" sx={{ color: "#FF0000" }}>
+        <TableCell >{props.partner.followUp}</TableCell>
+        <TableCell  sx={{ color: "#FF0000" }}>
           {props.partner.disqualified}
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
           style={{
-            paddingBottom: 0,
-            paddingTop: 0,
-            paddingRight: 0,
+            padding: 0,
             backgroundColor: "#fff",
           }}
           colSpan={20}
@@ -103,28 +104,28 @@ const UserListRow = (props) => {
         sx={{
           "& > *": {
             borderBottom: "unset",
-            backgroundColor: "#f4f8ff",
+            backgroundColor: "#f7faff",
           },
         }}
       >
-        <TableCell sx={{ p: 1, m: 1, minWidth: "50px" }}>
+        <TableCell sx={{ p: 1, m: 1 }}>
           <IconButton aria-label="expand row" size="small">
             <PersonOutlineIcon />
           </IconButton>
         </TableCell>
 
-        <TableCell width="210px">{props.user.region}</TableCell>
-        <TableCell width="300px">{props.user.nominatedAccount}</TableCell>
-        <TableCell width="280px">{props.user.profiledAccount}</TableCell>
-        <TableCell width="260px">{props.user.contacts}</TableCell>
-        <TableCell width="310px" sx={{ color: "#FF0000" }}>
+        <TableCell >{props.user.region}</TableCell>
+        <TableCell >{props.user.nominatedAccount}</TableCell>
+        <TableCell >{props.user.profiledAccount}</TableCell>
+        <TableCell >{props.user.contacts}</TableCell>
+        <TableCell  sx={{ color: "#FF0000" }}>
           {props.user.badData}
         </TableCell>
-        <TableCell width="350px" sx={{ color: "#228B22" }}>
+        <TableCell  sx={{ color: "#228B22" }}>
           {props.user.opportunities}
         </TableCell>
-        <TableCell width="250px">{props.user.followUp}</TableCell>
-        <TableCell width="340px" sx={{ color: "#FF0000" }}>
+        <TableCell >{props.user.followUp}</TableCell>
+        <TableCell  sx={{ color: "#FF0000" }}>
           {props.user.disqualified}
         </TableCell>
       </TableRow>
@@ -157,29 +158,27 @@ const RegionRow = (props) => {
           </IconButton>
         </TableCell>
 
-        <TableCell width="300px" scope="row">
+        <TableCell  scope="row">
           {regionList.region}
         </TableCell>
-        <TableCell width="300px">{regionList.nominatedAccount}</TableCell>
-        <TableCell width="300px">{regionList.profiledAccount}</TableCell>
-        <TableCell width="300px">{regionList.contacts}</TableCell>
-        <TableCell width="300px" sx={{ color: "#FF0000" }}>
+        <TableCell >{regionList.nominatedAccount}</TableCell>
+        <TableCell >{regionList.profiledAccount}</TableCell>
+        <TableCell >{regionList.contacts}</TableCell>
+        <TableCell  sx={{ color: "#FF0000" }}>
           {regionList.badData}
         </TableCell>
-        <TableCell width="300px" sx={{ color: "#228B22" }}>
+        <TableCell  sx={{ color: "#228B22" }}>
           {regionList.opportunities}
         </TableCell>
-        <TableCell width="300px">{regionList.followUp}</TableCell>
-        <TableCell width="300px" sx={{ color: "#FF0000" }}>
+        <TableCell >{regionList.followUp}</TableCell>
+        <TableCell  sx={{ color: "#FF0000" }}>
           {regionList.disqualified}
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
-          style={{
-            paddingBottom: 0,
-            paddingTop: 0,
-            paddingRight: 0,
+          style={{ 
+            padding:0,
             backgroundColor: "#fff",
           }}
           colSpan={10}
@@ -227,29 +226,27 @@ const Row = (props) => {
           </IconButton>
         </TableCell>
 
-        <TableCell width="250px" scope="row">
+        <TableCell  scope="row">
           {row && row.region}
         </TableCell>
-        <TableCell width="180px">{row.nominatedAccount}</TableCell>
-        <TableCell width="300px">{row.profiledAccount}</TableCell>
-        <TableCell width="350px">{row.contacts}</TableCell>
-        <TableCell width="350px" sx={{ color: "#FF0000" }}>
+        <TableCell >{row.nominatedAccount}</TableCell>
+        <TableCell >{row.profiledAccount}</TableCell>
+        <TableCell >{row.contacts}</TableCell>
+        <TableCell  sx={{ color: "#FF0000" }}>
           {row.badData}
         </TableCell>
-        <TableCell width="200px" sx={{ color: "#228B22" }}>
+        <TableCell  sx={{ color: "#228B22" }}>
           {row.opportunities}
         </TableCell>
-        <TableCell width="250px">{row.followUp}</TableCell>
-        <TableCell width="300px" sx={{ color: "#FF0000" }}>
+        <TableCell >{row.followUp}</TableCell>
+        <TableCell  sx={{ color: "#FF0000" }}>
           {row.disqualified}
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
           style={{
-            paddingBottom: 0,
-            paddingTop: 0,
-            paddingRight: 0,
+            padding:0,
             backgroundColor: "#fff",
           }}
           colSpan={10}
@@ -320,21 +317,10 @@ export const AccountActivityGrid = () => {
       <div className="main-content">
         <div className="page-header">
           <div className="row align-items-center">
-            <div className="col-md-6">
-              <Typography className="page-title">Account Activity</Typography>
-              <Button
-                className="mt-4 mb-3"
-                variant="contained"
-                sx={{
-                  alignItems: "center",
-                  textAlign: "center",
-                  width: "220px",
-                }}
-              >
-                Expand All
-              </Button>
+            <div className="col-md-6 col-12">
+              <Typography className="page-title">Account Activity</Typography> 
             </div>
-            <Box className="col-md-6 text-right" sx={{ marginTop: "40px" }}>
+            <div className="col-md-6 col-12 text-md-right mt-4" >
               <Link to="/account-list">
                 <Button
                   variant="contained"
@@ -348,36 +334,47 @@ export const AccountActivityGrid = () => {
                   View All Account
                 </Button>
               </Link>
-            </Box>
+            </div>
+            <div className="col-md-12"> 
+              <Button
+                className="mt-4 mb-3"
+                variant="contained"
+                sx={{
+                  alignItems: "center",
+                  textAlign: "center",
+                  width: "220px",
+                }}
+              >
+                Expand All
+              </Button>
+            </div>
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-12">
-            <div className="grid-data">
+            <div className="grid-data dashboard-tabel">
               <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                   <TableHead
                     component="th"
                     scope="row"
                     sx={{
-                      fontSize: "14px",
+                      fontSize: "13px",
                       height: "50px",
                       backgroundColor: "#4286f5",
                       color: "#fff",
-                      alignItems: "center",
-                      textAlign: "center",
+                      alignItems: "center",  
                     }}
                   >
                     <TableRow>
                       {/*TOP Row*/}
                       <TableCell />
                       <TableCell
-                        sx={{
-                          p: 0,
+                        sx={{ 
                           alignItems: "center",
-                          color: "#fff",
-                          minWidth: 150,
+                          color: "#fff",  
+                          
                         }}
                       >
                         Regions
@@ -385,8 +382,8 @@ export const AccountActivityGrid = () => {
                       <TableCell
                         sx={{
                           alignItems: "center",
-                          color: "#fff",
-                          // minWidth: 10.0,
+                          color: "#fff", 
+                          
                         }}
                       >
                         Nominated Accounts
@@ -395,6 +392,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
+                          
                         }}
                       >
                         Profiled Accounts
@@ -403,6 +401,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
+                          
                         }}
                       >
                         Contacts
@@ -411,6 +410,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
+                          
                         }}
                       >
                         Bad Data (Contacts)
@@ -419,6 +419,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
+                          
                         }}
                       >
                         Opportunities
@@ -427,6 +428,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
+                          
                         }}
                       >
                         Follow Up
@@ -435,6 +437,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
+                          
                         }}
                       >
                         Disqualified

@@ -164,7 +164,7 @@ const AccountList = () => {
               <div className="col-md-6">
                 <Typography className="page-title">Account List</Typography>
               </div>
-              <div className="col-md-6 text-right">
+              <div className="col-md-6 text-md-right">
                 <Link to="/account-activity">
                   <Button
                     variant="contained"

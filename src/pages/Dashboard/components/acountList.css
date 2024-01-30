@@ -57,7 +57,7 @@
  }
 
  .grid-data th {
-   white-space: nowrap;
+   /* white-space: nowrap; */
    padding: 0;
    height: 50px;
  }
@@ -78,4 +78,29 @@
 
  .ag-icon {
    color: #4286f5 !important;
+ }
+
+
+ .dashboard-tabel td {
+   width: 300px !important;
+   word-break: break-all;
+   font-size: 13px;
+ }
+
+ .dashboard-tabel th {
+   font-size: 13px;
+ }
+
+ .dashboard-tabel td:nth-child(1) {
+   width: 3% !important;
+ }
+
+ .dashboard-tabel td:nth-child(2) {
+   width: 15% !important;
+ }
+
+ @media (max-width:767px) {
+   .grid-data th { 
+     padding: 8px; 
+   }
  }
