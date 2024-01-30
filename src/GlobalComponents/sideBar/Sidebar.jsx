@@ -227,7 +227,7 @@ export default function Sidebar(props) {
                               value={regionsFilter}
                               onChange={handleRegionChange}
                               input={<OutlinedInput />}
-                              MenuProps={MenuProps}
+                              // MenuProps={MenuProps}
                               sx={{
                                 backgroundColor: "#fff",
                               }}
@@ -399,7 +399,7 @@ export default function Sidebar(props) {
                         value={partnerFilter}
                         onChange={handlePartnerChange}
                         input={<OutlinedInput />}
-                        MenuProps={MenuProps}
+                        // MenuProps={MenuProps}
                         sx={{
                           backgroundColor: "#fff",
                         }}
@@ -478,7 +478,7 @@ export default function Sidebar(props) {
                         value={partnerFilter}
                         onChange={handlePartnerChange}
                         input={<OutlinedInput />}
-                        MenuProps={MenuProps}
+                        // MenuProps={MenuProps}
                         sx={{
                           backgroundColor: "#fff",
                         }}
@@ -538,10 +538,11 @@ export default function Sidebar(props) {
                         size="small"
                         multiple
                         displayEmpty
+                        disabled={partnerFilter && partnerFilter.length < 1}
                         value={agentFilter}
                         onChange={handleAgentChange}
                         input={<OutlinedInput />}
-                        MenuProps={MenuProps}
+                        // MenuProps={MenuProps}
                         sx={{
                           backgroundColor: "#fff",
                         }}
@@ -621,7 +622,7 @@ export default function Sidebar(props) {
                           value={statusFilter}
                           onChange={handleStatusChange}
                           input={<OutlinedInput />}
-                          MenuProps={MenuProps}
+                          // MenuProps={MenuProps}
                           sx={{
                             backgroundColor: "#fff",
                           }}
@@ -895,7 +896,7 @@ export default function Sidebar(props) {
                         value={revenueFilter}
                         onChange={handleRevenueChange}
                         input={<OutlinedInput />}
-                        MenuProps={MenuProps}
+                        // MenuProps={MenuProps}
                         sx={{
                           backgroundColor: "#fff",
                         }}
@@ -959,7 +960,7 @@ export default function Sidebar(props) {
                         value={technographicsFilter}
                         onChange={handleTechnoChange}
                         input={<OutlinedInput />}
-                        MenuProps={MenuProps}
+                        // MenuProps={MenuProps}
                         sx={{
                           backgroundColor: "#fff",
                         }}
