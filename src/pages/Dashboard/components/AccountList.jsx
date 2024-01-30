@@ -13,11 +13,12 @@ import {
   agentList as agentListAction,
 } from "../../../store/Features/accountSlice";
 
-import {
-  getAccountListDetails,
-  getAccountListDetailsFiltered,
-  getAgentList,
-} from "../../../Services/dashBoardService";
+import dashboardService from "../../../Services/dashBoardService";
+// import {
+//   getAccountListDetails,
+//   getAccountListDetailsFiltered,
+//   getAgentList,
+// } from "../../../Services/dashBoardService";
 import AccountListMeta from "./AccountListMeta";
 import "./acountList.css";
 
@@ -52,7 +53,7 @@ const AccountList = () => {
         (revenueFilter && revenueFilter.length > 0) ||
         (technographicsFilter && technographicsFilter.length > 0)
       ) {
-        response = await getAccountListDetailsFiltered({
+        response = await dashboardService.getAccountListDetailsFiltered({
           userId: userData?.userId,
           userToken: userData?.userToken,
           responseToken: userData?.responseToken,
@@ -107,7 +108,7 @@ const AccountList = () => {
             "",
         });
       } else {
-        response = await getAccountListDetails({
+        response = await dashboardService.getAccountListDetails({
           userId: userData?.userId,
           userToken: userData?.userToken,
           responseToken: userData?.responseToken,
@@ -122,7 +123,7 @@ const AccountList = () => {
   };
 
   const fetchAgentList = async () => {
-    const response = await getAgentList({
+    const response = await dashboardService.getAgentList({
       userId: userData?.userId,
       userToken: userData?.userToken,
       responseToken: userData?.responseToken,

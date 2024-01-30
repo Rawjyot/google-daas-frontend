@@ -4,8 +4,9 @@ import { AccountActivityGrid } from "../../GlobalComponents/Table/AccountActivit
 import DashBoardNavbar from "../../GlobalComponents/navbar/DashboardNavbar";
 import Sidebar from "../../GlobalComponents/sideBar/Sidebar";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
-import { getMasterData } from "../../Services/dashBoardService";
+// import { getMasterData } from "../../Services/dashBoardService";
 import { regionsList as regionsListAction } from "../../store/Features/accountSlice";
+import dashboardService from "../../Services/dashBoardService";
 import "./dashboard.css";
 const AccountActivity = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const AccountActivity = () => {
 
   const fetchRegionList = async () => {
     try {
-      const response = await getMasterData({
+      const response = await dashboardService.getMasterData({
         userId: userData?.userId,
         userToken: userData?.userToken,
         responseToken: userData?.responseToken,

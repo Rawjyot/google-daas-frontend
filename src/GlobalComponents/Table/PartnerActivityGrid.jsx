@@ -23,11 +23,11 @@ import {
 } from "../../store/Features/accountSlice";
 
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
-import {
-  getPartnerActivityAll,
-  partnerActivity,
-} from "../../Services/dashBoardService";
-
+// import {
+//   getPartnerActivityAll,
+//   partnerActivity,
+// } from "../../Services/dashBoardService";
+import dashboardService from "../../Services/dashBoardService";
 const PartnerRow = (props) => {
   const [partnerOpen, setPartnerOpen] = React.useState(false);
   return (
@@ -294,7 +294,7 @@ export const PartnerActivityGrid = () => {
 
   const fetchPartnerActivityAll = async () => {
     try {
-      const response = await getPartnerActivityAll({
+      const response = await dashboardService.getPartnerActivityAll({
         userId: userData?.userId,
         userToken: userData?.userToken,
         responseToken: userData?.responseToken,
