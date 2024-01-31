@@ -164,18 +164,22 @@ const RegionRow = (props) => {
         }}
       >
         <TableCell>
-          {userRole != 3 ? <IconButton
-            // disabled={!props.region.partnerList}
-            aria-label="expand row"
-            size="small"
-            onClick={() => setPartnerOpen(!partnerOpen)}
-          >
-            {!partnerOpen ? (
-              <KeyboardArrowRightIcon />
-            ) : (
-              <KeyboardArrowDownIcon />
-            )}
-          </IconButton> : ''}
+          {userRole != 3 ? (
+            <IconButton
+              // disabled={!props.region.partnerList}
+              aria-label="expand row"
+              size="small"
+              onClick={() => setPartnerOpen(!partnerOpen)}
+            >
+              {!partnerOpen ? (
+                <KeyboardArrowRightIcon />
+              ) : (
+                <KeyboardArrowDownIcon />
+              )}
+            </IconButton>
+          ) : (
+            ""
+          )}
         </TableCell>
         <TableCell width="300px">{props.region.region}</TableCell>
         <TableCell width="300px">{props.region.assignedAccounts}</TableCell>
@@ -280,6 +284,10 @@ export const PartnerActivityGrid = () => {
         userToken: userData?.userToken,
         responseToken: userData?.responseToken,
         roleId: userData?.roleId,
+        dashboardFilter: {
+          regionIds: regionsFilter,
+          partnerIds: partnerFilter,
+        },
       });
       dispatch(partnerActivityListAction(response.data));
       return response.data;
@@ -317,7 +325,7 @@ export const PartnerActivityGrid = () => {
             <div className="col-md-6 col-12">
               <Typography className="page-title">Patner Activity</Typography>
             </div>
-            <div className="col-md-6 col-12 text-md-right mt-4" >
+            <div className="col-md-6 col-12 text-md-right mt-4">
               <Link to="/account-list">
                 <Button
                   variant="contained"
@@ -345,15 +353,12 @@ export const PartnerActivityGrid = () => {
                 Expand All
               </Button>
             </div> */}
-
-
-
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-12">
-            <div className="grid-data dashboard-tabel" >
+            <div className="grid-data dashboard-tabel">
               <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                   <TableHead
