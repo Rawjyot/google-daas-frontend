@@ -107,7 +107,7 @@ const PartnerRow = (props) => {
                       {userList.contactsTouched}
                     </TableCell>
                     <TableCell width="300px">
-                      {userList.contactsTouched}
+                      {userList.loginsPerMonth}
                     </TableCell>
                   </TableRow>
                 </>
