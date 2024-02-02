@@ -8,6 +8,8 @@ const initialState = {
   agentFilter: [],
   revenueFilter: [],
   regionsFilter: [],
+  countryFilter: '',
+  stateFilter: [],
   partnerFilter: [],
   empSizeFilter: [],
   verticalFilter: [],
@@ -18,6 +20,8 @@ const initialState = {
   regionsdropdown: null,
   partnerdropdown: null,
   regionsList: null,
+  countryList: null,
+  stateList: null,
   revenueList: null,
   empSizeList: null,
   verticalList: null,
@@ -41,6 +45,12 @@ const accountSlice = createSlice({
     regionsList: (state, action) => {
       state.regionsList = action.payload;
     },
+    countryList: (state, action) => {
+      state.countryList = action.payload;
+    },
+    stateList: (state, action) => {
+      state.stateList = action.payload;
+    },
     revenueList: (state, action) => {
       state.revenueList = action.payload;
     },
@@ -58,6 +68,12 @@ const accountSlice = createSlice({
     },
     regionsFilter: (state, action) => {
       state.regionsFilter = action.payload;
+    },
+    countryFilter: (state, action) => {
+      state.countryFilter = action.payload;
+    },
+    stateFilter: (state, action) => {
+      state.stateFilter = action.payload;
     },
     partnerFilter: (state, action) => {
       state.partnerFilter = action.payload;
@@ -107,6 +123,8 @@ const accountSlice = createSlice({
 export const {
   agentFilter,
   regionsFilter,
+  countryFilter,
+  stateFilter,
   partnerFilter,
   revenueFilter,
   empSizeFilter,
@@ -119,6 +137,8 @@ export const {
   partnerActivityAll,
   activityList,
   regionsList,
+  countryList,
+  stateList,
   revenueList,
   partnerList,
   verticalList,

@@ -236,6 +236,11 @@ class DashBoardService {
     let url = `${config.baseUrl}/api/getPartnerUserList`;
     return await this.service.post(url, data);
   };
+
+  async getCountryCityState(data) {
+    let url = `${config.baseUrl}/api/getCSC`;
+    return await this.service.post(url, data);
+  };
 }
 
 const dashboardService = new DashBoardService();

@@ -10,17 +10,7 @@ import { ModuleRegistry } from "@ag-grid-community/core";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 
-// Custom cell renderer function for the "Account Name" column
-const accountNameCellRenderer = (params) => {
-  const accountName = params.data.accountName;
-  const detailPageLink = `/account-details/${params.data.accountId}`; // Replace with your actual detail page link
 
-  return (
-    <Link to={detailPageLink} style={{ textDecoration: "none" }}>
-      {accountName}
-    </Link>
-  );
-};
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -29,7 +19,18 @@ export const AccountListGrid = (props) => {
   const gridRef = useRef();
   const { accountListData } = useSelector((state) => state.account);
   const gridStyle = useMemo(() => ({ height: "65%", width: "100%" }), []);
+  const [currentPage, setCurrentPage] = useState(0);
+  // Custom cell renderer function for the "Account Name" column
+  const accountNameCellRenderer = (params) => {
+    const accountName = params.data.accountName;
+    const detailPageLink = `/account-details/${params.data.accountId}?fromPage=${currentPage}`; // Detail page link to show
 
+    return (
+      <Link to={detailPageLink} style={{ textDecoration: "none" }}>
+        {accountName}
+      </Link>
+    );
+  };
   const defaultColDef = useMemo(() => {
     return {
       flex: 1,
@@ -127,14 +128,25 @@ export const AccountListGrid = (props) => {
       minWidth: 150,
     },
   ]);
-
+  const onPaginationChanged = (e) => {
+    console.log(e?.api?.paginationProxy)
+    // Get the current page number
+    // const currentPage = gridApi.paginationGetCurrentPage() + 1; // +1 because pages are 0-indexed
+    // if (e?.api?.paginationProxy?.currentPage > currentPage) 
+    setCurrentPage(+e?.api?.paginationProxy?.currentPage)
+    // Do something with the current page number
+    console.log('Current Page:', currentPage);
+  };
   const onGridReady = (params) => {
+    // setGridApi(params.api);
     const userData = JSON.parse(useGetLocalStorage("userData"));
     const userRole = userData?.roleId;
 
     params.api.sizeColumnsToFit();
     params.api.resetRowHeights();
+    // params.api.paginationGoToPage(5);
     // console.log("User Id", userRole);
+    // console.log(params.api.paginationGetCurrentPage(), "Page nuber")
     (userRole === 3 || userRole === 2) &&
       params.api.setColumnVisible("partnerName", false);
 
@@ -151,6 +163,7 @@ export const AccountListGrid = (props) => {
         pagination={true}
         onGridReady={onGridReady}
         defaultColDef={defaultColDef}
+        onPaginationChanged={onPaginationChanged}
       />
     </Box>
   );
