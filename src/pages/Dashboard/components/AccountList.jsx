@@ -153,7 +153,8 @@ const AccountList = () => {
     partnerFilter,
     agentFilter,
     countryFilter,
-    stateFilter
+    stateFilter,
+    cityFilter
   ]);
 
   return (

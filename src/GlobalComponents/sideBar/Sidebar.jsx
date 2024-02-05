@@ -30,7 +30,9 @@ import {
   countryFilter as countryFilterAction,
   countryList as countryListAction,
   stateList as stateListAction,
-  stateFilter as stateFilterAction
+  stateFilter as stateFilterAction,
+  cityFilter as cityFilterAction,
+  cityList as cityListAction
 } from "../../store/Features/accountSlice";
 import "./sidebar.css";
 
@@ -44,6 +46,7 @@ export default function Sidebar(props) {
   const { regionsFilter } = useSelector((state) => state.account);
   const { countryFilter } = useSelector((state) => state.account);
   const { stateFilter } = useSelector((state) => state.account);
+  const { cityFilter } = useSelector((state) => state.account);
   const { empSizeFilter } = useSelector((state) => state.account);
   const { verticalFilter } = useSelector((state) => state.account);
   const { statusFilter } = useSelector((state) => state.account);
@@ -60,6 +63,8 @@ export default function Sidebar(props) {
 
   const { countryList } = useSelector((state) => state.account);
   const { stateList } = useSelector((state) => state.account);
+  const { cityList } = useSelector((state) => state.account);
+
 
   const [regionOpen, setRegionOpen] = useState(false);
   const [partnerOpen, setPartnerOpen] = useState(false);
@@ -71,7 +76,6 @@ export default function Sidebar(props) {
     const {
       target: { value },
     } = event;
-    console.log(value)
     const contextValue = typeof value === "string" ? value.split(",") : value;
     fetchCountryCityState("REGION", value).then(res => {
 
@@ -90,7 +94,6 @@ export default function Sidebar(props) {
     } = event;
 
     const contextValue = typeof value === "string" ? value.split(",") : value;
-    console.log(value, "CountryChange")
     fetchCountryCityState("COUNTRY", [value]).then(res => {
 
       dispatch(stateListAction(res?.data?.stateList));
@@ -105,16 +108,23 @@ export default function Sidebar(props) {
     const {
       target: { value },
     } = event;
-    console.log(value)
     const contextValue = typeof value === "string" ? value.split(",") : value;
-    fetchCountryCityState("COUNTRY", value).then(res => {
+    fetchCountryCityState("STATE", value).then(res => {
 
-      // dispatch(countryListAction(res?.data?.countryList));
+      dispatch(cityListAction(res?.data?.cityList));
       // console.log(res)
     }).catch(err => {
       console.log(err)
     })
     dispatch(stateFilterAction(contextValue));
+  };
+
+  const handleCityChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    dispatch(cityFilterAction(contextValue));
   };
 
   const handlePartnerChange = (event) => {
@@ -161,12 +171,13 @@ export default function Sidebar(props) {
           dispatch(countryListAction([]))
           dispatch(stateFilterAction([]))
           dispatch(stateListAction(null))
+          dispatch(cityFilterAction([]))
+          dispatch(cityListAction(null))
         }
         fetchCountryCityState("REGION", updatedFilter).then(res => {
 
           dispatch(countryListAction(res?.data?.countryList.length > 0 ? res?.data?.countryList : false));
-          console.log(res)
-          console.log(countryList, "Chip op")
+
         }).catch(err => {
           console.log(err)
         })
@@ -192,15 +203,22 @@ export default function Sidebar(props) {
         fetchCountryCityState("COUNTRY", updatedFilter).then(res => {
           if (updatedFilter.length < 1) dispatch(ststeFilterAction(''))
           dispatch(stateListAction(res?.data?.stateList.length > 0 ? res?.data?.stateList : false));
-          console.log(res)
-          console.log(countryList, "Chip op")
+
         }).catch(err => {
           console.log(err)
         })
         dispatch(countryFilterAction(updatedFilter));
         break;
       case "stateFilter":
+        if (updatedFilter.length < 1) {
+
+          dispatch(cityFilterAction([]))
+          dispatch(cityListAction(null))
+        }
         dispatch(stateFilterAction(updatedFilter));
+        break;
+      case "cityFilter":
+        dispatch(cityFilterAction(updatedFilter));
         break;
       default:
         break;
@@ -1021,6 +1039,8 @@ export default function Sidebar(props) {
                                       dispatch(countryFilterAction(''));
                                       dispatch(stateFilterAction([]));
                                       dispatch(stateListAction(null));
+                                      dispatch(cityFilterAction([]));
+                                      dispatch(cityListAction(null));
                                     }}
                                   />
 
@@ -1098,6 +1118,71 @@ export default function Sidebar(props) {
                         >
                           {stateList &&
                             stateList.map((name) => (
+                              <MenuItem key={name} value={name}>
+                                {name}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="filter-control">
+                      <FormControl fullWidth size="small">
+                        <Select
+                          labelId="demo-multiple-state-label"
+                          id="demo-multiple-city"
+                          size="small"
+                          displayEmpty
+                          multiple
+                          value={cityFilter}
+                          onChange={handleCityChange}
+                          disabled={!cityList ? true : false}
+                          input={<OutlinedInput />}
+                          MenuProps={MenuProps}
+                          sx={{
+                            backgroundColor: "#fff",
+                          }}
+                          renderValue={(selected) => {
+                            if (!selected || selected.length === 0) {
+                              return <em>Select City</em>;
+                            } else {
+                              return (
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: 0.5,
+                                  }}
+                                >
+                                  {selected.map((value) => {
+                                    return (
+                                      <Chip
+                                        key={value}
+                                        label={value}
+                                        deleteIcon={
+                                          <ClearIcon
+                                            onMouseDown={(event) =>
+                                              event.stopPropagation()
+                                            }
+                                          />
+                                        }
+                                        onDelete={() =>
+                                          handleChipDelete(
+                                            value,
+                                            cityFilter,
+                                            "cityFilter"
+                                          )
+                                        }
+                                      />
+                                    );
+                                  })}
+                                </Box>
+                              );
+                            }
+                          }}
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          {cityList &&
+                            cityList.map((name) => (
                               <MenuItem key={name} value={name}>
                                 {name}
                               </MenuItem>

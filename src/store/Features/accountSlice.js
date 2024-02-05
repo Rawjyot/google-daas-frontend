@@ -10,6 +10,7 @@ const initialState = {
   regionsFilter: [],
   countryFilter: '',
   stateFilter: [],
+  cityFilter: [],
   partnerFilter: [],
   empSizeFilter: [],
   verticalFilter: [],
@@ -22,6 +23,7 @@ const initialState = {
   regionsList: null,
   countryList: null,
   stateList: null,
+  cityList: null,
   revenueList: null,
   empSizeList: null,
   verticalList: null,
@@ -51,6 +53,9 @@ const accountSlice = createSlice({
     stateList: (state, action) => {
       state.stateList = action.payload;
     },
+    cityList: (state, action) => {
+      state.cityList = action.payload;
+    },
     revenueList: (state, action) => {
       state.revenueList = action.payload;
     },
@@ -74,6 +79,9 @@ const accountSlice = createSlice({
     },
     stateFilter: (state, action) => {
       state.stateFilter = action.payload;
+    },
+    cityFilter: (state, action) => {
+      state.cityFilter = action.payload;
     },
     partnerFilter: (state, action) => {
       state.partnerFilter = action.payload;
@@ -125,6 +133,7 @@ export const {
   regionsFilter,
   countryFilter,
   stateFilter,
+  cityFilter,
   partnerFilter,
   revenueFilter,
   empSizeFilter,
@@ -139,6 +148,7 @@ export const {
   regionsList,
   countryList,
   stateList,
+  cityList,
   revenueList,
   partnerList,
   verticalList,
