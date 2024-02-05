@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import logo from "../../assets/images/logo.png";
+import { ToastContainer, toast } from "react-toastify";
 import {
   agentFilter as agentFilterAction,
   empSizeFilter as empSizeFilterAction,
@@ -26,8 +27,14 @@ import {
   statusFilter as statusFilterAction,
   technographicsFilter as technographicsFilterAction,
   verticalFilter as verticalFilterAction,
+  countryFilter as countryFilterAction,
+  countryList as countryListAction,
+  stateList as stateListAction,
+  stateFilter as stateFilterAction
 } from "../../store/Features/accountSlice";
 import "./sidebar.css";
+
+import dashboardService from "../../Services/dashBoardService";
 
 export default function Sidebar(props) {
   const dispatch = useDispatch();
@@ -35,6 +42,8 @@ export default function Sidebar(props) {
   const { agentFilter } = useSelector((state) => state.account);
   const { partnerFilter } = useSelector((state) => state.account);
   const { regionsFilter } = useSelector((state) => state.account);
+  const { countryFilter } = useSelector((state) => state.account);
+  const { stateFilter } = useSelector((state) => state.account);
   const { empSizeFilter } = useSelector((state) => state.account);
   const { verticalFilter } = useSelector((state) => state.account);
   const { statusFilter } = useSelector((state) => state.account);
@@ -49,6 +58,9 @@ export default function Sidebar(props) {
   const { technographicsList } = useSelector((state) => state.account);
   const { partnerList } = useSelector((state) => state.account);
 
+  const { countryList } = useSelector((state) => state.account);
+  const { stateList } = useSelector((state) => state.account);
+
   const [regionOpen, setRegionOpen] = useState(false);
   const [partnerOpen, setPartnerOpen] = useState(false);
 
@@ -59,9 +71,50 @@ export default function Sidebar(props) {
     const {
       target: { value },
     } = event;
+    console.log(value)
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    fetchCountryCityState("REGION", value).then(res => {
+
+      dispatch(countryListAction(res?.data?.countryList));
+      // console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
+    dispatch(regionsFilterAction(contextValue));
+  };
+
+
+  const handleCountryChange = (event) => {
+    const {
+      target: { value },
+    } = event;
 
     const contextValue = typeof value === "string" ? value.split(",") : value;
-    dispatch(regionsFilterAction(contextValue));
+    console.log(value, "CountryChange")
+    fetchCountryCityState("COUNTRY", [value]).then(res => {
+
+      dispatch(stateListAction(res?.data?.stateList));
+      // console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
+    dispatch(countryFilterAction(contextValue));
+  };
+
+  const handleStateChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    console.log(value)
+    const contextValue = typeof value === "string" ? value.split(",") : value;
+    fetchCountryCityState("COUNTRY", value).then(res => {
+
+      // dispatch(countryListAction(res?.data?.countryList));
+      // console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
+    dispatch(stateFilterAction(contextValue));
   };
 
   const handlePartnerChange = (event) => {
@@ -78,6 +131,11 @@ export default function Sidebar(props) {
     } = event;
     const contextValue = typeof value === "string" ? value.split(",") : value;
     dispatch(technographicsFilterAction(contextValue));
+  };
+
+  const handleDropdownOpen = () => {
+    // Your code to be executed when the dropdown is opened
+    console.log('Dropdown opened!');
   };
 
   const handleChipDelete = (value, filter, filterKey) => {
@@ -98,6 +156,20 @@ export default function Sidebar(props) {
         dispatch(partnerFilterAction(updatedFilter));
         break;
       case "regionsFilter":
+        if (updatedFilter.length < 1) {
+          dispatch(countryFilterAction(''))
+          dispatch(countryListAction([]))
+          dispatch(stateFilterAction([]))
+          dispatch(stateListAction(null))
+        }
+        fetchCountryCityState("REGION", updatedFilter).then(res => {
+
+          dispatch(countryListAction(res?.data?.countryList.length > 0 ? res?.data?.countryList : false));
+          console.log(res)
+          console.log(countryList, "Chip op")
+        }).catch(err => {
+          console.log(err)
+        })
         dispatch(regionsFilterAction(updatedFilter));
         break;
       case "empSizeFilter":
@@ -111,6 +183,24 @@ export default function Sidebar(props) {
         break;
       case "agentFilter":
         dispatch(agentFilterAction(updatedFilter));
+        break;
+      case "countryFilter":
+        if (updatedFilter.length < 1) {
+          dispatch(stateFilterAction([]))
+          dispatch(stateListAction([]))
+        }
+        fetchCountryCityState("COUNTRY", updatedFilter).then(res => {
+          if (updatedFilter.length < 1) dispatch(ststeFilterAction(''))
+          dispatch(stateListAction(res?.data?.stateList.length > 0 ? res?.data?.stateList : false));
+          console.log(res)
+          console.log(countryList, "Chip op")
+        }).catch(err => {
+          console.log(err)
+        })
+        dispatch(countryFilterAction(updatedFilter));
+        break;
+      case "stateFilter":
+        dispatch(stateFilterAction(updatedFilter));
         break;
       default:
         break;
@@ -158,6 +248,18 @@ export default function Sidebar(props) {
     dispatch(agentFilterAction(contextValue));
   };
 
+  const fetchCountryCityState = async (type = "REGION", data) => {
+    return await dashboardService.getCountryCityState({
+      userId: userData?.userId,
+      userToken: userData?.userToken,
+      responseToken: userData?.responseToken,
+      type: type,
+      dataFor: data.join(","),
+    });
+
+    // const countryList = response?.data?.countryList
+
+  };
   const ITEM_HEIGHT = 50;
   const ITEM_PADDING_TOP = 4;
   const MenuProps = {
@@ -744,7 +846,7 @@ export default function Sidebar(props) {
                     </FormControl>
                   </div>
                   <div className="filter-control">
-                    <FormControl>
+                    <FormControl fullWidth size="small" >
                       <Select
                         labelId="demo-multiple-name-label"
                         id="demo-multiple-name"
@@ -808,36 +910,106 @@ export default function Sidebar(props) {
                     </FormControl>
                   </div>
                   <div className="filter-control">
-                    <Select
-                      labelId="demo-multiple-name-label"
-                      id="demo-multiple-name"
-                      size="small"
-                      displayEmpty
-                      multiple
-                      value={regionsFilter}
-                      onChange={handleRegionChange}
-                      input={<OutlinedInput />}
-                      MenuProps={MenuProps}
-                      sx={{
-                        backgroundColor: "#fff",
-                      }}
-                      renderValue={(selected) => {
-                        if (!selected || selected.length === 0) {
-                          return <em>Select Region</em>;
-                        } else {
-                          return (
-                            <Box
-                              sx={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                gap: 0.5,
-                              }}
-                            >
-                              {selected.map((value) => {
-                                return (
+                    <FormControl fullWidth size="small">
+                      <Select
+                        labelId="demo-multiple-name-label"
+                        id="demo-multiple-name"
+                        size="small"
+                        displayEmpty
+                        multiple
+                        value={regionsFilter}
+                        onChange={handleRegionChange}
+                        input={<OutlinedInput />}
+                        MenuProps={MenuProps}
+                        sx={{
+                          backgroundColor: "#fff",
+                        }}
+                        renderValue={(selected) => {
+                          if (!selected || selected.length === 0) {
+                            return <em>Select Region</em>;
+                          } else {
+                            return (
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: 0.5,
+                                }}
+                              >
+                                {selected.map((value) => {
+                                  return (
+                                    <Chip
+                                      key={value}
+                                      label={value}
+                                      deleteIcon={
+                                        <ClearIcon
+                                          onMouseDown={(event) =>
+                                            event.stopPropagation()
+                                          }
+                                        />
+                                      }
+                                      onDelete={() =>
+                                        handleChipDelete(
+                                          value,
+                                          regionsFilter,
+                                          "regionsFilter"
+                                        )
+                                      }
+                                    />
+                                  );
+                                })}
+                              </Box>
+                            );
+                          }
+                        }}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        {regionsList &&
+                          regionsList.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    </FormControl>
+                  </div>
+                  {userRole === 3 ? <>
+                    <div className="filter-control">
+                      <FormControl fullWidth size="small">
+                        <Select
+                          labelId="demo-multiple-name-label"
+                          id="demo-multiple-name"
+                          size="small"
+                          displayEmpty
+                          // multiple
+                          value={countryFilter}
+                          onChange={handleCountryChange}
+                          input={<OutlinedInput />}
+                          MenuProps={MenuProps}
+                          disabled={!countryList ? true : false}
+                          // title={!countryList ? 'Please select Region first' : false}
+                          // onMouseEnter={() => !countryList ? toast.error('Please select Region first') : false}
+                          sx={{
+                            backgroundColor: "#fff",
+                          }}
+                          // onFocus={handleDropdownOpen}
+                          renderValue={(selected) => {
+                            if (!selected || selected.length === 0) {
+                              return <em>Select Country</em>;
+                            } else {
+                              return (
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: 0.5,
+                                  }}
+                                >
+                                  {/* {selected.map((value) => {
+                                  return ( */}
                                   <Chip
-                                    key={value}
-                                    label={value}
+                                    key={selected}
+                                    label={selected}
                                     deleteIcon={
                                       <ClearIcon
                                         onMouseDown={(event) =>
@@ -845,30 +1017,95 @@ export default function Sidebar(props) {
                                         }
                                       />
                                     }
-                                    onDelete={() =>
-                                      handleChipDelete(
-                                        value,
-                                        regionsFilter,
-                                        "regionsFilter"
-                                      )
-                                    }
+                                    onDelete={() => {
+                                      dispatch(countryFilterAction(''));
+                                      dispatch(stateFilterAction([]));
+                                      dispatch(stateListAction(null));
+                                    }}
                                   />
-                                );
-                              })}
-                            </Box>
-                          );
-                        }
-                      }}
-                      inputProps={{ "aria-label": "Without label" }}
-                    >
-                      {regionsList &&
-                        regionsList.map((name) => (
-                          <MenuItem key={name} value={name}>
-                            {name}
-                          </MenuItem>
-                        ))}
-                    </Select>
-                  </div>
+
+
+                                </Box>
+                              );
+                            }
+                          }}
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          {countryList &&
+                            countryList.map((name) => (
+                              <MenuItem key={name} value={name}>
+                                {name}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="filter-control">
+                      <FormControl fullWidth size="small">
+                        <Select
+                          labelId="demo-multiple-state-label"
+                          id="demo-multiple-state"
+                          size="small"
+                          displayEmpty
+                          multiple
+                          value={stateFilter}
+                          onChange={handleStateChange}
+                          disabled={!stateList ? true : false}
+                          input={<OutlinedInput />}
+                          MenuProps={MenuProps}
+                          sx={{
+                            backgroundColor: "#fff",
+                          }}
+                          renderValue={(selected) => {
+                            if (!selected || selected.length === 0) {
+                              return <em>Select State</em>;
+                            } else {
+                              return (
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: 0.5,
+                                  }}
+                                >
+                                  {selected.map((value) => {
+                                    return (
+                                      <Chip
+                                        key={value}
+                                        label={value}
+                                        deleteIcon={
+                                          <ClearIcon
+                                            onMouseDown={(event) =>
+                                              event.stopPropagation()
+                                            }
+                                          />
+                                        }
+                                        onDelete={() =>
+                                          handleChipDelete(
+                                            value,
+                                            stateFilter,
+                                            "stateFilter"
+                                          )
+                                        }
+                                      />
+                                    );
+                                  })}
+                                </Box>
+                              );
+                            }
+                          }}
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          {stateList &&
+                            stateList.map((name) => (
+                              <MenuItem key={name} value={name}>
+                                {name}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                  </> : ''}
                 </AccordionDetails>
               </Accordion>
             </div>
@@ -1018,7 +1255,8 @@ export default function Sidebar(props) {
             </div>
           )}
         </div>
-      </aside>
+      </aside >
+      <ToastContainer />
     </>
   );
 }

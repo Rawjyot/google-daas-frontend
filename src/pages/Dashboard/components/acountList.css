@@ -76,8 +76,8 @@
    font-size: 14px;
  }
 
- .ag-icon {
-   color: #4286f5 !important;
+ .ag-paging-button .ag-icon {
+   color: #4286f5;
  }
 
 
@@ -100,7 +100,7 @@
  }
 
  @media (max-width:767px) {
-   .grid-data th { 
-     padding: 8px; 
+   .grid-data th {
+     padding: 8px;
    }
  }

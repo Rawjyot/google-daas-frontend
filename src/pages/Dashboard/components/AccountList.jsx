@@ -36,7 +36,6 @@ const AccountList = () => {
   const { regionsFilter } = useSelector((state) => state.account);
   const { technographicsFilter } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
-
   const fetchAccountListDetails = async () => {
     try {
       let response = null;
@@ -139,6 +138,8 @@ const AccountList = () => {
     dispatch(agentListAction(agentList));
   };
 
+
+
   useEffect(() => {
     fetchAccountListDetails();
     fetchAgentList();
@@ -151,6 +152,8 @@ const AccountList = () => {
     statusFilter,
     partnerFilter,
     agentFilter,
+    countryFilter,
+    stateFilter
   ]);
 
   return (
