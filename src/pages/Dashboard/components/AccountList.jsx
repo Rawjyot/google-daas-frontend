@@ -36,7 +36,6 @@ const AccountList = () => {
   const { regionsFilter } = useSelector((state) => state.account);
   const { technographicsFilter } = useSelector((state) => state.account);
   const userData = JSON.parse(useGetLocalStorage("userData"));
-  console.log(countryFilter, "country")
   const fetchAccountListDetails = async () => {
     try {
       let response = null;

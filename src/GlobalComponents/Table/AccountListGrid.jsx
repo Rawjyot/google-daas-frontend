@@ -23,7 +23,7 @@ export const AccountListGrid = (props) => {
   // Custom cell renderer function for the "Account Name" column
   const accountNameCellRenderer = (params) => {
     const accountName = params.data.accountName;
-    const detailPageLink = `/account-details/${params.data.accountId}?fromPage=${currentPage}`; // Detail page link to show
+    const detailPageLink = `/account-details/${params.data.accountId}`; // Detail page link to show
 
     return (
       <Link to={detailPageLink} style={{ textDecoration: "none" }}>
@@ -163,7 +163,7 @@ export const AccountListGrid = (props) => {
         pagination={true}
         onGridReady={onGridReady}
         defaultColDef={defaultColDef}
-        onPaginationChanged={onPaginationChanged}
+      // onPaginationChanged={onPaginationChanged}
       />
     </Box>
   );
