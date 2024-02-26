@@ -20,10 +20,12 @@ export const AccountListGrid = (props) => {
   const { accountListData } = useSelector((state) => state.account);
   const gridStyle = useMemo(() => ({ height: "65%", width: "100%" }), []);
   const [currentPage, setCurrentPage] = useState(0);
+  const userData = JSON.parse(useGetLocalStorage("userData"));
   // Custom cell renderer function for the "Account Name" column
   const accountNameCellRenderer = (params) => {
+    const userRole = userData?.roleId;
     const accountName = params.data.accountName;
-    const detailPageLink = `/account-details/${params.data.accountId}`; // Detail page link to show
+    const detailPageLink = userRole == 1 ? '#' : `/account-details/${params.data.accountId}`; // Detail page link to show
 
     return (
       <Link to={detailPageLink} style={{ textDecoration: "none" }}>
@@ -150,7 +152,7 @@ export const AccountListGrid = (props) => {
     (userRole === 3 || userRole === 2) &&
       params.api.setColumnVisible("partnerName", false);
 
-    userRole === 3 && params.api.setColumnVisible("user", false);
+    (userRole === 1 || userRole === 2 || userRole === 3) && params.api.setColumnVisible("user", false);
     // userRole === 3 && params.api.setColumnVisible("user", false);
   };
 

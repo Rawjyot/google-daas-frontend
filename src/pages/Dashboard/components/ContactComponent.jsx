@@ -30,7 +30,8 @@ const ContactComponent = ({
   masterData,
   // setStatus,
   // status,
-  contactId
+  contactId,
+  fetchData
 }) => {
   const [open, setOpen] = useState(false);
   const [remark, setRemark] = useState("");
@@ -77,7 +78,9 @@ const ContactComponent = ({
       )
       .then((res) => {
         console.log(res);
-        window.location.reload(false);
+        fetchData();
+        setRemark('');
+        // window.location.reload(false);
       })
       .catch((err) => console.log(err));
     handleClose();
@@ -87,7 +90,7 @@ const ContactComponent = ({
     e.preventDefault();
     // console.log(e)
 
-    if (!status) {
+    if (!status || status === 'Untouched') {
       toast.error("Please select a status");
       return
     }
@@ -133,6 +136,10 @@ const ContactComponent = ({
           {val?.emailId || 'NA'}
         </p>
         <p>
+          <span>LinkedIn : </span>
+          <a href={val?.contactLinkedIn === 'N/A' ? '#' : val?.contactLinkedIn} target="_blank">{val?.contactName}</a>
+        </p>
+        <p>
           <span>Ph : </span>
           {val?.mobile1 || 'NA'}
         </p>
@@ -142,7 +149,8 @@ const ContactComponent = ({
           {val.designation || 'NA'}
         </p>
         <label><strong>Status</strong> :{" "}</label>
-        {(userRole == 1 || userRole == 2 || val?.contactStatus == 'Opportunity') ? val?.contactStatus || ' NA' : (<form
+        {/* || val?.contactStatus == 'Opportunity' */}
+        {(userRole == 1 || userRole == 2) ? val?.contactStatus || ' NA' : (<form
           action=""
           className="flex items-center justify-center"
           onSubmit={submit}
