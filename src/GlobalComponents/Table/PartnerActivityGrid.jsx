@@ -70,7 +70,8 @@ const PartnerRow = (props) => {
           }}
           colSpan={20}
         >
-          <Collapse in={partnerOpen} timeout="auto" unmountOnExit>
+          {/* UserList Partner */}
+          {/* <Collapse in={partnerOpen} timeout="auto" unmountOnExit>
             {props.partner.userList &&
               props.partner.userList.map((userList) => (
                 <>
@@ -112,7 +113,7 @@ const PartnerRow = (props) => {
                   </TableRow>
                 </>
               ))}
-          </Collapse>
+          </Collapse> */}
         </TableCell>
       </TableRow>
     </>
@@ -323,7 +324,7 @@ export const PartnerActivityGrid = () => {
         <div className="page-header">
           <div className="row align-items-center">
             <div className="col-md-6 col-12">
-              <Typography className="page-title">Patner Activity</Typography>
+              <Typography className="page-title">Partner Activity</Typography>
             </div>
             <div className="col-md-6 col-12 text-md-right mt-4">
               <Link to="/account-list">

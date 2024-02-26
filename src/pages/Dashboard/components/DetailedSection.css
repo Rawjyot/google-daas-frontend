@@ -41,6 +41,10 @@
   margin-bottom: 15px;
 }
 
+.comp-lsit {
+  border-bottom: 1px dashed #ccc;
+}
+
 .comp-lsit li svg {
   width: 20px;
   margin-right: 2px;

@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 const DashBoardNavbar = () => {
   const userData = JSON.parse(useGetLocalStorage("userData"));
   // console.log(userData);
+  const userRole = userData?.roleId;
   const handleButtonClick = () => {
     // Toggle the 'togglesidebar' on the body element
     toggleBodyClass("sidebar-open");
@@ -44,7 +45,7 @@ const DashBoardNavbar = () => {
               Account Activity
             </NavLink>
           </li>
-          <li>
+          {userRole === 1 || userRole === 2 ? <li>
             <NavLink
               to="/partner-activity"
               className={({ isActive }) =>
@@ -53,7 +54,7 @@ const DashBoardNavbar = () => {
             >
               Partner Activity
             </NavLink>
-          </li>
+          </li> : ''}
         </ul>
 
         <ul className="navbar-nav ml-auto">

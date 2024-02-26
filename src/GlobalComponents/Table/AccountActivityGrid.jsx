@@ -84,13 +84,13 @@ const PartnerRow = (props) => {
           }}
           colSpan={20}
         >
-          <Collapse in={partnerOpen} timeout="auto" unmountOnExit>
-            {/*Third Row*/}
-            {props.partner.userList &&
+          {/* <Collapse in={partnerOpen} timeout="auto" unmountOnExit> */}
+          {/*Third Row*/}
+          {/* {props.partner.userList &&
               props.partner.userList.map((userList) => (
                 <UserListRow key={userList.region} user={userList} />
               ))}
-          </Collapse>
+          </Collapse> */}
         </TableCell>
       </TableRow>
     </>

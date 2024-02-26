@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import dashboardService from "../Services/dashBoardService";
 
-const useDashboardAccountCall = (companyName, token) => {
+const useDashboardAccountCall = (companyName, token, trigger) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     dashboardService
@@ -11,7 +11,7 @@ const useDashboardAccountCall = (companyName, token) => {
         setData(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [trigger]);
   return data;
 };
 export const useDashboardContactCountCall = (companyName, token) => {
@@ -53,7 +53,7 @@ export const useTotalAccountNumberCall = (role, partnerID, token) => {
   }, []);
   return data;
 };
-export const useGetTrailRemarkCall = (payload, token) => {
+export const useGetTrailRemarkCall = (payload, token, trigger) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     dashboardService
@@ -63,7 +63,7 @@ export const useGetTrailRemarkCall = (payload, token) => {
         setData(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [trigger]);
   return data;
 };
 

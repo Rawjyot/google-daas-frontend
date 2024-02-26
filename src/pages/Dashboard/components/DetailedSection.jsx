@@ -21,6 +21,8 @@ import {
 import ContactComponent from "./ContactComponent";
 import "./DetailedSection.css";
 import RemarkComponent from "./RemarkComponent";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 
 const marketData = [
   { title: "Company Type", content: "Public" },
@@ -70,39 +72,94 @@ const DetailedSection = () => {
     accountId: accountID,
   };
 
+
   const masterPayload = { ...userInfo };
   delete masterPayload.responseToken;
 
   const masterData = useGetMasterData(userInfo, userData?.jwtToken);
-  const accountDetails = useDashboardAccountCall(userInfo, userData?.jwtToken);
-  const remarkTrail = useGetTrailRemarkCall(userInfo, userData?.jwtToken);
+  const accountDetails = useDashboardAccountCall(userInfo, userData?.jwtToken, reloadData);
+  const remarkTrail = useGetTrailRemarkCall(userInfo, userData?.jwtToken, reloadData);
+  const payload = {
+    "userId": userData?.userId,
+    "userToken": userData?.userToken,
+    "responseToken": userData?.responseToken,
+    "accountId": accountDetails?.accountData?.accountId,
+    "contactId": null,
+    "contactStatsOld": accountDetails?.accountData?.accountStatus,
+    "contactStatusNew": status,
+    "remarks": ""
+  }
+  console.log(payload, "Payload")
+  // if (accountDetails) setStatus(accountDetails?.accountStatus)
   useEffect(() => {
+    setStatus(accountDetails?.accountData?.accountStatus)
+  }, [accountDetails])
+  useEffect(() => {
+
     if (remarkTrail) {
       setIsLoading(false);
     }
   }, [remarkTrail]);
+  const handleDropdown = (e) => {
+    // console.log(e.target.value, "Target value...");
+    setStatus(e.target.value);
+    // status = e.target.value;
+    // setAccountId(val);
+  };
 
-  const statusUpdate = () => {
-    console.log("Test Test");
-    if ((status === "BadData" || status === "Disqualified") && remark === "") {
+  const statusUpdateAccount = (e) => {
+
+    if ((status === "Bad data" || status === "Disqualified") && remark === "") {
       toast.error("remark must be added");
       return;
     }
+    payload['remarks'] = remark
+    // return
+    // setIsLoading(true);
     dashboardService
-      .statusUpdate(
+      .statusUpdateNew(
         accountId,
-        { status: status, remark: remark },
-        JSON.parse(useGetLocalStorage("userData")).jwtToken
+        payload,
+        JSON.parse(useGetLocalStorage("userData"))?.jwtToken
       )
       .then((res) => {
         console.log(res);
-        window.location.reload(false);
+        setReloadData(prevTrigger => !prevTrigger);
+        setIsLoading(false);
+        // window.location.reload(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        setIsLoading(false);
+      });
     handleClose();
   };
+  const handleFetchData = () => {
+    // Your logic to fetch data
+    setReloadData(prevTrigger => !prevTrigger); // Toggle the trigger to re-fetch data
+  };
   // setIsLoading(false);
+  const convertToHttps = (url) => {
+    // Check if the URL starts with "http://" or "https://"
+    if (!/^https?:\/\//i.test(url)) {
+      // If not, prepend "https://"
+      return `https://${url}`;
+    }
+    // Otherwise, return the original URL
+    return url;
+  };
+  const submit = (e) => {
+    e.preventDefault();
+    // console.log(e)
 
+    if (!status || status === 'Viewed') {
+      toast.error("Please select a status");
+      return
+    }
+    handleOpen();
+    return;
+
+  };
   return (
     <>
       {!isLoading ? (
@@ -125,7 +182,7 @@ const DetailedSection = () => {
                       <span>
                         <LanguageIcon />
                       </span>{" "}
-                      {accountDetails?.accountData?.website || ""}
+                      <a href={convertToHttps(accountDetails?.accountData?.website) || "#"} target="_blank">{accountDetails?.accountData?.website || ""}</a>
                     </li>
                     <li>
                       <span>
@@ -160,14 +217,66 @@ const DetailedSection = () => {
                       {accountDetails?.accountData?.revenue}
                     </li>
                   </ul>
-                  <div className="flex gap-2">
-                    <b>Technographics</b>
+                  <div className="flex gap-2" style={{
+                    borderBottom: '1px dashed #ccc',
+                    marginBottom: '5px',
+                    marginTop: '5px'
+                  }}>
+                    {/* <b>Technographics</b> */}
                     <p className="ml-2">
-                      {accountDetails?.accountData?.technographics}
+                      <span style={{ textAlign: 'center' }}><b>Technographics</b></span>
+                      {accountDetails?.accountData?.technographics?.split('#').map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                      {/* {accountDetails?.accountData?.technographics} */}
                     </p>
                   </div>
+                  {/* <br></br> */}
+                  {userRole == 3 ? (<>
+                    <label><strong>Status</strong> :{" "}</label>
+                    <form
+                      action=""
+                      className="flex items-center justify-center"
+                      onSubmit={submit}
+                    >
+                      <div className="input-group">
+                        <select
+                          id="status"
+                          name="status"
+                          onChange={(e) => handleDropdown(e)}
+                          value={status}
+                          className={`form-control `}
+                        >
+                          {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
+                          <option value="">Select Status</option>
+                          {masterData ? masterData?.accountStatusList?.map((statusObj, index) => {
+                            const key = Object.keys(statusObj)[0]; // Assuming there's only one key in each object
+                            const value = statusObj[key];
 
-                  <p className="mt-3">
+                            return (
+                              <option key={index} value={value}>
+                                {value}
+                              </option>
+                            );
+                          }) : (
+                            <>
+                              <option value="Disqualified">Disqualified</option>
+                              <option value="Follow Up">Follow Up</option>
+                              <option value="Nurture">Nurture</option>
+                              <option value="Opportunity">Opportunity</option>
+                            </>
+                          )}
+
+                        </select>
+
+                        <div className="input-group-append">
+                          <button type="submit" className="btn btn-submit">Submit</button>
+                        </div>{" "}
+
+                      </div>
+                    </form></>) : ''}
+
+                  <div className="mt-3">
                     <Stack spacing={1} alignItems="center">
                       <Stack direction="row" spacing={1}>
                         <Chip
@@ -187,7 +296,7 @@ const DetailedSection = () => {
                         />
                       </Stack>
                     </Stack>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -209,6 +318,7 @@ const DetailedSection = () => {
                       key={index}
                       userRole={userRole}
                       masterData={masterData}
+                      fetchData={handleFetchData}
                     />
                   ))}
                 </div>
@@ -237,7 +347,40 @@ const DetailedSection = () => {
               </div>
             </div>
           </div>
-        </div>
+          <div>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style} className="custom-modal">
+                <div className="modal-body">
+                  <h2 className="modal-title">Enter Your Remark</h2>
+                  <textarea
+                    className="form-control"
+                    value={remark}
+                    onChange={(e) => setRemark(e.target.value)}
+                  />
+                  <div className="modal-action">
+                    <button
+                      onClick={statusUpdateAccount}
+                      className="btn-submit"
+                    >
+                      Submit
+                    </button>
+                    <button
+                      onClick={handleClose}
+                      className="btn-reset"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          </div>
+        </div >
       ) : (
         <LoadingComponent />
       )}
