@@ -21,7 +21,7 @@ const PolicyAcceptance = () => {
     "responseToken": userData?.responseToken,
     // "accountId": accountID
   }
-  if (userData?.policyAccept) navigate("/account-activity")
+  // if (userData?.policyAccept) navigate("/account-activity")
   const [policyContentHTML, setPolicyContent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -54,7 +54,8 @@ const PolicyAcceptance = () => {
         .then((res) => {
           // console.log(res);
           useSetLocalStorage("login", true);
-          navigate("/account-activity");
+          window.location.href = '/account-activity';
+          // navigate("/account-activity");
         })
         .catch((err) => console.log(err));
     }
@@ -73,7 +74,7 @@ const PolicyAcceptance = () => {
               <h2 className=" text-3xl font-medium leading-9 tracking-tight text-gray-900">
                 Policy Acceptance
               </h2>
-              <div className="h-60 w-100 outline outline-gray-400 my-8 overflow-scroll rounded p-2">
+              <div className="h-80 w-120 outline outline-gray-400 my-8 overflow-scroll rounded p-2">
                 <span className="border-3 border-sky-500" id="policy-doc-container" dangerouslySetInnerHTML={{ __html: policyContentHTML?.policyDescription }}>
                   {/* {policyContent?.policyDescription}{" "} */}
                 </span>

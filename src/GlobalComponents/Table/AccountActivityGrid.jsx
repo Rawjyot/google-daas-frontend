@@ -190,11 +190,11 @@ const RegionRow = (props) => {
                 <PartnerRow key={partner.region} partner={partner} />
               ))}
 
-            {userRole === 2 &&
+            {/* {userRole === 2 &&
               regionList.userList &&
               regionList.userList.map((user) => (
                 <UserListRow key={user.region} user={user} />
-              ))}
+              ))} */}
           </Collapse>
         </TableCell>
       </TableRow>
