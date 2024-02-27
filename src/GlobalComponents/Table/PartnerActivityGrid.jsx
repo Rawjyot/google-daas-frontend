@@ -304,6 +304,10 @@ export const PartnerActivityGrid = () => {
         userToken: userData?.userToken,
         responseToken: userData?.responseToken,
         roleId: userData?.roleId,
+        dashboardFilter: {
+          regionIds: regionsFilter,
+          partnerIds: partnerFilter,
+        },
       });
 
       const partnerList = await fetchPartnerActivityListDetails();
