@@ -224,10 +224,10 @@ const DetailedSection = () => {
                   }}>
                     {/* <b>Technographics</b> */}
                     <p className="ml-2">
-                      <span style={{ textAlign: 'center' }}><b>Technographics</b></span>
-                      {accountDetails?.accountData?.technographics?.split('#').map((item, index) => (
+                      <span style={{ textAlign: 'center' }}><b>Technographics :</b></span><br />
+                      {accountDetails?.accountData?.technographics ? accountDetails?.accountData?.technographics?.split('#').map((item, index) => (
                         <li key={index}>{item}</li>
-                      ))}
+                      )) : 'N/A'}
                       {/* {accountDetails?.accountData?.technographics} */}
                     </p>
                   </div>

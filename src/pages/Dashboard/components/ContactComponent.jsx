@@ -137,7 +137,7 @@ const ContactComponent = ({
         </p>
         <p>
           <span>LinkedIn : </span>
-          <a href={val?.contactLinkedIn === 'N/A' ? '#' : val?.contactLinkedIn} target="_blank">{val?.contactName}</a>
+          <a href={val?.contactLinkedIn === 'N/A' ? '#' : val?.contactLinkedIn} target="_blank">Linkedin Url</a>
         </p>
         <p>
           <span>Ph : </span>
