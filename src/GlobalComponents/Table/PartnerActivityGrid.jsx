@@ -230,26 +230,34 @@ const Row = (props) => {
           "& > *": { borderBottom: "unset", backgroundColor: "#fff" },
         }}
       >
-        <TableCell>
-          <IconButton
-            // disabled={!row.regionList}
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {!open ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
+        <TableCell
+          style={{
+            padding: 0,
+            backgroundColor: "#fff",
+          }}
+          colSpan={20}
+        >
+          <TableCell>
+            <IconButton
+              // disabled={!row.regionList}
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpen(!open)}
+            >
+              {!open ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </TableCell>
 
-        <TableCell width="300px" scope="row">
-          {row.region}
+          <TableCell width="300px" scope="row">
+            {row.region}
+          </TableCell>
+          <TableCell width="300px">{row.assignedAccounts}</TableCell>
+          <TableCell width="300px">{row.assignedContacts}</TableCell>
+          <TableCell width="300px">{row.accountsViewed}</TableCell>
+          <TableCell width="300px">{row.accountsTouched}</TableCell>
+          <TableCell width="300px">{row.contactsTouched}</TableCell>
+          <TableCell width="300px">{row.loginsPerMonth ? row.loginsPerMonth : '-'}</TableCell>
         </TableCell>
-        <TableCell width="300px">{row.assignedAccounts}</TableCell>
-        <TableCell width="300px">{row.assignedContacts}</TableCell>
-        <TableCell width="300px">{row.accountsViewed}</TableCell>
-        <TableCell width="300px">{row.accountsTouched}</TableCell>
-        <TableCell width="300px">{row.contactsTouched}</TableCell>
-        <TableCell width="300px">{row.loginsPerMonth}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell

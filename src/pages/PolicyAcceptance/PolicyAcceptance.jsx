@@ -6,6 +6,8 @@ import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 import { useSetLocalStorage } from "../../Hooks/useSetLocalStorage";
 import policyService from "../../Services/policyService";
 import logo from "../../assets/images/logo.png";
+import LoadingComponent from "../../GlobalComponents/LoadingComponent";
+import './policy.css';
 const PolicyAcceptance = () => {
   const [checked, setChecked] = useState(false);
 
@@ -63,18 +65,19 @@ const PolicyAcceptance = () => {
     // console.log(checked);
   };
   return (
-    <>
-      <div className="h-[100vh] login">
-        <div className="flex flex-col ">
-          <div className="self-start mt-16 ml-10">
-            <img src={logo} alt="logo" className=" h-20 w-40" />
-          </div>
-          <div className="w-[320px] self-center">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    isLoading ? (<LoadingComponent />) :
+      (<>
+        <div className="h-[100vh] login">
+          <div className="flex flex-col ">
+            <div className="self-start mt-16 ml-10">
+              <img src={logo} alt="logo" className=" h-20 w-40" />
+            </div>
+            <div className="self-center p-2">
+              {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm"> */}
               <h2 className=" text-3xl font-medium leading-9 tracking-tight text-gray-900">
                 Policy Acceptance
               </h2>
-              <div className="h-80 w-120 outline outline-gray-400 my-8 overflow-scroll rounded p-2">
+              <div className="policy-accept">
                 <span className="border-3 border-sky-500" id="policy-doc-container" dangerouslySetInnerHTML={{ __html: policyContentHTML?.policyDescription }}>
                   {/* {policyContent?.policyDescription}{" "} */}
                 </span>
@@ -97,14 +100,14 @@ const PolicyAcceptance = () => {
                   Accept
                 </button>
               </div>
-            </div>
+              {/* </div> */}
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm"></div>
+              <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm"></div>
+            </div>
           </div>
         </div>
-      </div>
-      <ToastContainer />
-    </>
+        <ToastContainer />
+      </>)
   );
 };
 

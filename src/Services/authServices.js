@@ -85,6 +85,37 @@ class AuthService {
     return Promise.reject(error);
   };
 
+  async submitOtp({ otp, userId, userToken }) {
+    try {
+      const data = {
+
+        otp,
+        userId,
+        userToken
+      };
+      const url = `${config.baseUrl}/api/otpLogin`;
+      const res = await this.apiPostCall(url, data);
+      return res;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  }
+
+  async resendOtp({ userId }) {
+    try {
+      const data = {
+        userId,
+      };
+      const url = `${config.baseUrl}/api/resendOtp`;
+      const res = await this.apiPostCall(url, data);
+      return res;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  }
+
 
 }
 

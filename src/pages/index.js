@@ -7,6 +7,7 @@ import DetailedList from "./Dashboard/components/DetailedList";
 import ErrorPage from "./ErrorPage/ErrorPage";
 import ForgetPassword from "./ForgetPassword/ForgetPassword";
 import Login from "./Login/Login";
+import LoginOtp from "./Login/LoginOtp";
 import PolicyAcceptance from "./PolicyAcceptance/PolicyAcceptance";
 import VerifyPassword from "./VerifyPassword/VerifyPassword";
 export {
@@ -21,4 +22,5 @@ export {
   PartnerActivity,
   PolicyAcceptance,
   VerifyPassword,
+  LoginOtp
 };

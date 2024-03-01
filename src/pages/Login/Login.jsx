@@ -13,7 +13,7 @@ import { useSetLocalStorage } from "../../Hooks/useSetLocalStorage";
 import authService from "../../Services/authServices";
 import logo from "../../assets/images/logo.png";
 import { partnerList as partnerListAction } from "../../store/Features/accountSlice";
-import { login } from "../../store/Features/authSlice";
+import { login, loginOTP } from "../../store/Features/authSlice";
 import LoadingComponent from "../../GlobalComponents/LoadingComponent";
 import "./login.css";
 
@@ -103,19 +103,21 @@ const Login = () => {
             }
 
             else {
-              dispatch(login({ ...res.data, userToken: userToken }));
-              if (res.data && res.data.userList) {
-                const list = res.data.userList.map(
-                  (list) => Object.keys(list)[0]
-                );
-                useSetLocalStorage("partnerList", list);
-                dispatch(partnerListAction(list));
-              }
-              if (JSON.parse(useGetLocalStorage("userData")).policyAccept) {
-                // navigate("/account-activity");
-                window.location.href = '/account-activity';
-                useSetLocalStorage("login", true);
-              } else navigate("/policy-acceptance");
+              dispatch(loginOTP({ userId: loginData.userId, userToken: userToken }))
+              navigate("/login-otp");
+              // dispatch(login({ ...res.data, userToken: userToken }));
+              // if (res.data && res.data.userList) {
+              //   const list = res.data.userList.map(
+              //     (list) => Object.keys(list)[0]
+              //   );
+              //   useSetLocalStorage("partnerList", list);
+              //   dispatch(partnerListAction(list));
+              // }
+              // if (JSON.parse(useGetLocalStorage("userData")).policyAccept) {
+              //   // navigate("/account-activity");
+              //   window.location.href = '/account-activity';
+              //   useSetLocalStorage("login", true);
+              // } else navigate("/policy-acceptance");
             }
           }
         })
@@ -136,7 +138,7 @@ const Login = () => {
           <div className="login-box">
             <div className="login-form">
               <h2>
-                Welcome to Partner Data Management System
+                Welcome to Data Bank
               </h2>
               <form className="space-y-6 text-gray-500" onSubmit={submit}>
                 <div>
@@ -209,10 +211,24 @@ const Login = () => {
                   {isLoading ? <LoadingComponent submit={true} /> : <Button
                     type="submit"
                     variant="contained"
-                    className="login-btn" 
+                    className="login-btn"
                   >
                     Sign in
                   </Button>}
+                </Stack>
+                <Stack direction="row">
+
+
+                  <a
+                    href="#"
+                    // variant="contained"
+                    className="resend-btn ml-auto"
+                  >
+                    Privacy Policy
+                  </a>
+
+
+
                 </Stack>
               </form>
             </div>

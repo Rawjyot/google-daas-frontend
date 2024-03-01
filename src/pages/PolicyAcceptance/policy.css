@@ -1,0 +1,10 @@
+.policy-accept {
+    width: 100%;
+    max-width: 500px;
+    max-height: 60vh;
+    height: 100%;
+    overflow-y: auto;
+    margin: 10px 0;
+    border: 2px solid;
+    padding: 10px;
+}

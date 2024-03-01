@@ -497,7 +497,7 @@ export default function Sidebar(props) {
               </MenuItem>
             </MenuList>
           </div>
-          {userRole == 2 && props.page === "accountList" && (
+          {/* {userRole == 2 && props.page === "accountList" && (
             <div className="sidebar-filter">
               <Accordion>
                 <AccordionSummary
@@ -574,7 +574,7 @@ export default function Sidebar(props) {
                 </AccordionDetails>
               </Accordion>
             </div>
-          )}
+          )} */}
 
           {userRole === 1 && props.page === "accountList" && (
             <div className="sidebar-filter">
@@ -650,7 +650,7 @@ export default function Sidebar(props) {
                       </Select>
                     </FormControl>
                   </div>
-                  <div className="filter-control">
+                  {/* <div className="filter-control">
                     <FormControl fullWidth size="small">
                       <Select
                         labelId="demo-multiple-name-label"
@@ -714,7 +714,7 @@ export default function Sidebar(props) {
                           ))}
                       </Select>
                     </FormControl>
-                  </div>
+                  </div> */}
                 </AccordionDetails>
               </Accordion>
             </div>

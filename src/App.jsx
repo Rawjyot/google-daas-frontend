@@ -25,6 +25,7 @@ import {
   PartnerActivity,
   PolicyAcceptance,
   VerifyPassword,
+  LoginOtp
 } from "./pages";
 
 function App() {
@@ -102,6 +103,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/policy-acceptance" element={<PolicyAcceptance />} />
+        <Route path="/login-otp" element={<LoginOtp />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/verifyEmail" element={<VerifyPassword />} />
         <Route path="/createNewPassword" element={<CreateNewPassword />} />

@@ -67,6 +67,7 @@ const DetailedSection = () => {
   // console.log(userData.jwtToken);
   const userInfo = {
     userId: userData?.userId,
+    roleId: userRole,
     userToken: userData?.userToken,
     responseToken: userData?.responseToken,
     accountId: accountID,
@@ -75,6 +76,10 @@ const DetailedSection = () => {
 
   const masterPayload = { ...userInfo };
   delete masterPayload.responseToken;
+
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 1000)
 
   const masterData = useGetMasterData(userInfo, userData?.jwtToken);
   const accountDetails = useDashboardAccountCall(userInfo, userData?.jwtToken, reloadData);
@@ -89,17 +94,18 @@ const DetailedSection = () => {
     "contactStatusNew": status,
     "remarks": ""
   }
-  console.log(payload, "Payload")
+
+
   // if (accountDetails) setStatus(accountDetails?.accountStatus)
   useEffect(() => {
     setStatus(accountDetails?.accountData?.accountStatus)
   }, [accountDetails])
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (remarkTrail) {
-      setIsLoading(false);
-    }
-  }, [remarkTrail]);
+  //   if (remarkTrail) {
+  //     setIsLoading(false);
+  //   }
+  // }, [remarkTrail]);
   const handleDropdown = (e) => {
     // console.log(e.target.value, "Target value...");
     setStatus(e.target.value);
@@ -123,7 +129,7 @@ const DetailedSection = () => {
         JSON.parse(useGetLocalStorage("userData"))?.jwtToken
       )
       .then((res) => {
-        console.log(res);
+
         setReloadData(prevTrigger => !prevTrigger);
         setIsLoading(false);
         // window.location.reload(false);

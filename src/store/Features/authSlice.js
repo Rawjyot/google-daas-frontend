@@ -19,9 +19,12 @@ const authSlice = createSlice({
       state.status = false;
       state.userData = null;
     },
+    loginOTP: (state, action) => {
+      state.userData = action.payload
+    }
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, loginOTP } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -212,25 +212,33 @@ const Row = (props) => {
           "& > *": { borderBottom: "unset", backgroundColor: "#fff" },
         }}
       >
-        <TableCell sx={{ p: 1, m: 1 }}>
-          <IconButton
-            disabled={!row.regionList}
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {!open ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
+        <TableCell
+          style={{
+            padding: 0,
+            backgroundColor: "#fff",
+          }}
+          colSpan={10}
+        >
+          <TableCell sx={{ p: 1, m: 1 }}>
+            <IconButton
+              disabled={!row.regionList}
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpen(!open)}
+            >
+              {!open ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </TableCell>
 
-        <TableCell scope="row">{row && row.region}</TableCell>
-        <TableCell>{row.nominatedAccount}</TableCell>
-        <TableCell>{row.profiledAccount}</TableCell>
-        <TableCell>{row.contacts}</TableCell>
-        <TableCell sx={{ color: "#FF0000" }}>{row.badData}</TableCell>
-        <TableCell sx={{ color: "#228B22" }}>{row.opportunities}</TableCell>
-        <TableCell>{row.followUp}</TableCell>
-        <TableCell sx={{ color: "#FF0000" }}>{row.disqualified}</TableCell>
+          <TableCell scope="row">{row && row.region}</TableCell>
+          <TableCell>{row.nominatedAccount}</TableCell>
+          <TableCell>{row.profiledAccount}</TableCell>
+          <TableCell>{row.contacts}</TableCell>
+          <TableCell sx={{ color: "#FF0000" }}>{row.badData}</TableCell>
+          <TableCell sx={{ color: "#228B22" }}>{row.opportunities}</TableCell>
+          <TableCell>{row.followUp}</TableCell>
+          <TableCell sx={{ color: "#FF0000" }}>{row.disqualified}</TableCell>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
