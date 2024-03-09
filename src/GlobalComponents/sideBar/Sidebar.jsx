@@ -323,7 +323,7 @@ export default function Sidebar(props) {
                   <i className="bi bi-ui-radios-grid"></i> DashBoard
                 </NavLink>
               </MenuItem>
-              {props.page === "accountActivity" && (
+              {props.page === "accountActivity" && userRole === 1 && (
                 <div className="submenu">
                   <MenuItem>
                     <NavLink onClick={toggleRegions}>
@@ -991,7 +991,7 @@ export default function Sidebar(props) {
                       </Select>
                     </FormControl>
                   </div>
-                  {userRole === 3 ? <>
+                  {userRole === 2 || userRole === 3 ? <>
                     <div className="filter-control">
                       <FormControl fullWidth size="small">
                         <Select
@@ -1204,7 +1204,7 @@ export default function Sidebar(props) {
                   aria-controls="panel1-content"
                   id="panel1-header"
                 >
-                  Advance Search
+                  Advanced Search
                 </AccordionSummary>
                 <AccordionDetails>
                   <div className="filter-control">

@@ -40,8 +40,8 @@ const PartnerRow = (props) => {
           },
         }}
       >
-        <TableCell>
-          <IconButton
+        <TableCell sx={{ p: 1, m: 1 }}>
+          {/* <IconButton
             disabled={!props.partner.userList}
             aria-label="expand row"
             size="small"
@@ -52,15 +52,15 @@ const PartnerRow = (props) => {
             ) : (
               <KeyboardArrowDownIcon />
             )}
-          </IconButton>
+          </IconButton> */}
         </TableCell>
-        <TableCell width="300px">{props.partner.region}</TableCell>
-        <TableCell width="300px">{props.partner.assignedAccounts}</TableCell>
-        <TableCell width="300px">{props.partner.assignedContacts}</TableCell>
-        <TableCell width="300px">{props.partner.accountsViewed}</TableCell>
-        <TableCell width="300px">{props.partner.accountsTouched}</TableCell>
-        <TableCell width="300px">{props.partner.contactsTouched}</TableCell>
-        <TableCell width="300px">{props.partner.loginsPerMonth}</TableCell>
+        <TableCell>{props.partner.region}</TableCell>
+        <TableCell>{props.partner.assignedAccounts}</TableCell>
+        <TableCell>{props.partner.assignedContacts}</TableCell>
+        <TableCell>{props.partner.accountsViewed}</TableCell>
+        <TableCell>{props.partner.accountsTouched}</TableCell>
+        <TableCell>{props.partner.contactsTouched}</TableCell>
+        <TableCell>{props.partner.loginsPerMonth}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -92,22 +92,22 @@ const PartnerRow = (props) => {
                     <TableCell scope="row" width="300px">
                       {userList.region}
                     </TableCell>
-                    <TableCell width="300px">
+                    <TableCell>
                       {userList.assignedAccounts}
                     </TableCell>
-                    <TableCell width="300px">
+                    <TableCell>
                       {userList.assignedContacts}
                     </TableCell>
-                    <TableCell width="300px">
+                    <TableCell>
                       {userList.accountsViewed}
                     </TableCell>
-                    <TableCell width="300px">
+                    <TableCell>
                       {userList.accountsTouched}
                     </TableCell>
-                    <TableCell width="300px">
+                    <TableCell>
                       {userList.contactsTouched}
                     </TableCell>
-                    <TableCell width="300px">
+                    <TableCell>
                       {userList.loginsPerMonth}
                     </TableCell>
                   </TableRow>
@@ -137,20 +137,21 @@ const UserListRow = (props) => {
           </IconButton>
         </TableCell>
 
-        <TableCell width="300px">{props.user.region}</TableCell>
-        <TableCell width="300px">{props.user.assignedAccounts}</TableCell>
-        <TableCell width="300px">{props.user.assignedContacts}</TableCell>
-        <TableCell width="300px">{props.user.accountsViewed}</TableCell>
-        <TableCell width="300px">{props.user.accountsTouched}</TableCell>
-        <TableCell width="300px">{props.user.contactsTouched}</TableCell>
-        <TableCell width="300px">{props.user.loginsPerMonth}</TableCell>
+        <TableCell>{props.user.region}</TableCell>
+        <TableCell>{props.user.assignedAccounts}</TableCell>
+        <TableCell>{props.user.assignedContacts}</TableCell>
+        <TableCell>{props.user.accountsViewed}</TableCell>
+        <TableCell>{props.user.accountsTouched}</TableCell>
+        <TableCell>{props.user.contactsTouched}</TableCell>
+        <TableCell>{props.user.loginsPerMonth}</TableCell>
       </TableRow>
     </>
   );
 };
 
 const RegionRow = (props) => {
-  const [partnerOpen, setPartnerOpen] = React.useState(false);
+  const { expandAll } = props;
+  const [partnerOpen, setPartnerOpen] = React.useState(expandAll);
   const userData = JSON.parse(useGetLocalStorage("userData"));
   const userRole = userData?.roleId;
 
@@ -164,8 +165,8 @@ const RegionRow = (props) => {
           },
         }}
       >
-        <TableCell>
-          {userRole != 3 ? (
+        <TableCell sx={{ p: 1, m: 1 }}>
+          {userRole === 1 ? (
             <IconButton
               // disabled={!props.region.partnerList}
               aria-label="expand row"
@@ -182,13 +183,13 @@ const RegionRow = (props) => {
             ""
           )}
         </TableCell>
-        <TableCell width="300px">{props.region.region}</TableCell>
-        <TableCell width="300px">{props.region.assignedAccounts}</TableCell>
-        <TableCell width="300px">{props.region.assignedContacts}</TableCell>
-        <TableCell width="300px">{props.region.accountsViewed}</TableCell>
-        <TableCell width="300px">{props.region.accountsTouched}</TableCell>
-        <TableCell width="300px">{props.region.contactsTouched}</TableCell>
-        <TableCell width="300px">{props.region.loginsPerMonth}</TableCell>
+        <TableCell scope="row">{props.region.region}</TableCell>
+        <TableCell>{props.region.assignedAccounts}</TableCell>
+        <TableCell>{props.region.assignedContacts}</TableCell>
+        <TableCell>{props.region.accountsViewed}</TableCell>
+        <TableCell>{props.region.accountsTouched}</TableCell>
+        <TableCell>{props.region.contactsTouched}</TableCell>
+        <TableCell>{props.region.loginsPerMonth}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -202,7 +203,7 @@ const RegionRow = (props) => {
             {userRole === 1 &&
               props.region.partnerList &&
               props.region.partnerList.map((data) => (
-                <PartnerRow key={data.region} partner={data} />
+                <PartnerRow key={data.region} partner={data} expandAll={props.expandAll} />
               ))}
 
             {/* {userRole === 2 &&
@@ -218,8 +219,11 @@ const RegionRow = (props) => {
 };
 
 const Row = (props) => {
-  const { row } = props;
+  const { row, expandAll } = props;
   const [open, setOpen] = React.useState(false);
+  useEffect(() => {
+    setOpen(expandAll);
+  }, [expandAll])
 
   if (!row) return;
 
@@ -235,28 +239,30 @@ const Row = (props) => {
             padding: 0,
             backgroundColor: "#fff",
           }}
-          colSpan={20}
+          colSpan={10}
         >
-          <TableCell>
+          <TableCell sx={{ p: 1, m: 1 }}>
             <IconButton
               // disabled={!row.regionList}
               aria-label="expand row"
               size="small"
-              onClick={() => setOpen(!open)}
+              onClick={() => {
+                setOpen(!open)
+              }}
             >
               {!open ? <KeyboardArrowRightIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
 
-          <TableCell width="300px" scope="row">
+          <TableCell scope="row">
             {row.region}
           </TableCell>
-          <TableCell width="300px">{row.assignedAccounts}</TableCell>
-          <TableCell width="300px">{row.assignedContacts}</TableCell>
-          <TableCell width="300px">{row.accountsViewed}</TableCell>
-          <TableCell width="300px">{row.accountsTouched}</TableCell>
-          <TableCell width="300px">{row.contactsTouched}</TableCell>
-          <TableCell width="300px">{row.loginsPerMonth ? row.loginsPerMonth : '-'}</TableCell>
+          <TableCell>{row.assignedAccounts}</TableCell>
+          <TableCell>{row.assignedContacts}</TableCell>
+          <TableCell>{row.accountsViewed}</TableCell>
+          <TableCell>{row.accountsTouched}</TableCell>
+          <TableCell>{row.contactsTouched}</TableCell>
+          <TableCell>{row.loginsPerMonth ? row.loginsPerMonth : '-'}</TableCell>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -270,7 +276,7 @@ const Row = (props) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             {row.regionList &&
               row.regionList.map((data) => (
-                <RegionRow key={data.region} region={data} />
+                <RegionRow key={data.region} region={data} expandAll={expandAll} />
               ))}
           </Collapse>
         </TableCell>
@@ -284,6 +290,13 @@ export const PartnerActivityGrid = () => {
   const { regionsFilter } = useSelector((state) => state.account);
   const { partnerFilter } = useSelector((state) => state.account);
   const { partnerActivityAll } = useSelector((state) => state.account);
+
+  const [expandAll, setExpandAll] = React.useState(false);
+
+  const handleExpandAllClick = () => {
+    setExpandAll((prevExpandAll) => !prevExpandAll);
+  };
+
   const userData = JSON.parse(useGetLocalStorage("userData"));
 
   const fetchPartnerActivityListDetails = async () => {
@@ -353,7 +366,7 @@ export const PartnerActivityGrid = () => {
                 </Button>
               </Link>
             </div>
-            {/* <div className="col-md-12">
+            {userData?.roleId == 1 ? <div className="col-md-12">
               <Button
                 className="mt-4 mb-3"
                 variant="contained"
@@ -362,10 +375,11 @@ export const PartnerActivityGrid = () => {
                   textAlign: "center",
                   width: "220px",
                 }}
+                onClick={handleExpandAllClick}
               >
-                Expand All
+                {expandAll ? "Collapse All" : "Expand All"}
               </Button>
-            </div> */}
+            </div> : ''}
           </div>
         </div>
 
@@ -457,6 +471,7 @@ export const PartnerActivityGrid = () => {
                     <Row
                       key={partnerActivityAll && partnerActivityAll.region}
                       row={partnerActivityAll}
+                      expandAll={expandAll}
                     />
                   </TableBody>
                 </Table>

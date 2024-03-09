@@ -61,7 +61,7 @@ const DashBoardNavbar = () => {
           <li className="nav-item">
             <div className="top-user">
               <p> Welcome {userData?.userName}</p>
-              <Avatar src="https://www.w3schools.com/howto/img_avatar.png" />
+              {/* <Avatar src="https://www.w3schools.com/howto/img_avatar.png" /> */}
             </div>
           </li>
           <Logout />

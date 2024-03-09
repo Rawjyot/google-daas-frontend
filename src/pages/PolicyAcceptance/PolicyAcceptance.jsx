@@ -69,7 +69,7 @@ const PolicyAcceptance = () => {
       (<>
         <div className="h-[100vh] login">
           <div className="flex flex-col ">
-            <div className="self-start mt-16 ml-10">
+            <div className="self-start ml-10">
               <img src={logo} alt="logo" className=" h-20 w-40" />
             </div>
             <div className="self-center p-2">

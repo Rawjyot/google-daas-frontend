@@ -76,6 +76,10 @@ function App() {
         response.data.accountStatusList.length > 1 &&
         response.data.accountStatusList.map((list) => Object.values(list)[0]);
 
+      // Adding "Viewed" and "Untouched" to the contactStatusList
+      if (contactStatusList) {
+        contactStatusList.push("Untouched", "Viewed");
+      }
       const empSizeList =
         response &&
         response.data &&

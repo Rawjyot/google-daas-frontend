@@ -54,14 +54,26 @@ export const AccountListGrid = (props) => {
       cellRenderer: accountNameCellRenderer,
     },
     {
-      field: "createdDate",
-      headerName: "Created Date",
-      minWidth: 180,
+      field: "accountStatus",
+      headerName: "Status",
+      minWidth: 120,
+      cellStyle: (params) => {
+        if (params.value === "Opportunity") {
+          return { color: "green", fontWeight: 600 };
+        }
+        return null;
+      },
     },
+
     {
       field: "empSize",
       headerName: "Size (Global)",
       minWidth: 120,
+      cellStyle: (params) => {
+
+        return { textAlign: 'center' };
+
+      }
     },
     {
       field: "vertical",
@@ -71,7 +83,15 @@ export const AccountListGrid = (props) => {
     {
       field: "revenue",
       headerName: "Revenue",
-      minWidth: 100,
+      minWidth: 150,
+      headerClass: 'revenue-class',
+      // headerClassRules: { 'margin-left': '10px' },
+      headerComponentParams: { textAlign: 'center' },
+      cellStyle: (params) => {
+
+        return { textAlign: 'center' };
+
+      }
     },
     {
       field: "boardlineNumber1",
@@ -81,7 +101,7 @@ export const AccountListGrid = (props) => {
     {
       field: "city",
       headerName: "City (Country HQ)",
-      minWidth: 160,
+      minWidth: 180,
     },
     // {
     //   field: "state",
@@ -108,17 +128,7 @@ export const AccountListGrid = (props) => {
       headerName: "New Contacts",
       minWidth: 130,
     },
-    {
-      field: "accountStatus",
-      headerName: "Status",
-      minWidth: 120,
-      cellStyle: (params) => {
-        if (params.value === "Opportunity") {
-          return { color: "green", fontWeight: 600 };
-        }
-        return null;
-      },
-    },
+
     {
       field: "partnerName",
       headerName: "Partner Name",
@@ -128,6 +138,11 @@ export const AccountListGrid = (props) => {
       field: "user",
       headerName: "User",
       minWidth: 150,
+    },
+    {
+      field: "createdDate",
+      headerName: "Created Date",
+      minWidth: 180,
     },
   ]);
   const onPaginationChanged = (e) => {

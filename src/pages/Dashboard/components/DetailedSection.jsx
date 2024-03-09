@@ -115,8 +115,12 @@ const DetailedSection = () => {
 
   const statusUpdateAccount = (e) => {
 
-    if ((status === "Bad data" || status === "Disqualified") && remark === "") {
+    if ((status.toLowerCase() === "bad data" || status.toLowerCase() === "disqualified") && remark === "") {
       toast.error("remark must be added");
+      return;
+    }
+    if (remark && remark.length > 1000) {
+      toast.error("remark can have only 1000 characters");
       return;
     }
     payload['remarks'] = remark
@@ -287,7 +291,7 @@ const DetailedSection = () => {
                       <Stack direction="row" spacing={1}>
                         <Chip
                           label={accountDetails?.accountData?.accountStatus}
-                          color={accountDetails?.accountData?.accountStatus === "Bad data" || accountDetails?.accountData?.accountStatus === "Disqualified" ? "error" :
+                          color={accountDetails?.accountData?.accountStatus.toLowerCase() === "bad data" || accountDetails?.accountData?.accountStatus.toLowerCase() === "disqualified" ? "error" :
                             (accountDetails?.accountData?.accountStatus ===
                               "Opportunity"
                               ? "default"
@@ -367,6 +371,8 @@ const DetailedSection = () => {
                     className="form-control"
                     value={remark}
                     onChange={(e) => setRemark(e.target.value)}
+                    rows={5}
+                    cols={50}
                   />
                   <div className="modal-action">
                     <button

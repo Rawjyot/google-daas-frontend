@@ -30,8 +30,9 @@ import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
 //   accountActivityAll,
 // } from "../../Services/dashBoardService";
 import dashboardService from "../../Services/dashBoardService";
+
 const PartnerRow = (props) => {
-  const [partnerOpen, setPartnerOpen] = React.useState(false);
+  const [partnerOpen, setPartnerOpen] = React.useState(props.expandAll);
   return (
     <>
       <TableRow
@@ -47,7 +48,7 @@ const PartnerRow = (props) => {
             padding: 8,
           }}
         >
-          <IconButton
+          {/* <IconButton
             disabled={!props.partner.userList}
             aria-label="expand row"
             size="small"
@@ -58,7 +59,7 @@ const PartnerRow = (props) => {
             ) : (
               <KeyboardArrowDownIcon />
             )}
-          </IconButton>
+          </IconButton> */}
         </TableCell>
         {/*Inner 1st Grid*/}
 
@@ -131,8 +132,8 @@ const UserListRow = (props) => {
 };
 
 const RegionRow = (props) => {
-  const { regionList } = props;
-  const [open, setOpen] = React.useState(false);
+  const { regionList, expandAll } = props;
+  const [open, setOpen] = React.useState(props?.expandAll);
 
   const userData = JSON.parse(useGetLocalStorage("userData"));
   const userRole = userData?.roleId;
@@ -145,7 +146,7 @@ const RegionRow = (props) => {
         }}
       >
         <TableCell sx={{ p: 1, m: 1 }}>
-          {userRole != 3 ? (
+          {userRole == 1 ? (
             <IconButton
               // disabled={!regionList.partnerList || regionList.userList}
               aria-label="expand row"
@@ -184,7 +185,7 @@ const RegionRow = (props) => {
             {userRole === 1 &&
               regionList.partnerList &&
               regionList.partnerList.map((partner) => (
-                <PartnerRow key={partner.region} partner={partner} />
+                <PartnerRow key={partner.region} partner={partner} expandAll={expandAll} />
               ))}
 
             {/* {userRole === 2 &&
@@ -200,8 +201,11 @@ const RegionRow = (props) => {
 };
 
 const Row = (props) => {
-  const { row } = props;
+  const { row, expandAll } = props;
   const [open, setOpen] = React.useState(false);
+  useEffect(() => {
+    setOpen(expandAll);
+  }, [expandAll])
 
   if (!row) return;
 
@@ -230,7 +234,7 @@ const Row = (props) => {
             </IconButton>
           </TableCell>
 
-          <TableCell scope="row">{row && row.region}</TableCell>
+          <TableCell scope="row">{row && " " + row.region}</TableCell>
           <TableCell>{row.nominatedAccount}</TableCell>
           <TableCell>{row.profiledAccount}</TableCell>
           <TableCell>{row.contacts}</TableCell>
@@ -251,7 +255,7 @@ const Row = (props) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             {row.regionList &&
               row.regionList.map((data) => (
-                <RegionRow key={data.region} regionList={data} />
+                <RegionRow key={data.region} regionList={data} expandAll={expandAll} />
               ))}
           </Collapse>
         </TableCell>
@@ -268,6 +272,11 @@ export const AccountActivityGrid = () => {
   const { activityAll } = useSelector((state) => state.account);
 
   const userData = JSON.parse(useGetLocalStorage("userData"));
+  const [expandAll, setExpandAll] = React.useState(false);
+
+  const handleExpandAllClick = () => {
+    setExpandAll((prevExpandAll) => !prevExpandAll);
+  };
   const fetchActivityListDetails = async () => {
     try {
       const response = await dashboardService.accountActivity({
@@ -336,7 +345,7 @@ export const AccountActivityGrid = () => {
                 </Button>
               </Link>
             </div>
-            {/* <div className="col-md-12">
+            {userData?.roleId == 1 ? <div className="col-md-12">
               <Button
                 className="mt-4 mb-3"
                 variant="contained"
@@ -345,10 +354,11 @@ export const AccountActivityGrid = () => {
                   textAlign: "center",
                   width: "220px",
                 }}
+                onClick={handleExpandAllClick}
               >
-                Expand All
+                {expandAll ? "Collapse All" : "Expand All"}
               </Button>
-            </div> */}
+            </div> : ''}
           </div>
         </div>
 
@@ -370,7 +380,7 @@ export const AccountActivityGrid = () => {
                   >
                     <TableRow>
                       {/*TOP Row*/}
-                      <TableCell />
+                      <TableCell ></TableCell>
                       <TableCell
                         sx={{
                           alignItems: "center",
@@ -391,6 +401,7 @@ export const AccountActivityGrid = () => {
                         sx={{
                           alignItems: "center",
                           color: "#fff",
+
                         }}
                       >
                         Profiled Accounts
@@ -441,6 +452,7 @@ export const AccountActivityGrid = () => {
                     <Row
                       key={activityAll && activityAll.region}
                       row={activityAll}
+                      expandAll={expandAll}
                     />
                   </TableBody>
                 </Table>
@@ -448,7 +460,7 @@ export const AccountActivityGrid = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 };

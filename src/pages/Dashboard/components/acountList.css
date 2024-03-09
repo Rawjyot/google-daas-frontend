@@ -88,14 +88,17 @@
  }
 
  .dashboard-tabel th {
+   width: 300px !important;
    font-size: 13px;
  }
 
- .dashboard-tabel td:nth-child(1) {
-   width: 3% !important;
+ .dashboard-tabel td:nth-child(1),
+ .dashboard-tabel th:nth-child(1) {
+   width: 4% !important;
  }
 
- .dashboard-tabel td:nth-child(2) {
+ .dashboard-tabel td:nth-child(2),
+ .dashboard-tabel th:nth-child(2) {
    width: 15% !important;
  }
 
@@ -103,4 +106,8 @@
    .grid-data th {
      padding: 8px;
    }
+ }
+
+ .revenue-class {
+   padding-left: 35px;
  }
