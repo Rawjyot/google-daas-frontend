@@ -323,7 +323,7 @@ export default function Sidebar(props) {
                   <i className="bi bi-ui-radios-grid"></i> DashBoard
                 </NavLink>
               </MenuItem>
-              {props.page === "accountActivity" && (
+              {props.page === "accountActivity" && userRole === 1 && (
                 <div className="submenu">
                   <MenuItem>
                     <NavLink onClick={toggleRegions}>
@@ -497,7 +497,7 @@ export default function Sidebar(props) {
               </MenuItem>
             </MenuList>
           </div>
-          {userRole == 2 && props.page === "accountList" && (
+          {/* {userRole == 2 && props.page === "accountList" && (
             <div className="sidebar-filter">
               <Accordion>
                 <AccordionSummary
@@ -574,7 +574,7 @@ export default function Sidebar(props) {
                 </AccordionDetails>
               </Accordion>
             </div>
-          )}
+          )} */}
 
           {userRole === 1 && props.page === "accountList" && (
             <div className="sidebar-filter">
@@ -650,7 +650,7 @@ export default function Sidebar(props) {
                       </Select>
                     </FormControl>
                   </div>
-                  <div className="filter-control">
+                  {/* <div className="filter-control">
                     <FormControl fullWidth size="small">
                       <Select
                         labelId="demo-multiple-name-label"
@@ -714,7 +714,7 @@ export default function Sidebar(props) {
                           ))}
                       </Select>
                     </FormControl>
-                  </div>
+                  </div> */}
                 </AccordionDetails>
               </Accordion>
             </div>
@@ -991,7 +991,7 @@ export default function Sidebar(props) {
                       </Select>
                     </FormControl>
                   </div>
-                  {userRole === 3 ? <>
+                  {userRole === 2 || userRole === 3 ? <>
                     <div className="filter-control">
                       <FormControl fullWidth size="small">
                         <Select
@@ -1204,7 +1204,7 @@ export default function Sidebar(props) {
                   aria-controls="panel1-content"
                   id="panel1-header"
                 >
-                  Advance Search
+                  Advanced Search
                 </AccordionSummary>
                 <AccordionDetails>
                   <div className="filter-control">

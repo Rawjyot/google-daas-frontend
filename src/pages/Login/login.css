@@ -16,13 +16,16 @@
 .login-box {
     width: 100%;
     max-width: 450px;
+    /* min-width: 450px; */
     border: 1px solid #f1f1f1;
     padding: 35px;
+    margin: auto;
     box-shadow: 0 0 10px rgb(0 0 0 / 13%);
 }
 
 .login-inner {
     padding: 15px;
+    width: 100%;
 }
 
 .login-header {
@@ -73,6 +76,10 @@
     height: 50px;
     font-size: 16px;
     margin-top: 10px;
+}
+
+.resend-btn {
+    cursor: pointer;
 }
 
 @media (max-width:767px) {

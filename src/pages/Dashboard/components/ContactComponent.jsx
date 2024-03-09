@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { useGetLocalStorage } from "../../../Hooks/useGetLocalStorage";
 import dashboardService from "../../../Services/dashBoardService";
 import Box from "@mui/material/Box";
+import { Chip } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import Modal from "@mui/material/Modal"
 const userData = JSON.parse(useGetLocalStorage("userData"));
 import {
@@ -65,8 +67,12 @@ const ContactComponent = ({
   // console.log(masterData);
   const statusUpdate = (e) => {
 
-    if ((status === "Bad data" || status === "Disqualified") && remark === "") {
+    if ((status.toLowerCase() === "bad data" || status.toLowerCase() === "disqualified") && remark === "") {
       toast.error("remark must be added");
+      return;
+    }
+    if (remark && remark.length > 1000) {
+      toast.error("remark can have only 1000 characters");
       return;
     }
     payloadInfo['remarks'] = remark
@@ -137,7 +143,7 @@ const ContactComponent = ({
         </p>
         <p>
           <span>LinkedIn : </span>
-          <a href={val?.contactLinkedIn === 'N/A' ? '#' : val?.contactLinkedIn} target="_blank">Linkedin Url</a>
+          {val?.contactLinkedIn === 'N/A' ? 'N/A' : <a href={val?.contactLinkedIn === 'N/A' ? '#' : val?.contactLinkedIn} target="_blank">Linkedin Url</a>}
         </p>
         <p>
           <span>Ph : </span>
@@ -148,51 +154,27 @@ const ContactComponent = ({
           <span>Designation : </span>
           {val.designation || 'NA'}
         </p>
-        <label><strong>Status</strong> :{" "}</label>
-        {/* || val?.contactStatus == 'Opportunity' */}
-        {(userRole == 1 || userRole == 2) ? val?.contactStatus || ' NA' : (<form
-          action=""
-          className="flex items-center justify-center"
-          onSubmit={submit}
-        >
-          <div className="input-group">
-            <select
-              id="status"
-              name="status"
-              onChange={(e) => handleDropdown(e, val.contactaccountID)}
-              value={status}
-              className={`form-control `}
+        <div className="mt-3">
+          <Stack spacing={1} alignItems="center">
+            <Stack direction="row" spacing={1}
+            // style={{ margin: '-44px', paddingLeft: '10px' }}
             >
-              {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
-              <option value="">Select Status</option>
-              {masterData ? masterData?.contactStatusList?.map((statusObj, index) => {
-                const key = Object.keys(statusObj)[0]; // Assuming there's only one key in each object
-                const value = statusObj[key];
+              <Chip
+                // className="more-btn"
 
-                return (
-                  <option key={index} value={value}>
-                    {value}
-                  </option>
-                );
-              }) : (
-                <>
-                  <option value="Opportunity">Opportunity</option>
-                  <option value="Nurture">Nurture</option>
-                  <option value="Follow Up">Follow Up</option>
-                  <option value="Disqualified">Disqualified</option>
-                  <option value="Bad data">Bad data</option>
-                  {/* <option value="Viewed">Viewed</option> */}
-                  <option value="Untouched">Untouched</option></>
-              )}
+                onClick={() => setHide(!hide)}
 
-            </select>
-
-            <div className="input-group-append">
-              <button type="submit" className="btn btn-submit">Submit</button>
-            </div>{" "}
-
-          </div>
-        </form>)}
+                label={hide === false ? "+" : "-"}
+                color="primary"
+                sx={{
+                  width: 32, // Set a fixed width
+                  height: 32, // Set a fixed height equal to width
+                  borderRadius: '50%' // Set border radius to half of width
+                }}
+              />
+            </Stack>
+          </Stack>
+        </div>
         {hide === false ? (
           ""
         ) : (
@@ -202,20 +184,65 @@ const ContactComponent = ({
               {val.jobLevel || 'NA'}
             </p>
 
-            <p className="mb-0">
+            <p className="mt-3">
               <span>Department : </span>
               {val.department}
             </p>
           </div>
         )}
-        <div className="text-center">
-          <button
-            className="more-btn"
-            onClick={() => setHide(!hide)}
+        {/* <label><strong>Status</strong> :{" "}</label> */}
+        <p className="mt-3">
+          <span>Status :{" "}</span>
+          {/* {val.jobLevel || 'NA'} */}
+
+          {/* || val?.contactStatus == 'Opportunity' */}
+          {(userRole == 1 || userRole == 2) ? val?.contactStatus || ' NA' : (<form
+            action=""
+            className="flex items-center justify-center"
+            onSubmit={submit}
           >
-            {hide === false ? "+ See More" : "- See Less"}
-          </button>
-        </div></div>
+            <div className="input-group">
+              <select
+                id="status"
+                name="status"
+                onChange={(e) => handleDropdown(e, val.contactaccountID)}
+                value={status}
+                className={`form-control `}
+              >
+                {/* <option value={val.contactstatus}>{val.contactstatus}</option> */}
+                <option value="">Select Status</option>
+                {masterData ? masterData?.contactStatusList?.map((statusObj, index) => {
+                  const key = Object.keys(statusObj)[0]; // Assuming there's only one key in each object
+                  const value = statusObj[key];
+
+                  return (
+                    <option key={index} value={value}>
+                      {value}
+                    </option>
+                  );
+                }) : (
+                  <>
+                    <option value="Opportunity">Opportunity</option>
+                    <option value="Nurture">Nurture</option>
+                    <option value="Follow Up">Follow Up</option>
+                    <option value="Disqualified">Disqualified</option>
+                    <option value="Bad data">Bad data</option>
+                    {/* <option value="Viewed">Viewed</option> */}
+                    <option value="Untouched">Untouched</option></>
+                )}
+
+              </select>
+
+              <div className="input-group-append">
+                <button type="submit" className="btn btn-submit">Submit</button>
+              </div>{" "}
+
+            </div>
+          </form>)}
+        </p>
+
+
+      </div>
       <div>
         <Modal
           open={open}
@@ -230,6 +257,8 @@ const ContactComponent = ({
                 className="form-control"
                 value={remark}
                 onChange={(e) => setRemark(e.target.value)}
+                rows={5}
+                cols={50}
               />
               <div className="modal-action">
                 <button

@@ -67,6 +67,7 @@ const DetailedSection = () => {
   // console.log(userData.jwtToken);
   const userInfo = {
     userId: userData?.userId,
+    roleId: userRole,
     userToken: userData?.userToken,
     responseToken: userData?.responseToken,
     accountId: accountID,
@@ -75,6 +76,10 @@ const DetailedSection = () => {
 
   const masterPayload = { ...userInfo };
   delete masterPayload.responseToken;
+
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 1000)
 
   const masterData = useGetMasterData(userInfo, userData?.jwtToken);
   const accountDetails = useDashboardAccountCall(userInfo, userData?.jwtToken, reloadData);
@@ -89,17 +94,18 @@ const DetailedSection = () => {
     "contactStatusNew": status,
     "remarks": ""
   }
-  console.log(payload, "Payload")
+
+
   // if (accountDetails) setStatus(accountDetails?.accountStatus)
   useEffect(() => {
     setStatus(accountDetails?.accountData?.accountStatus)
   }, [accountDetails])
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (remarkTrail) {
-      setIsLoading(false);
-    }
-  }, [remarkTrail]);
+  //   if (remarkTrail) {
+  //     setIsLoading(false);
+  //   }
+  // }, [remarkTrail]);
   const handleDropdown = (e) => {
     // console.log(e.target.value, "Target value...");
     setStatus(e.target.value);
@@ -109,8 +115,12 @@ const DetailedSection = () => {
 
   const statusUpdateAccount = (e) => {
 
-    if ((status === "Bad data" || status === "Disqualified") && remark === "") {
+    if ((status.toLowerCase() === "bad data" || status.toLowerCase() === "disqualified") && remark === "") {
       toast.error("remark must be added");
+      return;
+    }
+    if (remark && remark.length > 1000) {
+      toast.error("remark can have only 1000 characters");
       return;
     }
     payload['remarks'] = remark
@@ -123,7 +133,7 @@ const DetailedSection = () => {
         JSON.parse(useGetLocalStorage("userData"))?.jwtToken
       )
       .then((res) => {
-        console.log(res);
+
         setReloadData(prevTrigger => !prevTrigger);
         setIsLoading(false);
         // window.location.reload(false);
@@ -281,7 +291,7 @@ const DetailedSection = () => {
                       <Stack direction="row" spacing={1}>
                         <Chip
                           label={accountDetails?.accountData?.accountStatus}
-                          color={accountDetails?.accountData?.accountStatus === "Bad data" || accountDetails?.accountData?.accountStatus === "Disqualified" ? "error" :
+                          color={accountDetails?.accountData?.accountStatus.toLowerCase() === "bad data" || accountDetails?.accountData?.accountStatus.toLowerCase() === "disqualified" ? "error" :
                             (accountDetails?.accountData?.accountStatus ===
                               "Opportunity"
                               ? "default"
@@ -361,6 +371,8 @@ const DetailedSection = () => {
                     className="form-control"
                     value={remark}
                     onChange={(e) => setRemark(e.target.value)}
+                    rows={5}
+                    cols={50}
                   />
                   <div className="modal-action">
                     <button

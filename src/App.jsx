@@ -25,6 +25,7 @@ import {
   PartnerActivity,
   PolicyAcceptance,
   VerifyPassword,
+  LoginOtp
 } from "./pages";
 
 function App() {
@@ -75,6 +76,10 @@ function App() {
         response.data.accountStatusList.length > 1 &&
         response.data.accountStatusList.map((list) => Object.values(list)[0]);
 
+      // Adding "Viewed" and "Untouched" to the contactStatusList
+      if (contactStatusList) {
+        contactStatusList.push("Untouched", "Viewed");
+      }
       const empSizeList =
         response &&
         response.data &&
@@ -102,6 +107,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/policy-acceptance" element={<PolicyAcceptance />} />
+        <Route path="/login-otp" element={<LoginOtp />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/verifyEmail" element={<VerifyPassword />} />
         <Route path="/createNewPassword" element={<CreateNewPassword />} />

@@ -26,7 +26,7 @@ export const AccountListGrid = (props) => {
     const userRole = userData?.roleId;
     const accountName = params.data.accountName;
     const detailPageLink = userRole == 1 ? '#' : `/account-details/${params.data.accountId}`; // Detail page link to show
-
+    if (userRole == 1) return accountName
     return (
       <Link to={detailPageLink} style={{ textDecoration: "none" }}>
         {accountName}
@@ -49,64 +49,9 @@ export const AccountListGrid = (props) => {
       headerName: "Account Name",
       minWidth: 300,
       cellStyle: (params) => {
-        return { textDecoration: "underline", color: "#4185F4" };
+        return { textDecoration: userData?.roleId != 1 ? "underline" : '', color: userData?.roleId != 1 ? "#4185F4" : '' };
       },
       cellRenderer: accountNameCellRenderer,
-    },
-    {
-      field: "createdDate",
-      headerName: "Created Date",
-      minWidth: 180,
-    },
-    {
-      field: "empSize",
-      headerName: "Size (Global)",
-      minWidth: 120,
-    },
-    {
-      field: "vertical",
-      headerName: "Industry",
-      minWidth: 220,
-    },
-    {
-      field: "revenue",
-      headerName: "Revenue",
-      minWidth: 100,
-    },
-    {
-      field: "boardlineNumber1",
-      headerName: "Boardline",
-      minWidth: 120,
-    },
-    {
-      field: "city",
-      headerName: "City (Country HQ)",
-      minWidth: 160,
-    },
-    {
-      field: "state",
-      headerName: "State",
-      minWidth: 120,
-    },
-    {
-      field: "country",
-      headerName: "Country",
-      minWidth: 150,
-    },
-    {
-      field: "region",
-      headerName: "Region",
-      minWidth: 150,
-    },
-    {
-      field: "noOfContact",
-      headerName: "Contacts",
-      minWidth: 100,
-    },
-    {
-      field: "noOfNewContact",
-      headerName: "New Contacts",
-      minWidth: 130,
     },
     {
       field: "accountStatus",
@@ -119,6 +64,71 @@ export const AccountListGrid = (props) => {
         return null;
       },
     },
+
+    {
+      field: "empSize",
+      headerName: "Size (Global)",
+      minWidth: 120,
+      cellStyle: (params) => {
+
+        return { textAlign: 'center' };
+
+      }
+    },
+    {
+      field: "vertical",
+      headerName: "Industry",
+      minWidth: 220,
+    },
+    {
+      field: "revenue",
+      headerName: "Revenue",
+      minWidth: 150,
+      headerClass: 'revenue-class',
+      // headerClassRules: { 'margin-left': '10px' },
+      headerComponentParams: { textAlign: 'center' },
+      cellStyle: (params) => {
+
+        return { textAlign: 'center' };
+
+      }
+    },
+    {
+      field: "boardlineNumber1",
+      headerName: "Boardline",
+      minWidth: 120,
+    },
+    {
+      field: "city",
+      headerName: "City (Country HQ)",
+      minWidth: 180,
+    },
+    // {
+    //   field: "state",
+    //   headerName: "State",
+    //   minWidth: 120,
+    // },
+    {
+      field: "country",
+      headerName: "Country",
+      minWidth: 150,
+    },
+    // {
+    //   field: "region",
+    //   headerName: "Region",
+    //   minWidth: 150,
+    // },
+    {
+      field: "noOfContact",
+      headerName: "Contacts",
+      minWidth: 100,
+    },
+    {
+      field: "noOfNewContact",
+      headerName: "New Contacts",
+      minWidth: 130,
+    },
+
     {
       field: "partnerName",
       headerName: "Partner Name",
@@ -128,6 +138,11 @@ export const AccountListGrid = (props) => {
       field: "user",
       headerName: "User",
       minWidth: 150,
+    },
+    {
+      field: "createdDate",
+      headerName: "Created Date",
+      minWidth: 180,
     },
   ]);
   const onPaginationChanged = (e) => {
