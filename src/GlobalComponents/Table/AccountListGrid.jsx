@@ -68,7 +68,7 @@ export const AccountListGrid = (props) => {
     {
       field: "empSize",
       headerName: "Size (Global)",
-      minWidth: 120,
+      minWidth: 125,
       cellStyle: (params) => {
 
         return { textAlign: 'center' };
@@ -82,7 +82,7 @@ export const AccountListGrid = (props) => {
     },
     {
       field: "revenue",
-      headerName: "Revenue",
+      headerName: "Revenue (USD)",
       minWidth: 150,
       headerClass: 'revenue-class',
       // headerClassRules: { 'margin-left': '10px' },

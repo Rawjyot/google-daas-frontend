@@ -234,7 +234,7 @@ const Row = (props) => {
             </IconButton>
           </TableCell>
 
-          <TableCell scope="row">{row && " " + row.region}</TableCell>
+          <TableCell scope="row">{row && row.region}</TableCell>
           <TableCell>{row.nominatedAccount}</TableCell>
           <TableCell>{row.profiledAccount}</TableCell>
           <TableCell>{row.contacts}</TableCell>

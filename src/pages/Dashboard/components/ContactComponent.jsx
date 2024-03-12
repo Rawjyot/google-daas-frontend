@@ -143,7 +143,15 @@ const ContactComponent = ({
         </p>
         <p>
           <span>LinkedIn : </span>
-          {val?.contactLinkedIn === 'N/A' ? 'N/A' : <a href={val?.contactLinkedIn === 'N/A' ? '#' : val?.contactLinkedIn} target="_blank">Linkedin Url</a>}
+          {val?.contactLinkedIn === 'N/A' ? 'N/A' : <a href={val?.contactLinkedIn === 'N/A' ? '#' : val?.contactLinkedIn} target="_blank"
+          // style={{
+          //   display: 'inline-block',
+          //   maxWidth: '300px', // Adjust the max-width as needed
+          //   overflow: 'hidden',
+          //   textOverflow: 'ellipsis',
+          //   whiteSpace: 'nowrap',
+          // }}
+          >{val?.contactLinkedIn}</a>}
         </p>
         <p>
           <span>Ph : </span>

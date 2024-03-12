@@ -1005,6 +1005,7 @@ export default function Sidebar(props) {
                           input={<OutlinedInput />}
                           MenuProps={MenuProps}
                           disabled={!countryList ? true : false}
+                          // || countryList?.length < 1
                           // title={!countryList ? 'Please select Region first' : false}
                           // onMouseEnter={() => !countryList ? toast.error('Please select Region first') : false}
                           sx={{

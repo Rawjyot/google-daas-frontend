@@ -38,10 +38,9 @@ const AccountListNavbar = ({ page }) => {
             <NavLink
               to="/account-list"
               className={({ isActive }) =>
-                `${
-                  page === "list"
-                    ? "top-nav-active top-nav-link"
-                    : "top-nav-link"
+                `${page === "list"
+                  ? "top-nav-active top-nav-link"
+                  : "top-nav-link"
                 }`
               }
             >
@@ -52,10 +51,9 @@ const AccountListNavbar = ({ page }) => {
             <li>
               <NavLink
                 className={({ isActive }) =>
-                  `${
-                    page === "detailed"
-                      ? "top-nav-active top-nav-link"
-                      : "top-nav-link"
+                  `${page === "detailed"
+                    ? "top-nav-active top-nav-link"
+                    : "top-nav-link"
                   }`
                 }
               >
@@ -69,7 +67,7 @@ const AccountListNavbar = ({ page }) => {
           <li className="nav-item">
             <div className="top-user">
               <p> Welcome {userData?.userName}</p>
-              <Avatar src="https://www.w3schools.com/howto/img_avatar.png" />
+              {/* <Avatar src="https://www.w3schools.com/howto/img_avatar.png" /> */}
             </div>
           </li>
           <Logout />
