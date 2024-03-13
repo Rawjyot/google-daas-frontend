@@ -164,7 +164,8 @@ const RegionRow = (props) => {
         <TableCell>{regionList.nominatedAccount}</TableCell>
         <TableCell>{regionList.profiledAccount}</TableCell>
         <TableCell>{regionList.contacts}</TableCell>
-        <TableCell sx={{ color: "#FF0000" }}>{regionList.badData}</TableCell>
+        <TableCell sx={{ color: "#FF0000" }}>{regionList.badDataContacts}</TableCell>
+        <TableCell sx={{ color: "#FF0000" }}>{regionList.badDataAccounts}</TableCell>
         <TableCell sx={{ color: "#228B22" }}>
           {regionList.opportunities}
         </TableCell>
@@ -238,7 +239,8 @@ const Row = (props) => {
           <TableCell>{row.nominatedAccount}</TableCell>
           <TableCell>{row.profiledAccount}</TableCell>
           <TableCell>{row.contacts}</TableCell>
-          <TableCell sx={{ color: "#FF0000" }}>{row.badData}</TableCell>
+          <TableCell sx={{ color: "#FF0000" }}>{row.badDataContacts}</TableCell>
+          <TableCell sx={{ color: "#FF0000" }}>{row.badDataAccounts}</TableCell>
           <TableCell sx={{ color: "#228B22" }}>{row.opportunities}</TableCell>
           <TableCell>{row.followUp}</TableCell>
           <TableCell sx={{ color: "#FF0000" }}>{row.disqualified}</TableCell>
@@ -421,6 +423,14 @@ export const AccountActivityGrid = () => {
                         }}
                       >
                         Bad Data (Contacts)
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          alignItems: "center",
+                          color: "#fff",
+                        }}
+                      >
+                        Bad Data (Accounts)
                       </TableCell>
                       <TableCell
                         sx={{

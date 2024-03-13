@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGetLocalStorage } from "../../Hooks/useGetLocalStorage";
@@ -8,32 +8,30 @@ import policyService from "../../Services/policyService";
 import logo from "../../assets/images/logo.png";
 import LoadingComponent from "../../GlobalComponents/LoadingComponent";
 import './policy.css';
-const PolicyAcceptance = () => {
+const PrivacyPolicy = () => {
   const [checked, setChecked] = useState(false);
 
-  const { id, jwtToken } = JSON.parse(useGetLocalStorage("userData"));
+  // const { id, jwtToken } = JSON.parse(useGetLocalStorage("userData"));
   const navigate = useNavigate();
-  const location = useLocation();
-  const view = new URLSearchParams(location.search).get('view');
   const userData = JSON.parse(useGetLocalStorage("userData"));
   const userRole = userData?.roleId
   let policyDataContent = ""
   // console.log(userData.jwtToken);
   const userInfo = {
-    "userId": userData?.userId,
-    "userToken": userData?.userToken,
-    "responseToken": userData?.responseToken,
-    "policyId": 1
+    // "userId": userData?.userId,
+    // "userToken": userData?.userToken,
+    // "responseToken": userData?.responseToken,
+    "policyId": 2
     // "accountId": accountID
   }
-  if (userData?.policyAccept && view != 1) navigate("/account-activity")
+  // if (userData?.policyAccept) navigate("/account-activity")
   const [policyContentHTML, setPolicyContent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await policyService.policyContent(userInfo, userData.jwtToken);
+        const res = await policyService.privacyPolicyContent(userInfo);
         setPolicyContent(res?.data);
       } catch (err) {
         console.error('Error fetching policy content:', err);
@@ -46,28 +44,9 @@ const PolicyAcceptance = () => {
     if (!policyContentHTML) {
       fetchData();
     }
-  }, [userInfo, userData.jwtToken, policyContentHTML]);
+  }, [userInfo, policyContentHTML]);
 
 
-  const sendPolicy = () => {
-    if (checked === false) {
-      toast.error("can't proceed for further without accepting policy");
-      return;
-    } else {
-      policyService
-        .policyAcceptance(userInfo, jwtToken)
-        .then((res) => {
-          // console.log(res);
-          useSetLocalStorage("login", true);
-          localStorage.setItem("userData", JSON.stringify({ ...userData, policyAccept: 1 }));
-          window.location.href = '/account-activity';
-          // navigate("/account-activity");
-        })
-        .catch((err) => console.log(err));
-    }
-
-    // console.log(checked);
-  };
   return (
     isLoading ? (<LoadingComponent />) :
       (<>
@@ -79,34 +58,31 @@ const PolicyAcceptance = () => {
             <div className="self-center p-2">
               {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm"> */}
               <h2 className=" text-3xl font-medium leading-9 tracking-tight text-gray-900">
-                {view == 1 ? 'Accepted Policy' : 'Policy Acceptance'}
+                Privacy Policy
               </h2>
               <div className="policy-accept">
                 <span className="border-3 border-sky-500" id="policy-doc-container" dangerouslySetInnerHTML={{ __html: policyContentHTML?.policyDescription }}>
                   {/* {policyContent?.policyDescription}{" "} */}
                 </span>
               </div>
-              {!userData?.policyAccept ? <>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="policy-doc"
-                    name="policy-doc"
-                    value={checked}
-                    onChange={() => setChecked(!checked)}
-                  />
-                  <label htmlFor="vehicle1"> I accept Terms and Condition</label>
-                </div>
-                <div className="mt-4">
-                  <button
-                    className="bg-sky-500 w-auto px-6  text-white font-medium rounded-sm"
-                    onClick={sendPolicy}
-                  >
-                    Accept
-                  </button>
-                </div>
-              </> : ''
-              }
+              {/* <div>
+                <input
+                  type="checkbox"
+                  id="policy-doc"
+                  name="policy-doc"
+                  value={checked}
+                  onChange={() => setChecked(!checked)}
+                />
+                <label htmlFor="vehicle1"> I accept Terms and Condition</label>
+              </div>
+              <div className="mt-4">
+                <button
+                  className="bg-sky-500 w-auto px-6  text-white font-medium rounded-sm"
+                  onClick={sendPolicy}
+                >
+                  Accept
+                </button>
+              </div> */}
               {/* </div> */}
 
               <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm"></div>
@@ -118,4 +94,4 @@ const PolicyAcceptance = () => {
   );
 };
 
-export default PolicyAcceptance;
+export default PrivacyPolicy;

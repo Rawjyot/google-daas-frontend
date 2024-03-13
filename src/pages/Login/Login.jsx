@@ -220,8 +220,9 @@ const Login = () => {
 
 
                   <a
-                    href="#"
+                    href="/privacy-policy"
                     // variant="contained"
+                    target="_blank"
                     className="resend-btn ml-auto"
                   >
                     Privacy Policy

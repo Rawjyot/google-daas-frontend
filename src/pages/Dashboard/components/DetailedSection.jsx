@@ -1,5 +1,6 @@
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import { Tooltip } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -17,6 +18,7 @@ import {
   LanguageIcon,
   LocalPhoneIcon,
   TempleHinduIcon,
+  FlagIcon
 } from "../../../assets/icons";
 import ContactComponent from "./ContactComponent";
 import "./DetailedSection.css";
@@ -58,7 +60,7 @@ const DetailedSection = () => {
   const handleClose = () => setOpen(false);
   // const handleReload = () => setReload(true);
 
-  const { accountName, accountID } = useParams();
+  const { allocationId, accountID } = useParams();
 
   // console.log(accountName, accountID);
   const userData = JSON.parse(useGetLocalStorage("userData"));
@@ -71,6 +73,7 @@ const DetailedSection = () => {
     userToken: userData?.userToken,
     responseToken: userData?.responseToken,
     accountId: accountID,
+    allocationId: allocationId
   };
 
 
@@ -182,7 +185,7 @@ const DetailedSection = () => {
               <div className="card-body">
                 <div className="card-inner">
                   <h3 className="comp-name">
-                    {accountDetails?.accountData?.accountName}{" "}
+                    {accountDetails?.accountData?.accountName}{" "}{accountDetails?.accountData?.badDataFlag ? <Tooltip title="Bad Data"><span style={{ cursor: 'pointer' }}><FlagIcon style={{ color: 'red' }} aria-label="favorite" /></span></Tooltip> : ''}
                     {/* <span>
                     <FlagIcon />
                   </span> */}
@@ -242,7 +245,7 @@ const DetailedSection = () => {
                     </p>
                   </div>
                   {/* <br></br> */}
-                  {userRole == 3 ? (<>
+                  {userRole == 3 && !accountDetails?.accountData?.badDataFlag ? (<>
                     <label><strong>Status</strong> :{" "}</label>
                     <form
                       action=""
@@ -329,6 +332,7 @@ const DetailedSection = () => {
                       userRole={userRole}
                       masterData={masterData}
                       fetchData={handleFetchData}
+                      isBadData={accountDetails?.accountData?.badDataFlag}
                     />
                   ))}
                 </div>

@@ -25,7 +25,7 @@ export const AccountListGrid = (props) => {
   const accountNameCellRenderer = (params) => {
     const userRole = userData?.roleId;
     const accountName = params.data.accountName;
-    const detailPageLink = userRole == 1 ? '#' : `/account-details/${params.data.accountId}`; // Detail page link to show
+    const detailPageLink = userRole == 1 ? '#' : `/account-details/${params.data.accountId}/${params.data.allocationId}`; // Detail page link to show
     if (userRole == 1) return accountName
     return (
       <Link to={detailPageLink} style={{ textDecoration: "none" }}>
@@ -44,6 +44,11 @@ export const AccountListGrid = (props) => {
 
   // Column Definitions: Defines & controls grid columns.
   const [colDefs, setColDefs] = useState([
+    {
+      field: "tagId",
+      headerName: "Tagged ID",
+      minWidth: 150,
+    },
     {
       field: "accountName",
       headerName: "Account Name",
@@ -164,10 +169,12 @@ export const AccountListGrid = (props) => {
     // params.api.paginationGoToPage(5);
     // console.log("User Id", userRole);
     // console.log(params.api.paginationGetCurrentPage(), "Page nuber")
-    (userRole === 3 || userRole === 2) &&
-      params.api.setColumnVisible("partnerName", false);
+    (userRole === 1 || userRole === 3 || userRole === 2) && params.api.setColumnVisible("partnerName", false);
 
     (userRole === 1 || userRole === 2 || userRole === 3) && params.api.setColumnVisible("user", false);
+    // userRole === 3 && params.api.setColumnVisible("user", false);
+
+    (userRole === 1) && params.api.setColumnVisible("accountStatus", false);
     // userRole === 3 && params.api.setColumnVisible("user", false);
   };
 

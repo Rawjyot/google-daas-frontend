@@ -6,7 +6,17 @@ import dashboardService from "../../../Services/dashBoardService";
 import Box from "@mui/material/Box";
 import { Chip } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import Modal from "@mui/material/Modal"
+import Modal from "@mui/material/Modal";
+import { Tooltip } from "@mui/material";
+import {
+  AttachMoneyIcon,
+  BlurCircularIcon,
+  FmdGoodIcon,
+  LanguageIcon,
+  LocalPhoneIcon,
+  TempleHinduIcon,
+  FlagIcon
+} from "../../../assets/icons";
 const userData = JSON.parse(useGetLocalStorage("userData"));
 import {
   useGetMasterData,
@@ -27,6 +37,7 @@ const style = {
 const ContactComponent = ({
   val,
   accountId,
+  isBadData,
   setAccountId,
   userRole,
   masterData,
@@ -135,7 +146,7 @@ const ContactComponent = ({
       <div className="contact-box">
         <p>
           <span>Name : </span>
-          {val?.contactName}
+          {val?.contactName} {val?.badDataFlag ? <Tooltip title="Bad Data"><span style={{ cursor: 'pointer' }}><FlagIcon style={{ color: 'red' }} aria-label="favorite" /></span></Tooltip> : ''}
         </p>
         <p>
           <span>Email : </span>
@@ -175,8 +186,8 @@ const ContactComponent = ({
                 label={hide === false ? "+" : "-"}
                 color="primary"
                 sx={{
-                  width: 32, // Set a fixed width
-                  height: 32, // Set a fixed height equal to width
+                  width: 20, // Set a fixed width
+                  height: 20, // Set a fixed height equal to width
                   borderRadius: '50%' // Set border radius to half of width
                 }}
               />
@@ -204,7 +215,7 @@ const ContactComponent = ({
           {/* {val.jobLevel || 'NA'} */}
 
           {/* || val?.contactStatus == 'Opportunity' */}
-          {(userRole == 1 || userRole == 2) ? val?.contactStatus || ' NA' : (<form
+          {(val?.badDataFlag || userRole == 1 || userRole == 2) ? val?.contactStatus || ' NA' : (<form
             action=""
             className="flex items-center justify-center"
             onSubmit={submit}

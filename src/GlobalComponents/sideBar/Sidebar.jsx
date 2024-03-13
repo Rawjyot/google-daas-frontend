@@ -1340,6 +1340,24 @@ export default function Sidebar(props) {
               </Accordion>
             </div>
           )}
+          {/* <div className="sidebar-filter view-accepted"> */}
+          <div className="sidebar accepted-policy" style={{ position: 'absolute', bottom: '0', width: '100%', textAlign: 'center' }}>
+            <div className="sidebar-list">
+              <MenuList>
+                <MenuItem>
+
+                  <a
+                    href="/policy-acceptance?view=1"
+                    target="_blank"
+                    className='btn btn-primary'
+                  >
+                    <i className="bi bi-eye"></i> View Accepted Policy
+                  </a>
+                </MenuItem>
+              </MenuList>
+            </div>
+          </div>
+          {/* </div> */}
         </div>
       </aside >
       <ToastContainer />

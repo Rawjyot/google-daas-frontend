@@ -25,7 +25,8 @@ import {
   PartnerActivity,
   PolicyAcceptance,
   VerifyPassword,
-  LoginOtp
+  LoginOtp,
+  PrivacyPolicy
 } from "./pages";
 
 function App() {
@@ -107,6 +108,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/policy-acceptance" element={<PolicyAcceptance />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/login-otp" element={<LoginOtp />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/verifyEmail" element={<VerifyPassword />} />
@@ -133,7 +135,7 @@ function App() {
           element={ <AccountList/>}
         /> */}
         <Route
-          path="/account-details/:accountID"
+          path="/account-details/:accountID/:allocationId"
           element={<ProtectedRoutes Component={DetailedList} />}
         />
         {/* <Route

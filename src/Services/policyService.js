@@ -18,6 +18,12 @@ class PolicyService {
     return this.postCall(url, payload, token);
   }
 
+  async privacyPolicyContent(payload) {
+    let url = `${config.baseUrl}/api/privacyPolicy`;
+    // console.log(url, token);
+    return this.postCall(url, payload);
+  }
+
   async policyAcceptance(payload, token) {
     let url = `${config.baseUrl}/api/policyAccept`;
     // console.log(url, token);

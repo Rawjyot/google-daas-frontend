@@ -10,6 +10,7 @@ import Login from "./Login/Login";
 import LoginOtp from "./Login/LoginOtp";
 import PolicyAcceptance from "./PolicyAcceptance/PolicyAcceptance";
 import VerifyPassword from "./VerifyPassword/VerifyPassword";
+import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy"
 export {
   AccountActivity,
   AccountList,
@@ -22,5 +23,6 @@ export {
   PartnerActivity,
   PolicyAcceptance,
   VerifyPassword,
-  LoginOtp
+  LoginOtp,
+  PrivacyPolicy
 };
